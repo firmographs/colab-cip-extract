@@ -1,6 +1,7 @@
 """Generates CIP_Extraction.ipynb — the curator-facing Colab UI."""
 
 import json
+import os
 import uuid
 
 def uid():
@@ -26,10 +27,25 @@ def md_cell(text):
     }
 
 # ---------------------------------------------------------------------------
-# Cell source code  (use r'''...''' so embedded triple-double-quotes are safe)
+# Read cip_tools source files at generation time and embed in the notebook.
+# The SETUP cell writes them to /tmp/cip_tools/ so imports work without pip.
 # ---------------------------------------------------------------------------
 
-SETUP = r'''
+_MOD_NAMES = ['llm', 'schema', 'ingest', 'understand', 'design', 'runner', 'qa', 'validate']
+_mods = {}
+for _n in _MOD_NAMES:
+    _p = f'cip_tools/{_n}.py'
+    if os.path.exists(_p):
+        with open(_p, encoding='utf-8') as _f:
+            _mods[_n] = _f.read()
+
+# ---------------------------------------------------------------------------
+# Cell source code
+# SETUP is built by concatenation so we can inject the JSON dict cleanly.
+# Other cells use r'''...''' to avoid triple-quote conflicts.
+# ---------------------------------------------------------------------------
+
+_SETUP_HEAD = r'''
 import subprocess, sys, os
 
 def _pip(pkg):
@@ -38,11 +54,9 @@ def _pip(pkg):
         capture_output=True, text=True,
     )
     if result.returncode != 0:
-        import re
-        safe = re.sub(r'https://[^@]+@', 'https://***@', pkg)
-        print(f"pip install failed for: {safe}")
+        print(f"pip install failed for: {pkg}")
         print(result.stderr[-800:])
-        raise RuntimeError(f"pip install failed: {safe}")
+        raise RuntimeError(f"pip install failed: {pkg}")
 
 from google.colab import userdata, drive
 
@@ -54,46 +68,31 @@ try:
 except Exception:
     print("NOTE: Add ANTHROPIC_API_KEY in Colab Secrets (lock icon, left sidebar).")
 
-try:
-    _gh_token = userdata.get('GIT_COLAB_CIP_READONLY')
-except Exception:
-    raise RuntimeError("Add GIT_COLAB_CIP_READONLY to Colab Secrets (lock icon, left sidebar).")
-
 print("Installing dependencies (first run takes ~60 s)...")
 for _p in ['httpx', 'pdfplumber', 'openpyxl', 'pandas', 'beautifulsoup4']:
     _pip(_p)
+'''
 
-# Clone via Authorization header — avoids git prompting for password interactively
-import re as _re, shutil as _shutil
-_cip_dir = '/tmp/colab-cip-extract'
-if os.path.exists(_cip_dir):
-    _shutil.rmtree(_cip_dir)
-# Download repo via GitHub API (Bearer auth — no git credential issues)
-import httpx as _httpx, zipfile as _zipfile, io as _io, shutil as _shutil
-_cip_dir = '/tmp/colab-cip-extract'
-if os.path.exists(_cip_dir):
-    _shutil.rmtree(_cip_dir)
-_resp = _httpx.get(
-    'https://api.github.com/repos/firmographs/colab-cip-extract/zipball/master',
-    headers={'Authorization': f'Bearer {_gh_token}', 'Accept': 'application/vnd.github+json'},
-    follow_redirects=True, timeout=120,
-)
-if _resp.status_code != 200:
-    raise RuntimeError(f"GitHub download failed ({_resp.status_code}) — check GIT_COLAB_CIP_READONLY")
-_z = _zipfile.ZipFile(_io.BytesIO(_resp.content))
-_root = _z.namelist()[0].split('/')[0]
-_z.extractall('/tmp/')
-os.rename(f'/tmp/{_root}', _cip_dir)
-_pip(_cip_dir)
+_SETUP_TAIL = r'''
+os.makedirs('/tmp/cip_tools', exist_ok=True)
+with open('/tmp/cip_tools/__init__.py', 'w') as _f:
+    _f.write('"""cip_tools."""\n')
+for _name, _code in _CIP_MODULES.items():
+    with open(f'/tmp/cip_tools/{_name}.py', 'w', encoding='utf-8') as _f:
+        _f.write(_code)
+if '/tmp' not in sys.path:
+    sys.path.insert(0, '/tmp')
 print("Dependencies ready.")
 '''
+
+SETUP = _SETUP_HEAD + f'_CIP_MODULES = {json.dumps(_mods)}\n' + _SETUP_TAIL
 
 CONFIG = r'''
 # Fill in the fields below, then run this cell.
 
 AGENCY_ID    = "myagency.gov_cip_2026-2030"                         #@param {type:"string"}
 SOURCE_FILE  = "/content/drive/MyDrive/cip_data/source.csv"         #@param {type:"string"}
-OUT_DIR      = "/content/drive/MyDrive/cip_data/output"             #@param {type:"string"}
+OUT_DIR      = "/content/drive/MyDrive/cip_data/output"             #@param {type:"number"}
 EXPECTED_TOTAL = 0                                                    #@param {type:"number"}
 
 # ---------------------------------------------------------------
