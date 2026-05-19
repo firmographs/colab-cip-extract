@@ -69,15 +69,16 @@ _cip_dir = '/tmp/colab-cip-extract'
 if os.path.exists(_cip_dir):
     _shutil.rmtree(_cip_dir)
 _clone = subprocess.run(
-    ['git',
-     '-c', f'http.extraHeader=Authorization: Bearer {_gh_token}',
+    ['git', '-c', 'credential.helper=',
      'clone', '--depth=1',
-     'https://github.com/firmographs/colab-cip-extract.git',
+     f'https://x-access-token:{_gh_token}@github.com/firmographs/colab-cip-extract.git',
      _cip_dir],
     capture_output=True, text=True,
+    env={**os.environ, 'GIT_TERMINAL_PROMPT': '0'},
 )
 if _clone.returncode != 0:
     safe_err = _re.sub(_re.escape(_gh_token), '***', _clone.stderr)
+    safe_err = _re.sub(r'x-access-token:[^@\s]+', 'x-access-token:***', safe_err)
     print(safe_err)
     raise RuntimeError("Git clone failed — check GIT_COLAB_CIP_READONLY secret")
 _pip(_cip_dir)
