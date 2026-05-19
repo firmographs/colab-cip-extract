@@ -127,7 +127,7 @@ _CIP_TRIGGERS = [
     "cip sheet",
 ]
 
-# Strong triggers: appear only on actual project-data pages, not TOC/cover
+# Strong body triggers: appear on actual project-data pages, rarely in a TOC
 _CIP_STRONG_TRIGGERS = [
     "recommended capital",
     "capital projects detail",
@@ -140,34 +140,57 @@ _CIP_STRONG_TRIGGERS = [
     "project listing",
 ]
 
-# If a page contains these, it's likely a TOC or front-matter page — skip it
-_TOC_INDICATORS = [
-    "table of contents",
-    "contents\n",
-]
-
 
 def _is_toc_page(text: str) -> bool:
     low = text.lower()
-    if any(t in low for t in _TOC_INDICATORS):
+    if "table of contents" in low or "contents\n" in low:
         return True
-    # TOC pages are full of "........" dot leaders
     dots = text.count("......")
     lines = text.count("\n") or 1
     return dots / lines > 0.3
+
+
+def _toc_cip_page(all_pages: list[tuple[int, str]]) -> int | None:
+    """Scan TOC pages and extract the document page number where the CIP chapter starts.
+
+    TOC lines look like:  "Capital Improvement Program ........... 197"
+    We parse the trailing integer and convert from 1-based doc page to 0-based index.
+    Returns the 0-based index into all_pages, or None if not found.
+    """
+    for _idx, (_pnum, text) in enumerate(all_pages[:30]):
+        if not _is_toc_page(text):
+            continue
+        for line in text.splitlines():
+            low = line.lower()
+            if not any(t in low for t in _CIP_TRIGGERS):
+                continue
+            # Find trailing page number: last run of digits on the line
+            m = re.search(r'(\d+)\s*$', line.strip())
+            if not m:
+                continue
+            doc_page = int(m.group(1))  # 1-based page number from TOC
+            # Find the matching index in all_pages (page numbers are 0-based there)
+            for idx, (pnum, _) in enumerate(all_pages):
+                if pnum + 1 == doc_page:
+                    return idx
+            # If exact match not found (roman numeral offset), search nearby
+            for idx, (pnum, _) in enumerate(all_pages):
+                if abs((pnum + 1) - doc_page) <= 5:
+                    return idx
+    return None
 
 
 def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
     """Extract text from a CIP PDF.
 
     Scans the FULL document to find the CIP chapter, then returns that
-    section's text so Claude can analyze the actual project data — not
-    just the cover or operating-budget pages that appear first.
+    section's text so Claude can analyze the actual project data.
 
     Detection priority:
-    1. First page with a STRONG trigger (project-data keywords)
-    2. First non-TOC page with a weak CIP trigger
-    3. Fall back to start of document
+    1. TOC page number reference (most reliable for large budget PDFs)
+    2. First page with a strong body trigger (project-data keywords)
+    3. First non-TOC page with a weak CIP trigger
+    4. Fall back to start of document
     """
     try:
         import pdfplumber
@@ -185,29 +208,34 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
                 all_pages.append((i, normalize_text(text)))
 
     # --- Pass 2: find where the CIP chapter starts ---
+    toc_start = _toc_cip_page(all_pages)
+
     strong_start = None
     weak_start = None
+    if toc_start is None:
+        for idx, (page_num, text) in enumerate(all_pages):
+            low = text.lower()
+            if strong_start is None and any(t in low for t in _CIP_STRONG_TRIGGERS):
+                strong_start = idx
+                break
+            if weak_start is None and any(t in low for t in _CIP_TRIGGERS):
+                if not _is_toc_page(text):
+                    weak_start = idx
 
-    for idx, (page_num, text) in enumerate(all_pages):
-        low = text.lower()
-        if strong_start is None and any(t in low for t in _CIP_STRONG_TRIGGERS):
-            strong_start = idx
-            break  # strong match wins immediately
-        if weak_start is None and any(t in low for t in _CIP_TRIGGERS):
-            if not _is_toc_page(text):
-                weak_start = idx
-            # keep scanning for a strong trigger
+    if toc_start is not None:
+        cip_start, method = toc_start, "TOC"
+    elif strong_start is not None:
+        cip_start, method = strong_start, "strong trigger"
+    elif weak_start is not None:
+        cip_start, method = weak_start, "weak trigger"
+    else:
+        cip_start, method = 0, "fallback"
 
-    cip_start = strong_start if strong_start is not None else weak_start
-    if cip_start is None:
-        cip_start = 0
-
-    # Collect up to 100 pages of CIP content (large docs can have data 200+ pages in)
+    # Collect up to 100 pages of CIP content
     cip_pages = all_pages[cip_start: cip_start + 100]
     page_num_start = cip_pages[0][0] + 1 if cip_pages else 1
 
-    trigger_type = "strong" if strong_start is not None else "weak"
-    print(f"  CIP section found at page {page_num_start} ({trigger_type} trigger, "
+    print(f"  CIP section found at page {page_num_start} ({method}, "
           f"{len(cip_pages)} pages collected).")
 
     raw_text = "\n\n".join(
