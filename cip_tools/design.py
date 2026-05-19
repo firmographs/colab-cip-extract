@@ -172,17 +172,16 @@ def write_script(
         final_cols="\n   ".join(FINAL_COLS),
         dollar_unit=analysis.get("dollar_unit", 1),
     )
-    raw = ask(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)
+    raw = ask(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096).strip()
 
-    # Strip markdown fences if Claude wrapped the code
-    import re
-    m = re.search(r"```python\s*\n([\s\S]*?)\n```", raw)
-    if m:
-        return m.group(1).strip()
-    m = re.search(r"```\s*\n([\s\S]*?)\n```", raw)
-    if m:
-        return m.group(1).strip()
-    return raw.strip()
+    # Strip markdown fences by slicing from first/last fence lines
+    if raw.startswith("```"):
+        lines = raw.splitlines()
+        lines = lines[1:]  # drop opening ```python line
+        if lines and lines[-1].strip().startswith("```"):
+            lines = lines[:-1]  # drop closing ``` line
+        return "\n".join(lines).strip()
+    return raw
 
 
 def make_guide(
