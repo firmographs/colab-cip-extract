@@ -203,6 +203,7 @@ print("Asking Claude to write extraction script...")
 _script_code = design.write_script(
     os.path.basename(SOURCE_FILE), _analysis, _sample_rows,
     full_path=SOURCE_FILE,
+    metadata=_metadata,
 )
 
 _script_path = Path(SCRIPTS_DIR) / f"{AGENCY_ID}_extract.py"

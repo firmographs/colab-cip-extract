@@ -238,14 +238,38 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
     print(f"  CIP section found at page {page_num_start} ({method}, "
           f"{len(cip_pages)} pages collected).")
 
-    raw_text = "\n\n".join(
+    full_cip_text = "\n\n".join(
         f"[page {p+1}]\n{t}" for p, t in cip_pages
     )
 
-    # Try table extraction on the first few CIP pages for sample_rows
+    # --- Pass 3: find actual project detail pages (skip summary/narrative at section start) ---
+    # Project pages have field labels; summary pages have department totals or narrative prose.
+    _PROJECT_PAGE_SIGNALS = [
+        "project number", "project no", "project id",
+        "department:", "funding source", "description:",
+        "scope:", "total cost", "total project",
+    ]
+    project_detail_start = 0
+    for i, (_, text) in enumerate(cip_pages):
+        low = text.lower()
+        if sum(1 for sig in _PROJECT_PAGE_SIGNALS if sig in low) >= 2:
+            project_detail_start = i
+            break
+
+    # 5 consecutive project pages gives Claude enough to learn the pattern (~6000 chars)
+    sample_pages = cip_pages[project_detail_start: project_detail_start + 5]
+    project_sample_text = "\n\n".join(
+        f"[page {p+1}]\n{t}" for p, t in sample_pages
+    )
+    sample_page_start = sample_pages[0][0] + 1 if sample_pages else page_num_start
+    print(f"  Project detail sample: pages {sample_page_start}–"
+          f"{sample_pages[-1][0]+1 if sample_pages else sample_page_start} "
+          f"({len(project_sample_text)} chars).")
+
+    # Try table extraction on the sample project pages for sample_rows
     sample_rows: list[dict] = []
     with pdfplumber.open(path) as pdf:
-        for p, _ in cip_pages[:10]:
+        for p, _ in sample_pages[:5]:
             tables = pdf.pages[p].extract_tables()
             for tbl in tables[:1]:
                 if tbl and len(tbl) > 1:
@@ -257,18 +281,19 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
             if len(sample_rows) >= 10:
                 break
 
-
     return (
-        raw_text[:12000],
+        project_sample_text[:12000],   # raw_text shown in Step 1 = actual project pages
         sample_rows[:10],
         {
             "format": "pdf",
             "total_pages": total_pages,
             "cip_section_start_page": page_num_start,
             "cip_pages_collected": len(cip_pages),
+            "project_sample_start_page": sample_page_start,
             "n_cols": len(sample_rows[0]) if sample_rows else 0,
             "estimated_rows": len(sample_rows),
-            "full_cip_text": raw_text,   # available to understand.py for deep passes
+            "full_cip_text": full_cip_text,        # all CIP pages, for the extraction script
+            "project_sample_text": project_sample_text,  # 5 project pages, for analysis prompts
         },
     )
 

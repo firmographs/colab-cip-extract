@@ -141,36 +141,44 @@ def analyze(
     sample_rows: list[dict],
     metadata: dict,
 ) -> dict[str, Any]:
-    """Iterate until confidence >= 0.85. Uses full CIP text from metadata for PDF files."""
+    """Iterate until confidence >= 0.85. Sends full CIP text to Claude — no chunking."""
     import json
 
     full_text = metadata.get("full_cip_text", raw_text)
     fmt = metadata.get("format", "unknown")
 
-    # Pass 1 — standard analysis using CIP section text
+    # For PDFs, use the focused project-page sample (5 actual project pages, ~6 000 chars).
+    # For tabular files, use the raw_text preview as before.
+    # Claude only needs to see the PATTERN from a few examples — the generated script
+    # will apply regex to the full extracted text, not Claude.
+    project_sample = metadata.get("project_sample_text") or raw_text
+    preview = project_sample[:8000]
+
+    # Pass 1 — targeted sample of real project pages
     print("  Pass 1...")
     user_msg = PASS1_TEMPLATE.format(
         filename=filename,
         fmt=fmt,
-        metadata=json.dumps({k: v for k, v in metadata.items() if k != "full_cip_text"},
-                             default=str)[:400],
-        preview=raw_text[:6000],
+        metadata=json.dumps(
+            {k: v for k, v in metadata.items()
+             if k not in ("full_cip_text", "project_sample_text")},
+            default=str)[:400],
+        preview=preview,
         sample_rows=json.dumps(sample_rows[:10], default=str, indent=2)[:1000],
         schema=SCHEMA_JSON,
     )
-    result = {**DEFAULTS, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=2048)}
+    result = {**DEFAULTS, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)}
 
-    # Subsequent passes until confident
+    # Subsequent passes: try later pages of the project sample if confidence is still low
     pass_num = 2
-    char_offset = 6000
+    char_offset = 8000
 
     while result["confidence"] < CONFIDENCE_TARGET and pass_num <= MAX_PASSES:
         print(f"  Pass {pass_num} (confidence {result['confidence']:.0%} — continuing)...")
 
-        chunk, p_start, p_end = _chunk(full_text, char_offset)
+        chunk, p_start, p_end = _chunk(project_sample, char_offset, length=8000)
         if not chunk.strip():
-            # Wrap around to beginning of full text with different slice
-            chunk, p_start, p_end = _chunk(full_text, 0, 10000)
+            break  # nothing more to show
 
         template = PASS2_TEMPLATE if pass_num == 2 else PASS3_TEMPLATE
         user_msg = template.format(
@@ -182,13 +190,13 @@ def analyze(
             schema=SCHEMA_JSON,
         )
 
-        new_result = ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=2048)
-        # Merge: keep best fields from each pass
+        new_result = ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)
+        # Merge: keep best fields; accept any improvement in confidence
         for k, v in new_result.items():
             if v and (not result.get(k) or new_result.get("confidence", 0) > result.get("confidence", 0)):
                 result[k] = v
 
-        char_offset += 6000
+        char_offset += 8000
         pass_num += 1
 
     conf_label = "HIGH" if result["confidence"] >= 0.85 else "MEDIUM" if result["confidence"] >= 0.65 else "LOW"

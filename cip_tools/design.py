@@ -36,6 +36,9 @@ Approach:  {approach}
 === SAMPLE ROWS (raw source) ===
 {sample_rows}
 
+=== EXTRACTED TEXT SAMPLE (first 8000 chars of CIP section) ===
+{text_sample}
+
 === REQUIREMENTS ===
 The script must:
 1. Start with a CONFIGURATION block (all tuneable values as module-level constants).
@@ -69,6 +72,18 @@ Rules:
 - When iterating rows, skip silently if required fields are blank rather than raising
 - For column alignment: match columns by header name, never by fixed position index
 - Strip all whitespace from header names before using them as dict keys
+
+=== PDF-SPECIFIC REQUIREMENTS (apply when format is pdf) ===
+For PDF sources, the script MUST use regex on the extracted text — not table extraction:
+- Use pdfplumber to extract raw text from every page: pg.extract_text() or ""
+- Concatenate all page texts into one string with [page N] markers between pages
+- Use re.split() or re.finditer() to split the full text into per-project blocks,
+  anchored on the regex pattern that marks the START of each new project entry
+- Within each block, use re.search() to extract individual fields by their labels
+- For fund rows, use re.findall() to collect all fund name / amount pairs
+- Never rely on fixed line numbers or character positions — OCR shifts them
+- The project boundary pattern and field label patterns must come from studying
+  the EXTRACTED TEXT SAMPLE above — use the actual text, not assumptions
 
 Write ONLY the Python script, no explanation."""
 
@@ -108,8 +123,16 @@ def write_script(
     analysis: dict[str, Any],
     sample_rows: list[dict],
     full_path: str = "",
+    metadata: dict | None = None,
 ) -> str:
     """Ask Claude to generate the extraction script. Returns Python source code."""
+    # For PDFs, send the focused project-page sample so Claude can write concrete regex patterns.
+    # For tabular files, an empty text_sample is fine (structure comes from column names).
+    text_sample = ""
+    if metadata:
+        text_sample = metadata.get("project_sample_text", "") or metadata.get("full_cip_text", "")
+    text_sample = text_sample[:8000]  # keep prompt manageable
+
     user_msg = USER_TEMPLATE.format(
         filename=filename,
         full_path=full_path or filename,
@@ -117,6 +140,7 @@ def write_script(
         approach=analysis.get("extraction_approach", ""),
         analysis_json=json.dumps(analysis, indent=2)[:2000],
         sample_rows=json.dumps(sample_rows[:5], default=str, indent=2)[:1500],
+        text_sample=text_sample or "(not available — use column analysis above)",
         final_cols="\n   ".join(FINAL_COLS),
     )
     raw = ask(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)
