@@ -89,21 +89,31 @@ SETUP = _SETUP_HEAD + f'_CIP_MODULES = {json.dumps(_mods)}\n' + _SETUP_TAIL
 
 CONFIG = r'''
 # Fill in the fields below, then run this cell.
+#
+# Folder layout under 0_cip_data/extract/:
+#   1_inbox/    — raw source files from agencies
+#   2_scripts/  — generated _extract.py files (reuse each year)
+#   3_extracted/ — _final.csv outputs (feed into colab-cip-prepare)
 
 SHARED_DRIVES_ROOT = "/content/drive/Shareddrives"
+_EXTRACT_ROOT      = "/content/drive/Shareddrives/0_cip_data/extract"
 
-AGENCY_ID      = "myagency.gov_cip_2026-2030"                                                          #@param {type:"string"}
-SOURCE_FILE    = "/content/drive/Shareddrives/0_cip_data/ready to process/source.pdf"                  #@param {type:"string"}
-OUT_DIR        = "/content/drive/Shareddrives/0_cip_data/ready to process"                             #@param {type:"string"}
-EXPECTED_TOTAL = 0                                                                                       #@param {type:"number"}
+AGENCY_ID      = "myagency.gov_cip_2026-2030"                                           #@param {type:"string"}
+SOURCE_FILE    = "/content/drive/Shareddrives/0_cip_data/extract/1_inbox/source.pdf"    #@param {type:"string"}
+SCRIPTS_DIR    = "/content/drive/Shareddrives/0_cip_data/extract/2_scripts"             #@param {type:"string"}
+OUT_DIR        = "/content/drive/Shareddrives/0_cip_data/extract/3_extracted"           #@param {type:"string"}
+EXPECTED_TOTAL = 0                                                                        #@param {type:"number"}
 
 # ---------------------------------------------------------------
-import os; os.makedirs(OUT_DIR, exist_ok=True)
+import os
+for _d in [SCRIPTS_DIR, OUT_DIR]:
+    os.makedirs(_d, exist_ok=True)
 from IPython.display import display, Markdown
 _tot_label = "(not set)" if EXPECTED_TOTAL == 0 else f"${EXPECTED_TOTAL:,.0f}"
 display(Markdown(
     f"**Agency:** `{AGENCY_ID}`  \n"
     f"**Source:** `{SOURCE_FILE}`  \n"
+    f"**Scripts:** `{SCRIPTS_DIR}`  \n"
     f"**Output:** `{OUT_DIR}`  \n"
     f"**Expected total:** {_tot_label}"
 ))
@@ -186,7 +196,7 @@ _script_code = design.write_script(
     full_path=SOURCE_FILE,
 )
 
-_script_path = Path(OUT_DIR) / f"{AGENCY_ID}_extract.py"
+_script_path = Path(SCRIPTS_DIR) / f"{AGENCY_ID}_extract.py"
 _script_path.write_text(_script_code, encoding='utf-8')
 
 nlines = len(_script_code.splitlines())
@@ -317,7 +327,7 @@ display(Markdown(
     f"## Done\n\n"
     f"Files saved to `{OUT_DIR}`:\n\n"
     f"| File | Description |\n|------|-------------|\n"
-    f"| `{AGENCY_ID}_extract.py` | Extraction script — reuse next year |\n"
+    f"| `{SCRIPTS_DIR}/{AGENCY_ID}_extract.py` | Extraction script — reuse next year |\n"
     f"| `{AGENCY_ID}_final.csv` | Standard output ({len(_full_rows)} rows) |\n"
     f"| `{AGENCY_ID}_guide.md` | Curator guide with QA checklist |\n"
 ))
