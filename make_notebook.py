@@ -53,9 +53,9 @@ except Exception:
     print("NOTE: Add ANTHROPIC_API_KEY in Colab Secrets (lock icon, left sidebar).")
 
 try:
-    _gh_token = userdata.get('GITHUB_TOKEN')
+    _gh_token = userdata.get('GIT_COLAB_CIP_READONLY')
 except Exception:
-    raise RuntimeError("Add GITHUB_TOKEN (read-only PAT for colab-cip-extract) to Colab Secrets.")
+    raise RuntimeError("Add GIT_COLAB_CIP_READONLY to Colab Secrets (lock icon, left sidebar).")
 
 print("Installing dependencies (first run takes ~60 s)...")
 for _p in ['httpx', 'pdfplumber', 'openpyxl', 'pandas', 'beautifulsoup4']:
