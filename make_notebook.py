@@ -82,7 +82,12 @@ for _name, _code in _CIP_MODULES.items():
         _f.write(_code)
 if '/tmp' not in sys.path:
     sys.path.insert(0, '/tmp')
-print("Dependencies ready.")
+
+# Create base extract folder structure on Drive
+_base = '/content/drive/Shareddrives/0_cip_data/extract'
+for _folder in [_base, f'{_base}/1_inbox']:
+    os.makedirs(_folder, exist_ok=True)
+print("Dependencies ready. Extract folders created.")
 '''
 
 SETUP = _SETUP_HEAD + f'_CIP_MODULES = {json.dumps(_mods)}\n' + _SETUP_TAIL
