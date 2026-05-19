@@ -33,10 +33,14 @@ SETUP = r'''
 import subprocess, sys, os
 
 def _pip(pkg):
-    subprocess.check_call(
+    result = subprocess.run(
         [sys.executable, '-m', 'pip', 'install', '-q', pkg],
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        capture_output=True, text=True,
     )
+    if result.returncode != 0:
+        print(f"pip install failed for: {pkg}")
+        print(result.stderr[-800:])
+        raise RuntimeError(f"pip install failed: {pkg}")
 
 print("Installing dependencies (first run takes ~60 s)...")
 for _p in ['httpx', 'pdfplumber', 'openpyxl', 'pandas', 'beautifulsoup4']:
