@@ -169,13 +169,13 @@ def analyze(
     )
     result = {**DEFAULTS, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)}
 
-    # Subsequent passes: cycle through project_sample first, then fall back to full_cip_text.
-    # The project_sample is only 5 pages; for PDFs where those pages are summary/overview,
-    # the actual per-project detail lives deeper in full_cip_text — scan there next.
+    # Subsequent passes: first exhaust project_sample, then jump to evenly-spaced positions
+    # across full_cip_text (1/4, 1/2, 3/4, end).  Linear scanning from the start of
+    # full_cip_text wastes passes on intro/summary pages before reaching the project sheets.
     pass_num = 2
     scan_text = project_sample
     scan_offset = 8000
-    switched_to_full = False
+    full_jump_offsets: list[int] = []  # populated when we switch to full_text
 
     while result["confidence"] < CONFIDENCE_TARGET and pass_num <= MAX_PASSES:
         print(f"  Pass {pass_num} (confidence {result['confidence']:.0%} — continuing)...")
@@ -183,16 +183,22 @@ def analyze(
         chunk, p_start, p_end = _chunk(scan_text, scan_offset, length=8000)
 
         if not chunk.strip():
-            if not switched_to_full and full_text and len(full_text) > len(project_sample):
-                # Project sample exhausted — scan the rest of full_cip_text.
-                # Start after the project_sample portion to avoid re-reading the same pages.
+            if not full_jump_offsets and full_text and len(full_text) > len(project_sample):
+                # Project sample exhausted — build evenly-spaced jump offsets across full text
+                fl = len(full_text)
+                full_jump_offsets = [
+                    fl // 4,
+                    fl // 2,
+                    fl * 3 // 4,
+                    max(0, fl - 8000),
+                ]
                 scan_text = full_text
-                scan_offset = len(project_sample)
-                switched_to_full = True
-                print(f"  (project sample exhausted — scanning full CIP text from page offset)")
+                print(f"  (project sample exhausted — sampling full CIP text at 4 positions)")
+            if full_jump_offsets:
+                scan_offset = full_jump_offsets.pop(0)
                 chunk, p_start, p_end = _chunk(scan_text, scan_offset, length=8000)
                 if not chunk.strip():
-                    break
+                    continue
             else:
                 break
 
