@@ -90,31 +90,29 @@ SETUP = _SETUP_HEAD + f'_CIP_MODULES = {json.dumps(_mods)}\n' + _SETUP_TAIL
 CONFIG = r'''
 # Fill in the fields below, then run this cell.
 #
-# Folder layout under 0_cip_data/extract/:
-#   1_inbox/    — raw source files from agencies
-#   2_scripts/  — generated _extract.py files (reuse each year)
-#   3_extracted/ — _final.csv outputs (feed into colab-cip-prepare)
+# Output folder is auto-created as:
+#   0_cip_data/extract/YYYY MM DD - {AGENCY_ID}/
 
 SHARED_DRIVES_ROOT = "/content/drive/Shareddrives"
 _EXTRACT_ROOT      = "/content/drive/Shareddrives/0_cip_data/extract"
 
 AGENCY_ID      = "myagency.gov_cip_2026-2030"                                           #@param {type:"string"}
 SOURCE_FILE    = "/content/drive/Shareddrives/0_cip_data/extract/1_inbox/source.pdf"    #@param {type:"string"}
-SCRIPTS_DIR    = "/content/drive/Shareddrives/0_cip_data/extract/2_scripts"             #@param {type:"string"}
-OUT_DIR        = "/content/drive/Shareddrives/0_cip_data/extract/3_extracted"           #@param {type:"string"}
 EXPECTED_TOTAL = 0                                                                        #@param {type:"number"}
 
 # ---------------------------------------------------------------
-import os
-for _d in [SCRIPTS_DIR, OUT_DIR]:
-    os.makedirs(_d, exist_ok=True)
+import os, datetime
+_today = datetime.date.today().strftime('%Y %m %d')
+OUT_DIR     = f"{_EXTRACT_ROOT}/{_today} - {AGENCY_ID}"
+SCRIPTS_DIR = OUT_DIR
+os.makedirs(OUT_DIR, exist_ok=True)
+
 from IPython.display import display, Markdown
 _tot_label = "(not set)" if EXPECTED_TOTAL == 0 else f"${EXPECTED_TOTAL:,.0f}"
 display(Markdown(
     f"**Agency:** `{AGENCY_ID}`  \n"
     f"**Source:** `{SOURCE_FILE}`  \n"
-    f"**Scripts:** `{SCRIPTS_DIR}`  \n"
-    f"**Output:** `{OUT_DIR}`  \n"
+    f"**Output folder:** `{OUT_DIR}`  \n"
     f"**Expected total:** {_tot_label}"
 ))
 '''
