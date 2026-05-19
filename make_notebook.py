@@ -142,8 +142,7 @@ if os.path.exists(_INDEX_PATH):
     _GUIDE_INDEX = guide_rag.load_index(_INDEX_PATH)
     display(Markdown(
         f"**Guide index loaded:** {len(_GUIDE_INDEX['guides'])} guides "
-        f"(built {_GUIDE_INDEX['built_at'][:10]})  \n"
-        f"*Delete `_guide_index.json` from Drive and re-run this cell to rebuild.*"
+        f"(built {_GUIDE_INDEX['built_at'][:10]})"
     ))
 else:
     print("Building guide index (first run — scans all *_guide.md files)...")
