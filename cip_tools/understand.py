@@ -63,10 +63,11 @@ ANALYSIS_TEMPLATE = """Analyze this CIP source file and return a JSON object des
 {content_sections}
 
 For published_grand_total: look for a summary table or total line. Return the number only (no $ or commas), or null.
-For dollar_unit: scan column headers, footnotes, and table titles for phrases like "(in thousands)", "($000s)",
-"amounts in thousands", "in millions", "$ millions", "000s omitted". Also consider typical project sizes —
+For dollar_unit: the regex pre-scan at intake set dollar_unit_hint={dollar_unit_hint}. Treat this as strong
+evidence. Also scan column headers, footnotes, and table titles for phrases like "(in thousands)", "($000s)",
+"amounts in thousands", "in millions", "$ millions", "000s omitted". Consider typical project sizes —
 if an infrastructure project shows a total of "500" it is almost certainly in thousands ($500,000), not $500.
-Set dollar_unit to 1 (full dollars), 1000 (thousands), or 1000000 (millions). Default: 1.
+Set dollar_unit to 1 (full dollars), 1000 (thousands), or 1000000 (millions).
 For extraction_approach: describe step-by-step how a Python script should extract one row per project.
 Set extraction_approach and other fields based on the MOST REPRESENTATIVE content section(s) you find.
 
@@ -141,6 +142,7 @@ def analyze(
     print(f"  Sending {len(content_sections)} sample(s) "
           f"({sample_chars} chars each, {cip_pages} CIP pages)...")
 
+    dollar_unit_hint = metadata.get("dollar_unit_hint", 1)
     user_msg = ANALYSIS_TEMPLATE.format(
         filename=filename,
         fmt=fmt,
@@ -151,9 +153,12 @@ def analyze(
         sample_rows=json.dumps(sample_rows[:10], default=str, indent=2)[:1000],
         content_sections="\n\n".join(content_sections),
         schema=SCHEMA_JSON,
+        dollar_unit_hint=dollar_unit_hint,
     )
 
-    result = {**DEFAULTS, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)}
+    # Pre-seed dollar_unit from the regex hint; Claude can still override with a different value
+    seed = {**DEFAULTS, "dollar_unit": dollar_unit_hint}
+    result = {**seed, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)}
     print(f"  Analysis complete.")
     return {**DEFAULTS, **result}
 

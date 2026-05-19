@@ -36,6 +36,42 @@ MOJIBAKE_MAP = {
 }
 
 
+# Patterns that definitively indicate the unit of raw dollar values in the document.
+# Checked against column headers AND free text (first ~8 000 chars).
+_DOLLAR_UNIT_PATTERNS: list[tuple[int, list[str]]] = [
+    (1_000_000, [
+        r"\bin\s+millions\b",
+        r"\$\s*millions?\b",
+        r"\(in\s+\$\s*millions?\)",
+        r"\(\$\s*000,?000s?\)",
+        r"amounts?\s+in\s+millions",
+        r"\$\s*000,?000",
+    ]),
+    (1_000, [
+        r"\bin\s+thousands\b",
+        r"\$\s*thousands?\b",
+        r"\(in\s+thousands\)",
+        r"\(\$\s*000s?\)",
+        r"\(\$000\)",
+        r"amounts?\s+in\s+thousands",
+        r"\$\s*000\b",
+        r"\(000s?\)",
+        r"thousands\s+of\s+dollars",
+    ]),
+]
+
+
+def _detect_dollar_unit(text: str, columns: list[str] | None = None) -> int:
+    """Return 1, 1000, or 1000000 by scanning column names and document text."""
+    haystack = " ".join(columns or []) + " " + text[:8000]
+    low = haystack.lower()
+    for unit, patterns in _DOLLAR_UNIT_PATTERNS:
+        for pat in patterns:
+            if re.search(pat, low):
+                return unit
+    return 1
+
+
 def normalize_text(text: str) -> str:
     for bad, good in MOJIBAKE_MAP.items():
         text = text.replace(bad, good)
@@ -69,10 +105,14 @@ def load_csv(path: Path) -> tuple[str, list[dict], dict]:
     n_rows = len(rows)
     n_cols = len(rows[0]) if rows else (len(lines[0].split(",")) if lines else 0)
 
+    cols = list(rows[0].keys()) if rows else []
+    dollar_unit = _detect_dollar_unit(text, cols)
+    if dollar_unit != 1:
+        print(f"  Dollar unit detected: x{dollar_unit} (values expressed in {'thousands' if dollar_unit == 1000 else 'millions'})")
     return (
         "\n".join(lines[:60]),
         rows[:10],
-        {"format": "csv", "n_cols": n_cols, "estimated_rows": n_rows},
+        {"format": "csv", "n_cols": n_cols, "estimated_rows": n_rows, "dollar_unit_hint": dollar_unit},
     )
 
 
@@ -106,6 +146,9 @@ def load_excel(path: Path) -> tuple[str, list[dict], dict]:
     for _, row in df2.head(5).iterrows():
         preview_lines.append(" | ".join(str(v)[:40] for v in row))
 
+    dollar_unit = _detect_dollar_unit("\n".join(preview_lines), [str(c) for c in col_names])
+    if dollar_unit != 1:
+        print(f"  Dollar unit detected: x{dollar_unit} (values expressed in {'thousands' if dollar_unit == 1000 else 'millions'})")
     return (
         "\n".join(preview_lines),
         rows,
@@ -115,6 +158,7 @@ def load_excel(path: Path) -> tuple[str, list[dict], dict]:
             "estimated_rows": len(df2),
             "header_row": header_row,
             "columns": col_names,
+            "dollar_unit_hint": dollar_unit,
         },
     )
 
@@ -316,6 +360,9 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
             if len(sample_rows) >= 10:
                 break
 
+    dollar_unit = _detect_dollar_unit(full_cip_text[:8000])
+    if dollar_unit != 1:
+        print(f"  Dollar unit detected: x{dollar_unit} (values expressed in {'thousands' if dollar_unit == 1000 else 'millions'})")
     return (
         project_sample_text[:12000],   # raw_text shown in Step 1 = actual project pages
         sample_rows[:10],
@@ -329,6 +376,7 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
             "estimated_rows": len(sample_rows),
             "full_cip_text": full_cip_text,        # all CIP pages, for the extraction script
             "project_sample_text": project_sample_text,  # 5 project pages, for analysis prompts
+            "dollar_unit_hint": dollar_unit,
         },
     )
 
@@ -360,10 +408,14 @@ def load_html(path: Path) -> tuple[str, list[dict], dict]:
 
     preview = [" | ".join(headers)] + [" | ".join(str(v)[:30] for v in r.values()) for r in rows[:4]]
 
+    preview_text = "\n".join(preview)
+    dollar_unit = _detect_dollar_unit(preview_text, headers)
+    if dollar_unit != 1:
+        print(f"  Dollar unit detected: x{dollar_unit} (values expressed in {'thousands' if dollar_unit == 1000 else 'millions'})")
     return (
-        "\n".join(preview),
+        preview_text,
         rows,
-        {"format": "html", "n_tables": len(tables), "n_cols": len(headers)},
+        {"format": "html", "n_tables": len(tables), "n_cols": len(headers), "dollar_unit_hint": dollar_unit},
     )
 
 
