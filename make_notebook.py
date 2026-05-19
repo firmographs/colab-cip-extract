@@ -92,7 +92,7 @@ CONFIG = r'''
 
 AGENCY_ID    = "myagency.gov_cip_2026-2030"                         #@param {type:"string"}
 SOURCE_FILE  = "/content/drive/MyDrive/cip_data/source.csv"         #@param {type:"string"}
-OUT_DIR      = "/content/drive/MyDrive/cip_data/output"             #@param {type:"number"}
+OUT_DIR      = "/content/drive/MyDrive/cip_data/output"             #@param {type:"string"}
 EXPECTED_TOTAL = 0                                                    #@param {type:"number"}
 
 # ---------------------------------------------------------------
