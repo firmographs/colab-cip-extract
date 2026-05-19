@@ -1,0 +1,140 @@
+"""
+Step 3: Ask Claude to write a Python extraction script for this CIP file.
+
+The script must:
+- Have a CONFIGURATION block at top (easy to re-use next year)
+- Accept a source file path and return a list of dicts
+- Map source columns to the standard schema
+- Handle multi-value fields (funds, years) by JSON-encoding them
+- Be runnable standalone as: python <script>.py
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+from .llm import ask, SONNET
+from .schema import FINAL_COLS
+
+SYSTEM = """You are a senior Python developer specializing in data extraction from government documents.
+Write clean, minimal extraction scripts. No unnecessary abstractions. No error suppression.
+Include a CONFIGURATION block so next year's curator can update paths without reading the logic."""
+
+USER_TEMPLATE = """Write a Python extraction script for this CIP source file.
+
+=== SOURCE FILE INFO ===
+Filename:  {filename}
+Full path: {full_path}
+Format:    {format_type}
+Approach:  {approach}
+
+=== STRUCTURE ANALYSIS ===
+{analysis_json}
+
+=== SAMPLE ROWS (raw source) ===
+{sample_rows}
+
+=== REQUIREMENTS ===
+The script must:
+1. Start with a CONFIGURATION block (all tuneable values as module-level constants).
+   SOURCE_FILE must be set to the FULL PATH shown above (not just the filename).
+2. Define a run() function that reads the source file and returns list[dict]
+3. Each dict must contain EXACTLY these keys (use empty string for missing):
+   {final_cols}
+4. Project_Index must be sequential integers starting at 1
+5. Total_Project_Budget must be a numeric value (integer or float, no $ or commas)
+6. Fund_Names_JSON: JSON array of strings e.g. '["City", "Federal", "State"]'
+7. Fund_Budgets_JSON: JSON array of numbers matching Fund_Names_JSON
+8. Yearly_Costs_By_Category_JSON: JSON object e.g. '{{"2026": 500000, "2027": 250000}}'
+9. If __name__ == "__main__": block that runs and prints a summary
+10. Handle encoding: try utf-8-sig first, fall back to latin-1
+
+Write ONLY the Python script, no explanation."""
+
+GUIDE_TEMPLATE = """# Extraction Guide: {agency_id}
+
+## Source File
+- **File**: `{filename}`
+- **Format**: {format_type}
+- **Estimated projects**: {project_count}
+
+## Structure Analysis
+{analysis_summary}
+
+## Extraction Script
+```python
+{script}
+```
+
+## Configuration
+Key variables to update each year:
+{config_notes}
+
+## QA Checks
+- [ ] Row count matches source project count
+- [ ] Total budget matches published grand total
+- [ ] Spot-check 3 named projects against source
+- [ ] No blank Project_Title values
+- [ ] Fund breakdown sums match Total_Project_Budget
+
+## Adaptation Notes
+Next year: update `SOURCE_FILE` path and verify year column names still match.
+"""
+
+
+def write_script(
+    filename: str,
+    analysis: dict[str, Any],
+    sample_rows: list[dict],
+    full_path: str = "",
+) -> str:
+    """Ask Claude to generate the extraction script. Returns Python source code."""
+    user_msg = USER_TEMPLATE.format(
+        filename=filename,
+        full_path=full_path or filename,
+        format_type=analysis.get("format_type", "unknown"),
+        approach=analysis.get("extraction_approach", ""),
+        analysis_json=json.dumps(analysis, indent=2)[:2000],
+        sample_rows=json.dumps(sample_rows[:5], default=str, indent=2)[:1500],
+        final_cols="\n   ".join(FINAL_COLS),
+    )
+    raw = ask(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)
+
+    # Strip markdown fences if Claude wrapped the code
+    import re
+    m = re.search(r"```python\s*\n([\s\S]*?)\n```", raw)
+    if m:
+        return m.group(1).strip()
+    m = re.search(r"```\s*\n([\s\S]*?)\n```", raw)
+    if m:
+        return m.group(1).strip()
+    return raw.strip()
+
+
+def make_guide(
+    agency_id: str,
+    filename: str,
+    analysis: dict[str, Any],
+    script: str,
+    analysis_summary: str,
+) -> str:
+    """Generate the _guide.md content."""
+    # Pull config vars from script (lines starting with uppercase identifiers)
+    import re
+    config_lines = [
+        l.strip() for l in script.splitlines()
+        if re.match(r'^[A-Z_]+ *=', l.strip())
+    ]
+    config_notes = "\n".join(f"- `{l}`" for l in config_lines[:10])
+
+    return GUIDE_TEMPLATE.format(
+        agency_id=agency_id,
+        filename=filename,
+        format_type=analysis.get("format_type", "unknown"),
+        project_count=analysis.get("project_count_estimate", "?"),
+        analysis_summary=analysis_summary,
+        script=script,
+        config_notes=config_notes or "- Update `SOURCE_FILE` path",
+    )
