@@ -195,11 +195,8 @@ _analysis = understand.analyze(
 )
 _analysis_summary = understand.summarize(_analysis)
 
-conf = _analysis.get('confidence', 0)
-conf_icon = "HIGH" if conf >= 0.85 else "MEDIUM" if conf >= 0.65 else "LOW"
-
 display(Markdown(
-    f"## Structure Analysis (confidence: {conf_icon} {conf:.0%})\n\n"
+    f"## Structure Analysis\n\n"
     f"```\n{_analysis_summary}\n```"
 ))
 if _analysis.get('quirks'):

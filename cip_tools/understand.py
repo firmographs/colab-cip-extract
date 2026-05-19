@@ -1,19 +1,16 @@
 """
 Step 2: Ask Claude to analyze the structure of a CIP source file.
 
-Iterates until confidence >= 0.85. Each pass uses a more focused prompt
-and a different slice of the document. For PDFs, uses the full CIP section
-text stored in metadata by ingest.load_pdf().
+Sends N evenly-spaced samples from the document in a single call.
+N scales with document size: max(1, min(6, round(cip_pages / 15))).
+For PDFs, uses the full CIP section text stored in metadata by ingest.load_pdf().
 """
 
 from __future__ import annotations
 
 from typing import Any
 
-from .llm import ask_json, ask, SONNET
-
-CONFIDENCE_TARGET = 0.85
-MAX_PASSES = 7
+from .llm import ask_json, SONNET
 
 SYSTEM = """You are a capital infrastructure plan (CIP) data extraction expert.
 You analyze government CIP documents — PDFs, spreadsheets, CSVs — and describe their structure
@@ -36,7 +33,6 @@ Return ONLY a JSON object — no prose, no markdown fences."""
 
 SCHEMA_JSON = """{
   "format_type": "wide_excel|csv_tabular|pdf_table|long_csv|web_html|other",
-  "confidence": 0.0-1.0,
   "header_row_index": null_or_integer,
   "project_name_col": "column name or null",
   "project_id_col": "column name or null",
@@ -54,59 +50,26 @@ SCHEMA_JSON = """{
   "notes": "anything the curator should know"
 }"""
 
-PASS1_TEMPLATE = """Analyze this CIP source file and return a JSON object describing its structure.
+ANALYSIS_TEMPLATE = """Analyze this CIP source file and return a JSON object describing its structure.
 
 === FILE: {filename} ===
 === FORMAT: {fmt} ===
 === METADATA: {metadata} ===
 
-=== CONTENT (CIP section) ===
-{preview}
-
 === SAMPLE ROWS (as parsed dicts) ===
 {sample_rows}
 
+{content_sections}
+
 For published_grand_total: look for a summary table or total line. Return the number only (no $ or commas), or null.
+For extraction_approach: describe step-by-step how a Python script should extract one row per project.
+Set extraction_approach and other fields based on the MOST REPRESENTATIVE content section(s) you find.
 
 Return this JSON:
 {schema}"""
 
-PASS2_TEMPLATE = """Previous analysis of this CIP document had low confidence ({confidence:.0%}).
-Study this content carefully and find 3 complete project examples.
-
-=== FILE: {filename} ===
-
-=== DOCUMENT CONTENT (pages {page_start}-{page_end}) ===
-{content}
-
-For each project you find, identify:
-- Exact text that marks the START of a new project
-- Where the project title/name appears
-- Where the project number/ID appears
-- Where dollar amounts appear and how they are labeled
-- Where yearly costs appear
-- Where department/fund information appears
-
-Then return updated JSON with higher confidence:
-{schema}"""
-
-PASS3_TEMPLATE = """Still analyzing this CIP document. Previous confidence: {confidence:.0%}.
-
-Focus only on this question: what does ONE complete project entry look like?
-Quote the EXACT text from the document for a single project from start to finish.
-
-=== DOCUMENT CONTENT (pages {page_start}-{page_end}) ===
-{content}
-
-Based on the actual text above, describe the extraction pattern precisely.
-Set confidence >= 0.85 only when you can clearly describe how to find every field.
-
-Return updated JSON:
-{schema}"""
-
 DEFAULTS = {
     "format_type": "unknown",
-    "confidence": 0.5,
     "header_row_index": None,
     "project_name_col": None,
     "project_id_col": None,
@@ -125,111 +88,74 @@ DEFAULTS = {
 }
 
 
-def _chunk(text: str, start_char: int, length: int = 8000) -> tuple[str, int, int]:
-    """Return a chunk of text and approximate page range from [page N] markers."""
-    import re
-    chunk = text[start_char: start_char + length]
-    pages = re.findall(r'\[page (\d+)\]', chunk)
-    p_start = int(pages[0]) if pages else 0
-    p_end = int(pages[-1]) if pages else 0
-    return chunk, p_start, p_end
-
-
 def analyze(
     filename: str,
     raw_text: str,
     sample_rows: list[dict],
     metadata: dict,
 ) -> dict[str, Any]:
-    """Iterate until confidence >= 0.85. Sends full CIP text to Claude — no chunking."""
+    """Send N evenly-spaced document samples in one call. N scales with doc size."""
     import json
 
-    full_text = metadata.get("full_cip_text", raw_text)
+    full_text = metadata.get("full_cip_text") or metadata.get("project_sample_text") or raw_text
     fmt = metadata.get("format", "unknown")
 
-    # For PDFs, use the focused project-page sample (5 actual project pages, ~6 000 chars).
-    # For tabular files, use the raw_text preview as before.
-    # Claude only needs to see the PATTERN from a few examples — the generated script
-    # will apply regex to the full extracted text, not Claude.
-    project_sample = metadata.get("project_sample_text") or raw_text
-    preview = project_sample[:8000]
+    # Scale N to document size: 1 sample per ~15 CIP pages, capped 1–6
+    cip_pages = metadata.get("cip_pages_collected", 0)
+    if cip_pages == 0:
+        # Non-PDF: single sample is sufficient
+        n_samples = 1
+    else:
+        n_samples = max(1, min(6, round(cip_pages / 15)))
 
-    # Pass 1 — targeted sample of real project pages
-    print("  Pass 1...")
-    user_msg = PASS1_TEMPLATE.format(
+    # Budget ~30 000 chars total across all samples
+    sample_chars = min(30000 // n_samples, 8000)
+    total_len = len(full_text)
+
+    # Build evenly-spaced start positions (0%, 1/(n-1)%, ..., 100% - 1 window)
+    if n_samples == 1:
+        positions = [0]
+    else:
+        positions = [
+            int(i * (total_len - sample_chars) / (n_samples - 1))
+            for i in range(n_samples)
+        ]
+        positions = [max(0, min(p, total_len - sample_chars)) for p in positions]
+
+    # Extract samples and label them
+    content_sections = []
+    for i, start in enumerate(positions):
+        chunk = full_text[start: start + sample_chars]
+        if not chunk.strip():
+            continue
+        pct = int(start / total_len * 100) if total_len else 0
+        label = f"=== CONTENT SAMPLE {i+1}/{n_samples} (document position ~{pct}%) ==="
+        content_sections.append(f"{label}\n{chunk}")
+
+    print(f"  Sending {len(content_sections)} sample(s) "
+          f"({sample_chars} chars each, {cip_pages} CIP pages)...")
+
+    user_msg = ANALYSIS_TEMPLATE.format(
         filename=filename,
         fmt=fmt,
         metadata=json.dumps(
             {k: v for k, v in metadata.items()
              if k not in ("full_cip_text", "project_sample_text")},
             default=str)[:400],
-        preview=preview,
         sample_rows=json.dumps(sample_rows[:10], default=str, indent=2)[:1000],
+        content_sections="\n\n".join(content_sections),
         schema=SCHEMA_JSON,
     )
+
     result = {**DEFAULTS, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)}
-
-    # Subsequent passes: first exhaust project_sample, then jump to evenly-spaced positions
-    # across full_cip_text (1/4, 1/2, 3/4, end).  Linear scanning from the start of
-    # full_cip_text wastes passes on intro/summary pages before reaching the project sheets.
-    pass_num = 2
-    scan_text = project_sample
-    scan_offset = 8000
-    full_jump_offsets: list[int] = []  # populated when we switch to full_text
-
-    while result["confidence"] < CONFIDENCE_TARGET and pass_num <= MAX_PASSES:
-        print(f"  Pass {pass_num} (confidence {result['confidence']:.0%} — continuing)...")
-
-        chunk, p_start, p_end = _chunk(scan_text, scan_offset, length=8000)
-
-        if not chunk.strip():
-            if not full_jump_offsets and full_text and len(full_text) > len(project_sample):
-                # Project sample exhausted — build evenly-spaced jump offsets across full text
-                fl = len(full_text)
-                full_jump_offsets = [
-                    fl // 4,
-                    fl // 2,
-                    fl * 3 // 4,
-                    max(0, fl - 8000),
-                ]
-                scan_text = full_text
-                print(f"  (project sample exhausted — sampling full CIP text at 4 positions)")
-            if full_jump_offsets:
-                scan_offset = full_jump_offsets.pop(0)
-                chunk, p_start, p_end = _chunk(scan_text, scan_offset, length=8000)
-                if not chunk.strip():
-                    continue
-            else:
-                break
-
-        template = PASS2_TEMPLATE if pass_num == 2 else PASS3_TEMPLATE
-        user_msg = template.format(
-            filename=filename,
-            confidence=result["confidence"],
-            content=chunk,
-            page_start=p_start,
-            page_end=p_end,
-            schema=SCHEMA_JSON,
-        )
-
-        new_result = ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)
-        # Merge: keep best fields; accept any improvement in confidence
-        for k, v in new_result.items():
-            if v and (not result.get(k) or new_result.get("confidence", 0) > result.get("confidence", 0)):
-                result[k] = v
-
-        scan_offset += 8000
-        pass_num += 1
-
-    conf_label = "HIGH" if result["confidence"] >= 0.85 else "MEDIUM" if result["confidence"] >= 0.65 else "LOW"
-    print(f"  Analysis complete: {conf_label} confidence ({result['confidence']:.0%}) after {pass_num - 1} pass(es).")
+    print(f"  Analysis complete.")
     return {**DEFAULTS, **result}
 
 
 def summarize(analysis: dict[str, Any]) -> str:
     """Return a human-readable summary of the structure analysis."""
     lines = [
-        f"Format:          {analysis['format_type']} (confidence: {analysis['confidence']:.0%})",
+        f"Format:          {analysis['format_type']}",
         f"Project name:    {analysis['project_name_col']}",
         f"Project ID:      {analysis['project_id_col']}",
         f"Department:      {analysis['department_col']}",
