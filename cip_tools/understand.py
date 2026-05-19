@@ -159,6 +159,8 @@ def analyze(
     # Pre-seed dollar_unit from the regex hint; Claude can still override with a different value
     seed = {**DEFAULTS, "dollar_unit": dollar_unit_hint}
     result = {**seed, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)}
+    # Inject total_pages from ingest metadata so guide RAG can score on document size
+    result["total_pages"] = metadata.get("total_pages", 0)
     print(f"  Analysis complete.")
     return {**DEFAULTS, **result}
 
@@ -167,6 +169,7 @@ def summarize(analysis: dict[str, Any]) -> str:
     """Return a human-readable summary of the structure analysis."""
     lines = [
         f"Format:          {analysis['format_type']}",
+        f"Total pages:     {analysis.get('total_pages', 0)}",
         f"Dollar unit:     x{analysis.get('dollar_unit', 1)} (raw values multiplied to normalize to full $)",
         f"Project name:    {analysis['project_name_col']}",
         f"Project ID:      {analysis['project_id_col']}",

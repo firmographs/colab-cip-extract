@@ -103,6 +103,13 @@ def _extract_metadata(guide_path: str) -> dict[str, Any]:
     multi_row_m = re.search(r"Multi-row:\s+(True|False)", text, re.IGNORECASE)
     multi_row_projects = (multi_row_m.group(1).lower() == "true") if multi_row_m else False
 
+    # Total pages of the source PDF — "Total pages: NNN" written by understand.summarize()
+    pages_m = re.search(r"Total pages:\s*(\d+)", text, re.IGNORECASE)
+    if not pages_m:
+        # Fallback: look for explicit mentions in guide narrative or script comments
+        pages_m = re.search(r"(\d{2,4})\s*(?:total\s+)?pages?", text, re.IGNORECASE)
+    total_pages = int(pages_m.group(1)) if pages_m else 0
+
     return {
         "guide_path": guide_path,
         "agency_id": agency_id,
@@ -117,6 +124,7 @@ def _extract_metadata(guide_path: str) -> dict[str, Any]:
         "section_count": section_count,
         "has_leader_re": has_leader_re,
         "multi_row_projects": multi_row_projects,
+        "total_pages": total_pages,
         "char_count": len(text),
     }
 
@@ -192,27 +200,35 @@ def find_prior_year(filename: str, index: dict) -> dict | None:
     return max(candidates, key=lambda g: g.get("year_min", 0))
 
 
+def _page_bucket(n: int) -> str:
+    """Bucket a page count into size bands for similarity scoring."""
+    if n <= 0:    return "unknown"
+    if n <= 15:   return "tiny"      # single-chapter / short summary
+    if n <= 50:   return "small"     # concise CIP
+    if n <= 150:  return "medium"    # typical city CIP
+    if n <= 400:  return "large"     # large CIP with project sheets
+    return "huge"                    # county-level / 500+ pages
+
+
 def find_similar(filename: str, analysis: dict, index: dict, top_k: int = 3) -> list[dict]:
     """Score all indexed guides against the new CIP and return top_k.
 
-    Scoring (max 26):
+    Scoring (max 29):
       +15  Exact layout type match (pdf_one_per_page, pdf_table, wide_excel, ...)
       + 5  Same broad file format (pdf / excel / csv) when layout doesn't match
       + 5  Same doc type (cip / tip / cfp)
-      + 3  Same year count
+      + 3  Same single/multi-year category (1-year vs multi-year matters; 3 vs 5 does not)
+      + 3  Same page-count bucket (tiny / small / medium / large / huge)
+      + 1  Adjacent page bucket (off by one band)
       + 3  Same multi_row_projects flag
     """
     feat = _parse_filename_features(filename)
     layout_type = analysis.get("format_type", "")
 
-    # Broad file format from layout type string
     def _broad(lt: str) -> str:
-        if "pdf" in lt:
-            return "pdf"
-        if "excel" in lt or "xlsx" in lt:
-            return "excel"
-        if "csv" in lt:
-            return "csv"
+        if "pdf" in lt:   return "pdf"
+        if "excel" in lt or "xlsx" in lt: return "excel"
+        if "csv" in lt:   return "csv"
         return lt
 
     broad_fmt = _broad(layout_type)
@@ -220,6 +236,11 @@ def find_similar(filename: str, analysis: dict, index: dict, top_k: int = 3) -> 
 
     year_cols = analysis.get("year_cols", [])
     analysis_year_count = len(year_cols) if year_cols else feat["year_count"]
+    is_single_year = (analysis_year_count == 1)
+
+    new_pages = analysis.get("total_pages", 0)
+    new_bucket = _page_bucket(new_pages)
+    _buckets = ["unknown", "tiny", "small", "medium", "large", "huge"]
 
     scored = []
     for g in index["guides"]:
@@ -228,21 +249,30 @@ def find_similar(filename: str, analysis: dict, index: dict, top_k: int = 3) -> 
         g_layout = g.get("format_type", "")
         g_broad = g.get("file_format") or _broad(g_layout)
 
-        # Layout type is the strongest signal — same structure = same regex patterns
+        # Layout type — strongest signal: same structure means same regex patterns
         if g_layout and g_layout == layout_type:
             score += 15
         elif g_broad == broad_fmt:
-            score += 5  # same file format but different layout sub-type
+            score += 5
 
-        # Doc type: TIP vs CIP is structurally significant
+        # Doc type
         if g.get("doc_type") == feat["doc_type"]:
             score += 5
 
-        # Year count: 5-year vs 6-year changes column alignment logic
-        if g.get("year_count") == analysis_year_count:
+        # Single-year vs multi-year: a 1-year budget is structurally different from a CIP
+        g_single = (g.get("year_count", 0) == 1)
+        if is_single_year == g_single:
             score += 3
 
-        # Multi-row projects flag: changes row-grouping logic significantly
+        # Page count bucket
+        g_bucket = _page_bucket(g.get("total_pages", 0))
+        if g_bucket != "unknown" and new_bucket != "unknown":
+            if g_bucket == new_bucket:
+                score += 3
+            elif abs(_buckets.index(g_bucket) - _buckets.index(new_bucket)) == 1:
+                score += 1
+
+        # Multi-row flag
         if g.get("multi_row_projects") == multi_row:
             score += 3
 
