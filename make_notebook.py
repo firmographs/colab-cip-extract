@@ -106,33 +106,27 @@ _files = sorted(
 if not _files:
     display(Markdown("**No files in `1_inbox/`** — upload a source file first."))
 else:
-    _picker  = _w.Dropdown(options=_files, description='Source file:',
-                            layout=_w.Layout(width='700px'))
-    _tot_box = _w.FloatText(value=0, description='Expected total ($):',
-                            layout=_w.Layout(width='300px'))
-    _out     = _w.Output()
+    _picker = _w.Dropdown(options=_files, description='Source file:',
+                          layout=_w.Layout(width='700px'))
+    _out    = _w.Output()
 
     def _pick(change=None):
-        global SOURCE_FILE, AGENCY_ID, OUT_DIR, SCRIPTS_DIR, EXPECTED_TOTAL
-        SOURCE_FILE    = f"{_inbox}/{_picker.value}"
-        AGENCY_ID      = os.path.splitext(_picker.value)[0]
-        EXPECTED_TOTAL = _tot_box.value
-        _today         = datetime.date.today().strftime('%Y %m %d')
-        OUT_DIR        = f"{_EXTRACT_ROOT}/{_today} - {AGENCY_ID}"
-        SCRIPTS_DIR    = OUT_DIR
+        global SOURCE_FILE, AGENCY_ID, OUT_DIR, SCRIPTS_DIR
+        SOURCE_FILE = f"{_inbox}/{_picker.value}"
+        AGENCY_ID   = os.path.splitext(_picker.value)[0]
+        _today      = datetime.date.today().strftime('%Y %m %d')
+        OUT_DIR     = f"{_EXTRACT_ROOT}/{_today} - {AGENCY_ID}"
+        SCRIPTS_DIR = OUT_DIR
         os.makedirs(OUT_DIR, exist_ok=True)
         _out.clear_output()
         with _out:
-            _tot = "(not set)" if EXPECTED_TOTAL == 0 else f"${EXPECTED_TOTAL:,.0f}"
             display(Markdown(
                 f"**Agency ID:** `{AGENCY_ID}`  \n"
-                f"**Output folder:** `{OUT_DIR}`  \n"
-                f"**Expected total:** {_tot}"
+                f"**Output folder:** `{OUT_DIR}`"
             ))
 
     _picker.observe(_pick, names='value')
-    _tot_box.observe(_pick, names='value')
-    display(_w.VBox([_picker, _tot_box, _out]))
+    display(_w.VBox([_picker, _out]))
     _pick()
 '''
 
@@ -293,15 +287,21 @@ display(Markdown(
     f"| Output | `{_final_path}` |\n"
 ))
 
-if EXPECTED_TOTAL > 0:
-    _diff = _grand_total - EXPECTED_TOTAL
-    _pct  = _diff / EXPECTED_TOTAL * 100
+_published = _analysis.get('published_grand_total')
+if _published:
+    _diff = _grand_total - _published
+    _pct  = _diff / _published * 100
     _ok   = abs(_pct) < 1.0
     display(Markdown(
-        f"### Total Check: {'PASS' if _ok else 'FAIL'}\n\n"
-        f"Expected: **${EXPECTED_TOTAL:,.0f}** | "
+        f"### Total Check: {'PASS ✓' if _ok else 'FAIL ✗'}\n\n"
+        f"Published: **${_published:,.0f}** | "
         f"Extracted: **${_grand_total:,.0f}** | "
         f"Diff: **${_diff:+,.0f}** ({_pct:+.2f}%)"
+    ))
+else:
+    display(Markdown(
+        "_Published grand total not found in document preview — "
+        "verify extracted total manually against source._"
     ))
 '''
 

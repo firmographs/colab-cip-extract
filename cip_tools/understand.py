@@ -58,11 +58,15 @@ Return this JSON structure:
     {{"col": "col_name", "fund_name": "City Notes", "year": null_or_year}}
   ],
   "project_count_estimate": integer,
+  "published_grand_total": null_or_number,
   "multi_row_projects": true_or_false,
   "quirks": ["list of unusual features"],
   "extraction_approach": "one brief sentence describing how to extract rows",
   "notes": "anything the curator should know"
-}}"""
+}}
+
+For published_grand_total: look for a summary table, cover page, or footer showing the total CIP budget.
+Return the number with no $ or commas (e.g. 45000000), or null if not visible in the preview."""
 
 
 def analyze(
@@ -98,6 +102,7 @@ def analyze(
         "year_cols": [],
         "fund_cols": [],
         "project_count_estimate": 0,
+        "published_grand_total": None,
         "multi_row_projects": False,
         "quirks": [],
         "extraction_approach": "",
@@ -117,6 +122,7 @@ def summarize(analysis: dict[str, Any]) -> str:
         f"Year columns:    {analysis['year_cols']}",
         f"Fund columns:    {len(analysis['fund_cols'])} found",
         f"Est. projects:   {analysis['project_count_estimate']}",
+        f"Published total: {'${:,.0f}'.format(analysis['published_grand_total']) if analysis.get('published_grand_total') else '(not found in preview)'}",
         f"Multi-row:       {analysis['multi_row_projects']}",
         f"Approach:        {analysis['extraction_approach']}",
     ]
