@@ -63,19 +63,22 @@ print("Installing dependencies (first run takes ~60 s)...")
 for _p in ['httpx', 'pdfplumber', 'openpyxl', 'pandas', 'beautifulsoup4']:
     _pip(_p)
 
-# Clone manually — avoids pip's --filter=blob:none which can silently fail
-import re as _re
+# Clone via Authorization header — avoids git prompting for password interactively
+import re as _re, shutil as _shutil
 _cip_dir = '/tmp/colab-cip-extract'
 if os.path.exists(_cip_dir):
-    import shutil; shutil.rmtree(_cip_dir)
+    _shutil.rmtree(_cip_dir)
 _clone = subprocess.run(
-    ['git', 'clone', '--depth=1',
-     f'https://{_gh_token}@github.com/firmographs/colab-cip-extract.git',
+    ['git',
+     '-c', f'http.extraHeader=Authorization: Bearer {_gh_token}',
+     'clone', '--depth=1',
+     'https://github.com/firmographs/colab-cip-extract.git',
      _cip_dir],
     capture_output=True, text=True,
 )
 if _clone.returncode != 0:
-    print(_re.sub(r'https://[^@]+@', 'https://***@', _clone.stderr))
+    safe_err = _re.sub(_re.escape(_gh_token), '***', _clone.stderr)
+    print(safe_err)
     raise RuntimeError("Git clone failed — check GIT_COLAB_CIP_READONLY secret")
 _pip(_cip_dir)
 print("Dependencies ready.")
