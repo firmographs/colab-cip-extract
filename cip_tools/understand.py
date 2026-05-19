@@ -44,6 +44,7 @@ SCHEMA_JSON = """{
   "fund_cols": [{"col": "col_name", "fund_name": "City Notes", "year": null_or_year}],
   "project_count_estimate": integer,
   "published_grand_total": null_or_number,
+  "dollar_unit": 1,
   "multi_row_projects": true_or_false,
   "quirks": ["list of unusual features"],
   "extraction_approach": "detailed step-by-step description of how to extract rows",
@@ -62,6 +63,10 @@ ANALYSIS_TEMPLATE = """Analyze this CIP source file and return a JSON object des
 {content_sections}
 
 For published_grand_total: look for a summary table or total line. Return the number only (no $ or commas), or null.
+For dollar_unit: scan column headers, footnotes, and table titles for phrases like "(in thousands)", "($000s)",
+"amounts in thousands", "in millions", "$ millions", "000s omitted". Also consider typical project sizes —
+if an infrastructure project shows a total of "500" it is almost certainly in thousands ($500,000), not $500.
+Set dollar_unit to 1 (full dollars), 1000 (thousands), or 1000000 (millions). Default: 1.
 For extraction_approach: describe step-by-step how a Python script should extract one row per project.
 Set extraction_approach and other fields based on the MOST REPRESENTATIVE content section(s) you find.
 
@@ -81,6 +86,7 @@ DEFAULTS = {
     "fund_cols": [],
     "project_count_estimate": 0,
     "published_grand_total": None,
+    "dollar_unit": 1,
     "multi_row_projects": False,
     "quirks": [],
     "extraction_approach": "",
@@ -156,6 +162,7 @@ def summarize(analysis: dict[str, Any]) -> str:
     """Return a human-readable summary of the structure analysis."""
     lines = [
         f"Format:          {analysis['format_type']}",
+        f"Dollar unit:     x{analysis.get('dollar_unit', 1)} (raw values multiplied to normalize to full $)",
         f"Project name:    {analysis['project_name_col']}",
         f"Project ID:      {analysis['project_id_col']}",
         f"Department:      {analysis['department_col']}",

@@ -43,6 +43,7 @@ Approach:  {approach}
 The script must:
 1. Start with a CONFIGURATION block (all tuneable values as module-level constants).
    SOURCE_FILE must be set to the FULL PATH shown above (not just the filename).
+   Include: DOLLAR_UNIT = {dollar_unit}
 2. Define a run() function that reads the source file and returns list[dict]
 3. Each dict must contain EXACTLY these keys (use empty string for missing):
    {final_cols}
@@ -53,6 +54,9 @@ The script must:
 8. Yearly_Costs_By_Category_JSON: JSON object e.g. '{{"2026": 500000, "2027": 250000}}'
 9. If __name__ == "__main__": block that runs and prints a summary
 10. Handle encoding: try utf-8-sig first, fall back to latin-1
+11. DOLLAR_UNIT normalization: multiply EVERY parsed dollar amount by DOLLAR_UNIT after clean_num().
+    Example: total = clean_num(row.get('Total')) * DOLLAR_UNIT
+    This normalizes values expressed in thousands or millions to full dollars.
 
 === DEFENSIVE CODING REQUIREMENTS (mandatory) ===
 Include a clean_num() helper at the top of run():
@@ -166,6 +170,7 @@ def write_script(
         sample_rows=json.dumps(sample_rows[:5], default=str, indent=2)[:1500],
         text_sample=text_sample or "(not available — use column analysis above)",
         final_cols="\n   ".join(FINAL_COLS),
+        dollar_unit=analysis.get("dollar_unit", 1),
     )
     raw = ask(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)
 
