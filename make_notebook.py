@@ -42,21 +42,26 @@ def _pip(pkg):
         print(result.stderr[-800:])
         raise RuntimeError(f"pip install failed: {pkg}")
 
-print("Installing dependencies (first run takes ~60 s)...")
-for _p in ['httpx', 'pdfplumber', 'openpyxl', 'pandas', 'beautifulsoup4']:
-    _pip(_p)
-_pip('git+https://github.com/firmographs/colab-cip-extract.git')
-print("Dependencies ready.")
+from google.colab import userdata, drive
 
-from google.colab import drive
 drive.mount('/content/drive', force_remount=False)
 
 try:
-    from google.colab import userdata
     os.environ['ANTHROPIC_API_KEY'] = userdata.get('ANTHROPIC_API_KEY')
-    print("API key loaded from Colab Secrets.")
+    print("API key loaded.")
 except Exception:
     print("NOTE: Add ANTHROPIC_API_KEY in Colab Secrets (lock icon, left sidebar).")
+
+try:
+    _gh_token = userdata.get('GITHUB_TOKEN')
+except Exception:
+    raise RuntimeError("Add GITHUB_TOKEN (read-only PAT for colab-cip-extract) to Colab Secrets.")
+
+print("Installing dependencies (first run takes ~60 s)...")
+for _p in ['httpx', 'pdfplumber', 'openpyxl', 'pandas', 'beautifulsoup4']:
+    _pip(_p)
+_pip(f'git+https://{_gh_token}@github.com/firmographs/colab-cip-extract.git')
+print("Dependencies ready.")
 '''
 
 CONFIG = r'''
