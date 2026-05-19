@@ -40,13 +40,19 @@ REQUIRED_COLS = {
 # Cell 3 gate — check at ingestion, before any LLM calls
 # ---------------------------------------------------------------------------
 
-def gate_cell3(rows: list[dict[str, Any]], source_label: str = "") -> list[str]:
+def gate_cell3(rows: list[dict[str, Any]], source_label: str = "", fmt: str | None = None) -> list[str]:
     """
     Run critical ingestion checks. Returns a list of warning strings.
     Raises ValueError for fatal problems (stop everything).
+    PDFs are document-oriented; row checks don't apply — Claude works from raw text.
     """
     warnings = []
     label = f"[{source_label}] " if source_label else ""
+
+    if fmt == "pdf":
+        if not rows:
+            warnings.append(f"{label}PDF: no tables detected — Claude will work from page text.")
+        return warnings
 
     if not rows:
         raise ValueError(f"{label}Empty file — zero rows extracted.")

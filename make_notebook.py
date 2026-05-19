@@ -119,7 +119,7 @@ _raw_text, _sample_rows, _metadata = ingest.load(SOURCE_FILE)
 _c3_warns = []
 _c3_fatal = None
 try:
-    _c3_warns = schema.gate_cell3(_sample_rows, AGENCY_ID)
+    _c3_warns = schema.gate_cell3(_sample_rows, AGENCY_ID, fmt=_metadata.get('format'))
 except ValueError as _e:
     _c3_fatal = str(_e)
 

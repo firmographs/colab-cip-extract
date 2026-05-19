@@ -120,7 +120,10 @@ def load_excel(path: Path) -> tuple[str, list[dict], dict]:
 
 
 def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
-    """Extract text from PDF using pdfplumber. Returns first-page table if found."""
+    """Extract text from PDF using pdfplumber.
+    For OCR'd PDFs, pdfplumber extracts text but not tables — that's normal.
+    Claude works from the raw text to understand structure and write an extractor.
+    """
     try:
         import pdfplumber
     except ImportError:
@@ -132,26 +135,41 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
 
     with pdfplumber.open(path) as pdf:
         total_pages = len(pdf.pages)
-        for pg in pdf.pages[:5]:
+        # Sample: first 10 pages + a mid-document slice for context
+        sample_indices = list(range(min(10, total_pages)))
+        if total_pages > 20:
+            mid = total_pages // 2
+            sample_indices += list(range(mid, min(mid + 5, total_pages)))
+
+        for i in sample_indices:
+            pg = pdf.pages[i]
             tables = pg.extract_tables()
             if tables:
                 for tbl in tables[:1]:
                     if tbl and len(tbl) > 1:
                         headers = [str(c or "").strip() for c in tbl[0]]
                         for row in tbl[1:6]:
-                            d = {headers[i]: str(v or "").strip() for i, v in enumerate(row) if i < len(headers)}
+                            d = {headers[j]: str(v or "").strip() for j, v in enumerate(row) if j < len(headers)}
                             sample_rows.append(d)
-                        pages_text.append(" | ".join(headers))
+                        pages_text.append(f"[page {i+1} table]\n" + " | ".join(headers))
                         for row in tbl[1:4]:
-                            pages_text.append(" | ".join(str(v or "")[:30] for v in row))
+                            pages_text.append(" | ".join(str(v or "")[:40] for v in row))
             else:
                 text = pg.extract_text() or ""
-                pages_text.append(normalize_text(text)[:1000])
+                if text.strip():
+                    pages_text.append(f"[page {i+1}]\n" + normalize_text(text)[:800])
 
+    has_tables = bool(sample_rows)
     return (
-        "\n\n".join(pages_text)[:3000],
+        "\n\n".join(pages_text)[:6000],
         sample_rows[:10],
-        {"format": "pdf", "total_pages": total_pages},
+        {
+            "format": "pdf",
+            "total_pages": total_pages,
+            "n_cols": len(sample_rows[0]) if sample_rows else 0,
+            "estimated_rows": len(sample_rows),
+            "has_tables": has_tables,
+        },
     )
 
 
