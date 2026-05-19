@@ -130,10 +130,11 @@ else:
     _pick()
 '''
 
-STEP1 = r'''
-from cip_tools import ingest, schema
+STEPS12 = r'''
+from cip_tools import ingest, schema, understand
 from IPython.display import display, Markdown
 
+# --- Step 1: Load & Normalize ---
 print(f"Loading: {SOURCE_FILE}")
 _raw_text, _sample_rows, _metadata = ingest.load(SOURCE_FILE)
 
@@ -150,28 +151,25 @@ nrows = _metadata.get('estimated_rows', '?')
 
 if _c3_fatal:
     display(Markdown(f"## INGESTION FAILURE\n\n**{_c3_fatal}**\n\nStop and check the source file."))
-else:
-    display(Markdown(
-        f"## File Loaded\n\n"
-        f"| | |\n|--|--|\n"
-        f"| Format | `{fmt}` |\n"
-        f"| Columns | {ncols} |\n"
-        f"| Rows (est.) | {nrows} |\n"
-    ))
-    if _c3_warns:
-        display(Markdown("**Warnings:**\n" + "\n".join(f"- {w}" for w in _c3_warns)))
-    if _sample_rows:
-        cols = list(_sample_rows[0].keys())
-        col_list = "\n".join(f"{i+1}. `{c}`" for i, c in enumerate(cols[:25]))
-        extra = f"\n*...and {len(cols)-25} more*" if len(cols) > 25 else ""
-        display(Markdown(f"**Columns detected:**\n{col_list}{extra}"))
-'''
+    raise SystemExit(_c3_fatal)
 
-STEP2 = r'''
-from cip_tools import understand
-from IPython.display import display, Markdown
+display(Markdown(
+    f"## File Loaded\n\n"
+    f"| | |\n|--|--|\n"
+    f"| Format | `{fmt}` |\n"
+    f"| Columns | {ncols} |\n"
+    f"| Rows (est.) | {nrows} |\n"
+))
+if _c3_warns:
+    display(Markdown("**Warnings:**\n" + "\n".join(f"- {w}" for w in _c3_warns)))
+if _sample_rows:
+    cols = list(_sample_rows[0].keys())
+    col_list = "\n".join(f"{i+1}. `{c}`" for i, c in enumerate(cols[:25]))
+    extra = f"\n*...and {len(cols)-25} more*" if len(cols) > 25 else ""
+    display(Markdown(f"**Columns detected:**\n{col_list}{extra}"))
 
-print("Asking Claude to analyze structure...")
+# --- Step 2: Analyze Structure (Claude) ---
+print("\nAsking Claude to analyze structure...")
 _analysis = understand.analyze(
     os.path.basename(SOURCE_FILE), _raw_text, _sample_rows, _metadata
 )
@@ -263,19 +261,21 @@ display(Markdown(
 ))
 '''
 
-STEP5 = r'''
-from cip_tools import runner
+STEPS5_8 = r'''
+from cip_tools import runner, validate, design
 from IPython.display import display, Markdown
 from pathlib import Path
+import datetime
 
+# Re-read script from Drive in case curator edited it after the test run
+_script_code = _script_path.read_text(encoding='utf-8')
+
+# --- Step 5: Full Extraction ---
 print("Running full extraction...")
 _full_rows, _full_stderr = runner.full_run(_script_path)
 
 if _full_stderr:
     display(Markdown(f"**Script warnings:**\n```\n{_full_stderr[:400]}\n```"))
-
-_final_path = Path(OUT_DIR) / f"{AGENCY_ID}_final.csv"
-runner.save_final(_full_rows, _final_path)
 
 _grand_total = sum(float(r.get('Total_Project_Budget') or 0) for r in _full_rows)
 
@@ -284,7 +284,6 @@ display(Markdown(
     f"| | |\n|--|--|\n"
     f"| Projects extracted | **{len(_full_rows)}** |\n"
     f"| Grand total | **${_grand_total:,.0f}** |\n"
-    f"| Output | `{_final_path}` |\n"
 ))
 
 _published = _analysis.get('published_grand_total')
@@ -300,34 +299,37 @@ if _published:
     ))
 else:
     display(Markdown(
-        "_Published grand total not found in document preview — "
+        "_Published grand total not found in document — "
         "verify extracted total manually against source._"
     ))
-'''
 
-STEP67 = r'''
-from cip_tools import validate
-from IPython.display import display, Markdown
-
-print("Running QA and validation...")
+# --- Step 6-7: QA & Validation ---
+print("\nRunning QA and validation...")
+_val_ok = True
 try:
     _val_report = validate.run(_full_rows, source_label=AGENCY_ID)
     display(Markdown(f"```\n{_val_report}\n```"))
 except ValueError as _e:
-    display(Markdown(f"## VALIDATION FAILURE\n\n**{_e}**"))
+    _val_ok = False
+    display(Markdown(f"## VALIDATION FAILURE\n\n**{_e}**\n\nFix the script and re-run this cell."))
     raise
 
 display(Markdown(
-    "---\n"
-    "**All discrepancies above require human review — nothing is auto-corrected (WI §6.6).**  \n"
-    "If errors are found: edit the script, re-run Steps 4-5, then re-run this cell."
+    "**All discrepancies above require human review — nothing is auto-corrected.**  \n"
+    "If errors are found: edit the script, re-run Step 4, then re-run this cell."
 ))
-'''
 
-STEP8 = r'''
-from cip_tools import design
-from pathlib import Path
-from IPython.display import display, Markdown
+# --- Step 8: Save (only after validation passes) ---
+_final_path = Path(OUT_DIR) / f"{AGENCY_ID}_final.csv"
+
+# Version sweep: rename existing _final.csv before overwriting
+if _final_path.exists():
+    _ts = datetime.datetime.now().strftime('%H%M%S')
+    _prev_path = Path(OUT_DIR) / f"{AGENCY_ID}_final_prev_{_ts}.csv"
+    _final_path.rename(_prev_path)
+    display(Markdown(f"*Previous output archived as `{_prev_path.name}`*"))
+
+runner.save_final(_full_rows, _final_path)
 
 _guide_content = design.make_guide(
     agency_id=AGENCY_ID,
@@ -336,7 +338,6 @@ _guide_content = design.make_guide(
     script=_script_code,
     analysis_summary=_analysis_summary,
 )
-
 _guide_path = Path(OUT_DIR) / f"{AGENCY_ID}_guide.md"
 _guide_path.write_text(_guide_content, encoding='utf-8')
 
@@ -344,7 +345,7 @@ display(Markdown(
     f"## Done\n\n"
     f"Files saved to `{OUT_DIR}`:\n\n"
     f"| File | Description |\n|------|-------------|\n"
-    f"| `{SCRIPTS_DIR}/{AGENCY_ID}_extract.py` | Extraction script — reuse next year |\n"
+    f"| `{AGENCY_ID}_extract.py` | Extraction script — reuse next year |\n"
     f"| `{AGENCY_ID}_final.csv` | Standard output ({len(_full_rows)} rows) |\n"
     f"| `{AGENCY_ID}_guide.md` | Curator guide with QA checklist |\n"
 ))
@@ -364,13 +365,10 @@ cells = [
     code_cell("Step 0 — Setup (run once per session)", SETUP),
     code_cell("Step 0b — Configuration", CONFIG),
     md_cell("---\n## Extraction Steps\n\nRun each cell, review, then continue."),
-    code_cell("Step 1 — Load & Normalize Source File", STEP1),
-    code_cell("Step 2 — Analyze Structure  (Claude)", STEP2),
+    code_cell("Steps 1-2 — Load File & Analyze Structure  (Claude)", STEPS12),
     code_cell("Step 3 — Generate Extraction Script  (Claude)", STEP3),
     code_cell("Step 4 — Test Run (3 rows)", STEP4),
-    code_cell("Step 5 — Full Extraction", STEP5),
-    code_cell("Step 6-7 — QA & Validation", STEP67),
-    code_cell("Step 8 — Save Guide", STEP8),
+    code_cell("Steps 5-8 — Full Extraction, Validate & Save", STEPS5_8),
 ]
 
 nb = {
