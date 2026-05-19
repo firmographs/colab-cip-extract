@@ -47,15 +47,38 @@ def _extract_metadata(guide_path: str) -> dict[str, Any]:
     else:
         doc_type = "cip"
 
-    # Format type — check what library the embedded script uses
+    # Broad file format — what library the script uses
     if "pdfplumber" in text:
-        format_type = "pdf"
+        file_format = "pdf"
     elif "read_excel" in text or "openpyxl" in text:
-        format_type = "excel"
+        file_format = "excel"
     elif "csv.DictReader" in text or "read_csv" in text:
-        format_type = "csv"
+        file_format = "csv"
     else:
-        format_type = "other"
+        file_format = "other"
+
+    # Layout type — extracted from "Format: <value>" line in Structure Analysis section.
+    # understand.py writes this as e.g. "Format:          pdf_table" or "pdf_one_per_page".
+    # Known values: pdf_table, pdf_one_per_page, pdf_project_blocks, pdf_project_sheets,
+    #               wide_excel, csv_tabular, long_csv, web_html, other.
+    layout_m = re.search(r"^Format:\s+(\S+)", text, re.MULTILINE)
+    if layout_m:
+        format_type = layout_m.group(1)
+    else:
+        # Infer from script patterns for older guides written before layout types existed
+        if file_format == "pdf":
+            if re.search(r"LEADER_RE|split.*block|split.*project|per.?page", text, re.IGNORECASE):
+                format_type = "pdf_one_per_page"
+            elif re.search(r"SECTION_MARKERS", text):
+                format_type = "pdf_project_blocks"
+            else:
+                format_type = "pdf_table"
+        elif file_format == "excel":
+            format_type = "wide_excel"
+        elif file_format == "csv":
+            format_type = "csv_tabular"
+        else:
+            format_type = "other"
 
     # Year list from YEARS = [2026, 2027, ...]
     years: list[int] = []
@@ -76,18 +99,24 @@ def _extract_metadata(guide_path: str) -> dict[str, Any]:
     # Has a compiled leader regex?
     has_leader_re = bool(re.search(r"LEADER_RE\s*=\s*re\.compile", text))
 
+    # Multi-row projects — check Structure Analysis section of the guide
+    multi_row_m = re.search(r"Multi-row:\s+(True|False)", text, re.IGNORECASE)
+    multi_row_projects = (multi_row_m.group(1).lower() == "true") if multi_row_m else False
+
     return {
         "guide_path": guide_path,
         "agency_id": agency_id,
         "agency_domain": agency_domain,
         "doc_type": doc_type,
-        "format_type": format_type,
+        "format_type": format_type,   # layout type (pdf_table, pdf_one_per_page, etc.)
+        "file_format": file_format,   # broad file format (pdf, excel, csv, other)
         "years": years,
         "year_min": min(years) if years else 0,
         "year_max": max(years) if years else 0,
         "year_count": len(years),
         "section_count": section_count,
         "has_leader_re": has_leader_re,
+        "multi_row_projects": multi_row_projects,
         "char_count": len(text),
     }
 
@@ -164,18 +193,30 @@ def find_prior_year(filename: str, index: dict) -> dict | None:
 
 
 def find_similar(filename: str, analysis: dict, index: dict, top_k: int = 3) -> list[dict]:
-    """Score all indexed guides against the new CIP and return top_k."""
+    """Score all indexed guides against the new CIP and return top_k.
+
+    Scoring (max 26):
+      +15  Exact layout type match (pdf_one_per_page, pdf_table, wide_excel, ...)
+      + 5  Same broad file format (pdf / excel / csv) when layout doesn't match
+      + 5  Same doc type (cip / tip / cfp)
+      + 3  Same year count
+      + 3  Same multi_row_projects flag
+    """
     feat = _parse_filename_features(filename)
-    fmt = analysis.get("format_type", "")
-    # Normalise format_type: understand.py uses pdf_table / wide_excel / csv_tabular
-    if "pdf" in fmt:
-        fmt_norm = "pdf"
-    elif "excel" in fmt or "xlsx" in fmt:
-        fmt_norm = "excel"
-    elif "csv" in fmt:
-        fmt_norm = "csv"
-    else:
-        fmt_norm = fmt
+    layout_type = analysis.get("format_type", "")
+
+    # Broad file format from layout type string
+    def _broad(lt: str) -> str:
+        if "pdf" in lt:
+            return "pdf"
+        if "excel" in lt or "xlsx" in lt:
+            return "excel"
+        if "csv" in lt:
+            return "csv"
+        return lt
+
+    broad_fmt = _broad(layout_type)
+    multi_row = analysis.get("multi_row_projects", False)
 
     year_cols = analysis.get("year_cols", [])
     analysis_year_count = len(year_cols) if year_cols else feat["year_count"]
@@ -184,9 +225,14 @@ def find_similar(filename: str, analysis: dict, index: dict, top_k: int = 3) -> 
     for g in index["guides"]:
         score = 0
 
-        # Format match is the most predictive — same PDF structure assumptions apply
-        if g.get("format_type") == fmt_norm:
-            score += 10
+        g_layout = g.get("format_type", "")
+        g_broad = g.get("file_format") or _broad(g_layout)
+
+        # Layout type is the strongest signal — same structure = same regex patterns
+        if g_layout and g_layout == layout_type:
+            score += 15
+        elif g_broad == broad_fmt:
+            score += 5  # same file format but different layout sub-type
 
         # Doc type: TIP vs CIP is structurally significant
         if g.get("doc_type") == feat["doc_type"]:
@@ -196,11 +242,9 @@ def find_similar(filename: str, analysis: dict, index: dict, top_k: int = 3) -> 
         if g.get("year_count") == analysis_year_count:
             score += 3
 
-        # Domain tiebreaker: same top-level domain suffix (e.g. .wa.gov vs .co.gov)
-        g_parts = g.get("agency_domain", "").rsplit(".", 2)
-        f_parts = feat["agency_domain"].rsplit(".", 2)
-        if len(g_parts) >= 2 and len(f_parts) >= 2 and g_parts[-2] == f_parts[-2]:
-            score += 1  # same state suffix
+        # Multi-row projects flag: changes row-grouping logic significantly
+        if g.get("multi_row_projects") == multi_row:
+            score += 3
 
         if score > 0:
             scored.append((score, g))
@@ -290,7 +334,7 @@ def retrieve(
         excerpt = get_guide_excerpt(g["guide_path"], mode="config")
         header = (
             f"--- Guide: {g['agency_id']} "
-            f"(format={g['format_type']}, type={g['doc_type']}, years={g['years']}) ---"
+            f"(layout={g['format_type']}, type={g['doc_type']}, years={g['years']}) ---"
         )
         parts.append(f"{header}\n{excerpt}")
         print(f"  Guide RAG: similar → {g['agency_id']}")
