@@ -23,7 +23,7 @@ Write clean, minimal extraction scripts. No unnecessary abstractions. No error s
 Include a CONFIGURATION block so next year's curator can update paths without reading the logic."""
 
 USER_TEMPLATE = """Write a Python extraction script for this CIP source file.
-
+{guide_block}
 === SOURCE FILE INFO ===
 Filename:  {filename}
 Full path: {full_path}
@@ -118,12 +118,35 @@ Next year: update `SOURCE_FILE` path and verify year column names still match.
 """
 
 
+def _build_guide_block(guide_context: str, guide_mode: str) -> str:
+    """Format the guide context section for injection into the prompt."""
+    if not guide_context:
+        return ""
+    if guide_mode == "prior_year":
+        return (
+            "\n=== PRIOR-YEAR GUIDE (SAME AGENCY) ===\n"
+            "This is the complete extraction guide for this same agency's previous CIP.\n"
+            "The new CIP should have an identical structure — use this as your primary template.\n"
+            "Update only: year ranges, SOURCE_FILE path, and any column names that changed.\n\n"
+            f"{guide_context}\n"
+        )
+    return (
+        "\n=== SIMILAR PAST EXTRACTION GUIDES ===\n"
+        "These guides show how we extracted similar CIPs (same format / doc type).\n"
+        "Study their CONFIGURATION constants — especially SECTION_MARKERS, LEADER_RE, and YEARS —\n"
+        "as starting points. Adapt them to match the NEW CIP's structure in STRUCTURE ANALYSIS.\n\n"
+        f"{guide_context}\n"
+    )
+
+
 def write_script(
     filename: str,
     analysis: dict[str, Any],
     sample_rows: list[dict],
     full_path: str = "",
     metadata: dict | None = None,
+    guide_context: str = "",
+    guide_mode: str = "",
 ) -> str:
     """Ask Claude to generate the extraction script. Returns Python source code."""
     # For PDFs, send the focused project-page sample so Claude can write concrete regex patterns.
@@ -134,6 +157,7 @@ def write_script(
     text_sample = text_sample[:8000]  # keep prompt manageable
 
     user_msg = USER_TEMPLATE.format(
+        guide_block=_build_guide_block(guide_context, guide_mode),
         filename=filename,
         full_path=full_path or filename,
         format_type=analysis.get("format_type", "unknown"),

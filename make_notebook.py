@@ -31,7 +31,7 @@ def md_cell(text):
 # The SETUP cell writes them to /tmp/cip_tools/ so imports work without pip.
 # ---------------------------------------------------------------------------
 
-_MOD_NAMES = ['llm', 'schema', 'ingest', 'understand', 'design', 'runner', 'qa', 'validate']
+_MOD_NAMES = ['llm', 'schema', 'ingest', 'understand', 'design', 'guide_rag', 'runner', 'qa', 'validate']
 _mods = {}
 for _n in _MOD_NAMES:
     _p = f'cip_tools/{_n}.py'
@@ -130,6 +130,27 @@ else:
     _pick()
 '''
 
+STEP0C = r'''
+from cip_tools import guide_rag
+from IPython.display import display, Markdown
+import os
+
+_GUIDE_ROOT  = "/content/drive/Shareddrives/0_cip_data/2026"
+_INDEX_PATH  = "/content/drive/Shareddrives/0_cip_data/extract/_guide_index.json"
+
+if os.path.exists(_INDEX_PATH):
+    _GUIDE_INDEX = guide_rag.load_index(_INDEX_PATH)
+    display(Markdown(
+        f"**Guide index loaded:** {len(_GUIDE_INDEX['guides'])} guides "
+        f"(built {_GUIDE_INDEX['built_at'][:10]})  \n"
+        f"*Delete `_guide_index.json` from Drive and re-run this cell to rebuild.*"
+    ))
+else:
+    print("Building guide index (first run — scans all *_guide.md files)...")
+    _GUIDE_INDEX = guide_rag.build_index(_GUIDE_ROOT, _INDEX_PATH)
+    display(Markdown(f"**Guide index built:** {len(_GUIDE_INDEX['guides'])} guides indexed."))
+'''
+
 STEPS12 = r'''
 from cip_tools import ingest, schema, understand
 from IPython.display import display, Markdown
@@ -195,15 +216,28 @@ display(Markdown(
 '''
 
 STEP3 = r'''
-from cip_tools import design
+from cip_tools import design, guide_rag
 from IPython.display import display, Markdown, Code
 from pathlib import Path
+
+# Retrieve guide context (prior-year if available, else similar)
+_guide_mode, _guide_context = guide_rag.retrieve(
+    os.path.basename(SOURCE_FILE), _analysis, _GUIDE_INDEX,
+)
+if _guide_mode == "prior_year":
+    display(Markdown("**Guide RAG:** Prior-year guide found — using as primary template."))
+elif _guide_mode == "similar":
+    display(Markdown("**Guide RAG:** Using similar past extractions as reference."))
+else:
+    display(Markdown("*Guide RAG: no matches — generating script from scratch.*"))
 
 print("Asking Claude to write extraction script...")
 _script_code = design.write_script(
     os.path.basename(SOURCE_FILE), _analysis, _sample_rows,
     full_path=SOURCE_FILE,
     metadata=_metadata,
+    guide_context=_guide_context,
+    guide_mode=_guide_mode,
 )
 
 _script_path = Path(SCRIPTS_DIR) / f"{AGENCY_ID}_extract.py"
@@ -365,6 +399,7 @@ cells = [
     ),
     code_cell("Step 0 — Setup (run once per session)", SETUP),
     code_cell("Step 0b — Configuration", CONFIG),
+    code_cell("Step 0c — Guide Index (run once per session)", STEP0C),
     md_cell("---\n## Extraction Steps\n\nRun each cell, review, then continue."),
     code_cell("Steps 1-2 — Load File & Analyze Structure  (Claude)", STEPS12),
     code_cell("Step 3 — Generate Extraction Script  (Claude)", STEP3),
