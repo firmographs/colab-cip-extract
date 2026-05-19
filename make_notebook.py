@@ -93,33 +93,47 @@ print("Dependencies ready. Extract folders created.")
 SETUP = _SETUP_HEAD + f'_CIP_MODULES = {json.dumps(_mods)}\n' + _SETUP_TAIL
 
 CONFIG = r'''
-# Fill in the fields below, then run this cell.
-#
-# Output folder is auto-created as:
-#   0_cip_data/extract/YYYY MM DD - {AGENCY_ID}/
-
-SHARED_DRIVES_ROOT = "/content/drive/Shareddrives"
-_EXTRACT_ROOT      = "/content/drive/Shareddrives/0_cip_data/extract"
-
-AGENCY_ID      = "myagency.gov_cip_2026-2030"                                           #@param {type:"string"}
-SOURCE_FILE    = "/content/drive/Shareddrives/0_cip_data/extract/1_inbox/source.pdf"    #@param {type:"string"}
-EXPECTED_TOTAL = 0                                                                        #@param {type:"number"}
-
-# ---------------------------------------------------------------
-import os, datetime
-_today = datetime.date.today().strftime('%Y %m %d')
-OUT_DIR     = f"{_EXTRACT_ROOT}/{_today} - {AGENCY_ID}"
-SCRIPTS_DIR = OUT_DIR
-os.makedirs(OUT_DIR, exist_ok=True)
-
+import os, datetime, ipywidgets as _w
 from IPython.display import display, Markdown
-_tot_label = "(not set)" if EXPECTED_TOTAL == 0 else f"${EXPECTED_TOTAL:,.0f}"
-display(Markdown(
-    f"**Agency:** `{AGENCY_ID}`  \n"
-    f"**Source:** `{SOURCE_FILE}`  \n"
-    f"**Output folder:** `{OUT_DIR}`  \n"
-    f"**Expected total:** {_tot_label}"
-))
+
+_EXTRACT_ROOT = "/content/drive/Shareddrives/0_cip_data/extract"
+_inbox = f"{_EXTRACT_ROOT}/1_inbox"
+
+_files = sorted(
+    f for f in os.listdir(_inbox)
+    if os.path.isfile(f'{_inbox}/{f}') and not f.startswith('.')
+)
+if not _files:
+    display(Markdown("**No files in `1_inbox/`** — upload a source file first."))
+else:
+    _picker  = _w.Dropdown(options=_files, description='Source file:',
+                            layout=_w.Layout(width='700px'))
+    _tot_box = _w.FloatText(value=0, description='Expected total ($):',
+                            layout=_w.Layout(width='300px'))
+    _out     = _w.Output()
+
+    def _pick(change=None):
+        global SOURCE_FILE, AGENCY_ID, OUT_DIR, SCRIPTS_DIR, EXPECTED_TOTAL
+        SOURCE_FILE    = f"{_inbox}/{_picker.value}"
+        AGENCY_ID      = os.path.splitext(_picker.value)[0]
+        EXPECTED_TOTAL = _tot_box.value
+        _today         = datetime.date.today().strftime('%Y %m %d')
+        OUT_DIR        = f"{_EXTRACT_ROOT}/{_today} - {AGENCY_ID}"
+        SCRIPTS_DIR    = OUT_DIR
+        os.makedirs(OUT_DIR, exist_ok=True)
+        _out.clear_output()
+        with _out:
+            _tot = "(not set)" if EXPECTED_TOTAL == 0 else f"${EXPECTED_TOTAL:,.0f}"
+            display(Markdown(
+                f"**Agency ID:** `{AGENCY_ID}`  \n"
+                f"**Output folder:** `{OUT_DIR}`  \n"
+                f"**Expected total:** {_tot}"
+            ))
+
+    _picker.observe(_pick, names='value')
+    _tot_box.observe(_pick, names='value')
+    display(_w.VBox([_picker, _tot_box, _out]))
+    _pick()
 '''
 
 STEP1 = r'''
