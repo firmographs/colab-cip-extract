@@ -51,6 +51,25 @@ The script must:
 9. If __name__ == "__main__": block that runs and prints a summary
 10. Handle encoding: try utf-8-sig first, fall back to latin-1
 
+=== DEFENSIVE CODING REQUIREMENTS (mandatory) ===
+Include a clean_num() helper at the top of run():
+
+    def clean_num(val):
+        if val is None: return 0
+        s = str(val).strip().replace(',', '').replace('$', '').replace('O', '0')
+        s = ''.join(c for c in s if c.isdigit() or c in '.+-')
+        try: return float(s) if s else 0
+        except ValueError: return 0
+
+Rules:
+- Use clean_num() for ALL numeric fields — never float() or int() directly on raw text
+- Use .get(key, '') or .get(key) or '' for ALL dict lookups — never bare dict[key]
+- Treat these as zero: '', '-', 'N/A', 'n/a', None, 'CP', '*', '**'
+- OCR often outputs the letter O where 0 is intended — clean_num() handles this
+- When iterating rows, skip silently if required fields are blank rather than raising
+- For column alignment: match columns by header name, never by fixed position index
+- Strip all whitespace from header names before using them as dict keys
+
 Write ONLY the Python script, no explanation."""
 
 GUIDE_TEMPLATE = """# Extraction Guide: {agency_id}
