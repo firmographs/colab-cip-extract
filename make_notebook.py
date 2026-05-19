@@ -41,7 +41,7 @@ def _pip(pkg):
 print("Installing dependencies (first run takes ~60 s)...")
 for _p in ['httpx', 'pdfplumber', 'openpyxl', 'pandas', 'beautifulsoup4']:
     _pip(_p)
-_pip('git+https://github.com/firmographs/cip-tools.git')
+_pip('git+https://github.com/firmographs/colab-cip-extract.git')
 print("Dependencies ready.")
 
 from google.colab import drive
