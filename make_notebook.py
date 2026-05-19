@@ -90,10 +90,12 @@ SETUP = _SETUP_HEAD + f'_CIP_MODULES = {json.dumps(_mods)}\n' + _SETUP_TAIL
 CONFIG = r'''
 # Fill in the fields below, then run this cell.
 
-AGENCY_ID    = "myagency.gov_cip_2026-2030"                         #@param {type:"string"}
-SOURCE_FILE  = "/content/drive/MyDrive/cip_data/source.csv"         #@param {type:"string"}
-OUT_DIR      = "/content/drive/MyDrive/cip_data/output"             #@param {type:"string"}
-EXPECTED_TOTAL = 0                                                    #@param {type:"number"}
+SHARED_DRIVES_ROOT = "/content/drive/Shareddrives"
+
+AGENCY_ID      = "myagency.gov_cip_2026-2030"                                                          #@param {type:"string"}
+SOURCE_FILE    = "/content/drive/Shareddrives/0_cip_data/ready to process/source.pdf"                  #@param {type:"string"}
+OUT_DIR        = "/content/drive/Shareddrives/0_cip_data/ready to process"                             #@param {type:"string"}
+EXPECTED_TOTAL = 0                                                                                       #@param {type:"number"}
 
 # ---------------------------------------------------------------
 import os; os.makedirs(OUT_DIR, exist_ok=True)
