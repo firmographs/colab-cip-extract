@@ -68,24 +68,22 @@ import re as _re, shutil as _shutil
 _cip_dir = '/tmp/colab-cip-extract'
 if os.path.exists(_cip_dir):
     _shutil.rmtree(_cip_dir)
-# Fine-grained PATs work as the URL username; provide empty password via ASKPASS
-_askpass = '/tmp/_git_askpass.sh'
-with open(_askpass, 'w') as _f:
-    _f.write('#!/bin/sh\necho ""\n')
-import stat as _stat
-os.chmod(_askpass, _stat.S_IRWXU)
-
-_clone = subprocess.run(
-    ['git', 'clone', '--depth=1',
-     f'https://{_gh_token}@github.com/firmographs/colab-cip-extract.git',
-     _cip_dir],
-    capture_output=True, text=True,
-    env={**os.environ, 'GIT_TERMINAL_PROMPT': '0', 'GIT_ASKPASS': _askpass},
+# Download repo via GitHub API (Bearer auth — no git credential issues)
+import httpx as _httpx, zipfile as _zipfile, io as _io, shutil as _shutil
+_cip_dir = '/tmp/colab-cip-extract'
+if os.path.exists(_cip_dir):
+    _shutil.rmtree(_cip_dir)
+_resp = _httpx.get(
+    'https://api.github.com/repos/firmographs/colab-cip-extract/zipball/master',
+    headers={'Authorization': f'Bearer {_gh_token}', 'Accept': 'application/vnd.github+json'},
+    follow_redirects=True, timeout=120,
 )
-if _clone.returncode != 0:
-    safe_err = _re.sub(_re.escape(_gh_token), '***', _clone.stderr)
-    print(safe_err)
-    raise RuntimeError("Git clone failed — check GIT_COLAB_CIP_READONLY secret")
+if _resp.status_code != 200:
+    raise RuntimeError(f"GitHub download failed ({_resp.status_code}) — check GIT_COLAB_CIP_READONLY")
+_z = _zipfile.ZipFile(_io.BytesIO(_resp.content))
+_root = _z.namelist()[0].split('/')[0]
+_z.extractall('/tmp/')
+os.rename(f'/tmp/{_root}', _cip_dir)
 _pip(_cip_dir)
 print("Dependencies ready.")
 '''
