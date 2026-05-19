@@ -242,11 +242,9 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
         f"[page {p+1}]\n{t}" for p, t in cip_pages
     )
 
-    # --- Pass 3: find actual project detail pages (skip summary/narrative at section start) ---
-    # Project detail pages have per-project field labels repeated multiple times.
-    # Summary/overview pages have department totals or narrative prose and trigger false positives
-    # on weak signals like "funding source" or "total project" (which appear in table headers).
-    # Require 3+ strong signals AND the page must not look like a summary table.
+    # --- Pass 3: find per-project detail pages ---
+    # Some CIPs have a summary chapter (what the TOC pointed to) plus a separate Appendix of
+    # per-project sheets located ELSEWHERE in the document.  Scan the whole PDF for those.
     _PROJECT_PAGE_SIGNALS = [
         "project number", "project no", "project id",
         "department:", "funding source:", "description:",
@@ -255,28 +253,51 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
     ]
     _SUMMARY_PAGE_SIGNALS = [
         "table of contents", "executive summary", "by department", "by fund",
-        "appendix", "total uses", "total sources", "not recommended",
+        "total uses", "total sources", "not recommended",
         "grand total", "five-year summary", "5-year summary",
     ]
+
+    cip_page_indices = {p for p, _ in cip_pages}
+
+    # Find detail pages inside the collected CIP section
     project_detail_start = 0
     for i, (_, text) in enumerate(cip_pages):
         low = text.lower()
-        signal_count = sum(1 for sig in _PROJECT_PAGE_SIGNALS if sig in low)
-        summary_count = sum(1 for sig in _SUMMARY_PAGE_SIGNALS if sig in low)
-        if signal_count >= 3 and summary_count == 0:
-            project_detail_start = i
-            break
-        if signal_count >= 5:  # very strong signal even if some summary words present
+        sig = sum(1 for s in _PROJECT_PAGE_SIGNALS if s in low)
+        summ = sum(1 for s in _SUMMARY_PAGE_SIGNALS if s in low)
+        if (sig >= 3 and summ == 0) or sig >= 5:
             project_detail_start = i
             break
 
-    # 5 consecutive project pages gives Claude enough to learn the pattern (~6000 chars)
-    sample_pages = cip_pages[project_detail_start: project_detail_start + 5]
+    # Whole-document sweep: find detail pages NOT already in the CIP section.
+    # Handles docs where Appendix A lives in a different chapter than the CIP summary.
+    extra_detail_pages: list[tuple[int, str]] = []
+    for page_num, text in all_pages:
+        if page_num in cip_page_indices:
+            continue
+        low = text.lower()
+        sig = sum(1 for s in _PROJECT_PAGE_SIGNALS if s in low)
+        summ = sum(1 for s in _SUMMARY_PAGE_SIGNALS if s in low)
+        if sig >= 4 and summ == 0:
+            extra_detail_pages.append((page_num, text))
+
+    if extra_detail_pages:
+        extra_text = "\n\n".join(f"[page {p+1}]\n{t}" for p, t in extra_detail_pages[:50])
+        full_cip_text = extra_text + "\n\n" + full_cip_text
+        print(f"  Found {len(extra_detail_pages)} project-detail pages outside CIP section "
+              f"(pages {extra_detail_pages[0][0]+1}–{extra_detail_pages[-1][0]+1}).")
+
+    # 5-page sample: prefer extra_detail_pages if they exist, else fall back to cip_pages
+    if extra_detail_pages:
+        sample_pages = extra_detail_pages[:5]
+    else:
+        sample_pages = cip_pages[project_detail_start: project_detail_start + 5]
+
     project_sample_text = "\n\n".join(
         f"[page {p+1}]\n{t}" for p, t in sample_pages
     )
     sample_page_start = sample_pages[0][0] + 1 if sample_pages else page_num_start
-    print(f"  Project detail sample: pages {sample_page_start}–"
+    print(f"  Project detail sample: pages {sample_page_start}-"
           f"{sample_pages[-1][0]+1 if sample_pages else sample_page_start} "
           f"({len(project_sample_text)} chars).")
 
