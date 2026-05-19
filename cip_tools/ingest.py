@@ -119,56 +119,87 @@ def load_excel(path: Path) -> tuple[str, list[dict], dict]:
     )
 
 
+_CIP_TRIGGERS = [
+    "capital improvement",
+    "capital improvements program",
+    " cip ",
+    "cip project",
+    "cip sheet",
+]
+_CIP_END_TRIGGERS = ["appendix", "glossary", "index", "debt service"]
+
+
 def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
-    """Extract text from PDF using pdfplumber.
-    For OCR'd PDFs, pdfplumber extracts text but not tables — that's normal.
-    Claude works from the raw text to understand structure and write an extractor.
+    """Extract text from a CIP PDF.
+
+    Scans the FULL document to find the CIP chapter, then returns that
+    section's text so Claude can analyze the actual project data — not
+    just the cover or operating-budget pages that appear first.
     """
     try:
         import pdfplumber
     except ImportError:
         return ("[pdfplumber not installed]", [], {"format": "pdf"})
 
-    pages_text = []
-    sample_rows = []
-    total_pages = 0
-
+    # --- Pass 1: extract text from every page (no table detection yet) ---
+    all_pages: list[tuple[int, str]] = []
     with pdfplumber.open(path) as pdf:
         total_pages = len(pdf.pages)
-        # Sample: first 10 pages + a mid-document slice for context
-        sample_indices = list(range(min(10, total_pages)))
-        if total_pages > 20:
-            mid = total_pages // 2
-            sample_indices += list(range(mid, min(mid + 5, total_pages)))
+        print(f"  Scanning {total_pages} pages for CIP section...")
+        for i, pg in enumerate(pdf.pages):
+            text = pg.extract_text() or ""
+            if text.strip():
+                all_pages.append((i, normalize_text(text)))
 
-        for i in sample_indices:
-            pg = pdf.pages[i]
-            tables = pg.extract_tables()
-            if tables:
-                for tbl in tables[:1]:
-                    if tbl and len(tbl) > 1:
-                        headers = [str(c or "").strip() for c in tbl[0]]
-                        for row in tbl[1:6]:
-                            d = {headers[j]: str(v or "").strip() for j, v in enumerate(row) if j < len(headers)}
-                            sample_rows.append(d)
-                        pages_text.append(f"[page {i+1} table]\n" + " | ".join(headers))
-                        for row in tbl[1:4]:
-                            pages_text.append(" | ".join(str(v or "")[:40] for v in row))
-            else:
-                text = pg.extract_text() or ""
-                if text.strip():
-                    pages_text.append(f"[page {i+1}]\n" + normalize_text(text)[:800])
+    # --- Pass 2: find where the CIP chapter starts ---
+    cip_start = None
+    for idx, (page_num, text) in enumerate(all_pages):
+        low = text.lower()
+        if any(t in low for t in _CIP_TRIGGERS):
+            cip_start = idx
+            break
 
-    has_tables = bool(sample_rows)
+    if cip_start is None:
+        # No CIP section found — fall back to full doc sample
+        cip_start = 0
+
+    # Collect up to 60 pages of CIP content
+    cip_pages = all_pages[cip_start: cip_start + 60]
+    page_num_start = cip_pages[0][0] + 1 if cip_pages else 1
+
+    raw_text = "\n\n".join(
+        f"[page {p+1}]\n{t}" for p, t in cip_pages
+    )
+
+    # Try table extraction on the first few CIP pages for sample_rows
+    sample_rows: list[dict] = []
+    with pdfplumber.open(path) as pdf:
+        for p, _ in cip_pages[:10]:
+            tables = pdf.pages[p].extract_tables()
+            for tbl in tables[:1]:
+                if tbl and len(tbl) > 1:
+                    headers = [str(c or "").strip() for c in tbl[0]]
+                    for row in tbl[1:6]:
+                        d = {headers[j]: str(v or "").strip()
+                             for j, v in enumerate(row) if j < len(headers)}
+                        sample_rows.append(d)
+            if len(sample_rows) >= 10:
+                break
+
+    print(f"  CIP section found starting at page {page_num_start} "
+          f"({len(cip_pages)} pages collected).")
+
     return (
-        "\n\n".join(pages_text)[:6000],
+        raw_text[:12000],
         sample_rows[:10],
         {
             "format": "pdf",
             "total_pages": total_pages,
+            "cip_section_start_page": page_num_start,
+            "cip_pages_collected": len(cip_pages),
             "n_cols": len(sample_rows[0]) if sample_rows else 0,
             "estimated_rows": len(sample_rows),
-            "has_tables": has_tables,
+            "full_cip_text": raw_text,   # available to understand.py for deep passes
         },
     )
 
