@@ -243,16 +243,30 @@ def load_pdf(path: Path) -> tuple[str, list[dict], dict]:
     )
 
     # --- Pass 3: find actual project detail pages (skip summary/narrative at section start) ---
-    # Project pages have field labels; summary pages have department totals or narrative prose.
+    # Project detail pages have per-project field labels repeated multiple times.
+    # Summary/overview pages have department totals or narrative prose and trigger false positives
+    # on weak signals like "funding source" or "total project" (which appear in table headers).
+    # Require 3+ strong signals AND the page must not look like a summary table.
     _PROJECT_PAGE_SIGNALS = [
         "project number", "project no", "project id",
-        "department:", "funding source", "description:",
-        "scope:", "total cost", "total project",
+        "department:", "funding source:", "description:",
+        "scope:", "total cost:", "project title",
+        "project name", "project manager",
+    ]
+    _SUMMARY_PAGE_SIGNALS = [
+        "table of contents", "executive summary", "by department", "by fund",
+        "appendix", "total uses", "total sources", "not recommended",
+        "grand total", "five-year summary", "5-year summary",
     ]
     project_detail_start = 0
     for i, (_, text) in enumerate(cip_pages):
         low = text.lower()
-        if sum(1 for sig in _PROJECT_PAGE_SIGNALS if sig in low) >= 2:
+        signal_count = sum(1 for sig in _PROJECT_PAGE_SIGNALS if sig in low)
+        summary_count = sum(1 for sig in _SUMMARY_PAGE_SIGNALS if sig in low)
+        if signal_count >= 3 and summary_count == 0:
+            project_detail_start = i
+            break
+        if signal_count >= 5:  # very strong signal even if some summary words present
             project_detail_start = i
             break
 

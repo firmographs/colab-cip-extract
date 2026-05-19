@@ -13,7 +13,7 @@ from typing import Any
 from .llm import ask_json, ask, SONNET
 
 CONFIDENCE_TARGET = 0.85
-MAX_PASSES = 5
+MAX_PASSES = 7
 
 SYSTEM = """You are a capital infrastructure plan (CIP) data extraction expert.
 You analyze government CIP documents — PDFs, spreadsheets, CSVs — and describe their structure
@@ -169,16 +169,32 @@ def analyze(
     )
     result = {**DEFAULTS, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)}
 
-    # Subsequent passes: try later pages of the project sample if confidence is still low
+    # Subsequent passes: cycle through project_sample first, then fall back to full_cip_text.
+    # The project_sample is only 5 pages; for PDFs where those pages are summary/overview,
+    # the actual per-project detail lives deeper in full_cip_text — scan there next.
     pass_num = 2
-    char_offset = 8000
+    scan_text = project_sample
+    scan_offset = 8000
+    switched_to_full = False
 
     while result["confidence"] < CONFIDENCE_TARGET and pass_num <= MAX_PASSES:
         print(f"  Pass {pass_num} (confidence {result['confidence']:.0%} — continuing)...")
 
-        chunk, p_start, p_end = _chunk(project_sample, char_offset, length=8000)
+        chunk, p_start, p_end = _chunk(scan_text, scan_offset, length=8000)
+
         if not chunk.strip():
-            break  # nothing more to show
+            if not switched_to_full and full_text and len(full_text) > len(project_sample):
+                # Project sample exhausted — scan the rest of full_cip_text.
+                # Start after the project_sample portion to avoid re-reading the same pages.
+                scan_text = full_text
+                scan_offset = len(project_sample)
+                switched_to_full = True
+                print(f"  (project sample exhausted — scanning full CIP text from page offset)")
+                chunk, p_start, p_end = _chunk(scan_text, scan_offset, length=8000)
+                if not chunk.strip():
+                    break
+            else:
+                break
 
         template = PASS2_TEMPLATE if pass_num == 2 else PASS3_TEMPLATE
         user_msg = template.format(
@@ -196,7 +212,7 @@ def analyze(
             if v and (not result.get(k) or new_result.get("confidence", 0) > result.get("confidence", 0)):
                 result[k] = v
 
-        char_offset += 8000
+        scan_offset += 8000
         pass_num += 1
 
     conf_label = "HIGH" if result["confidence"] >= 0.85 else "MEDIUM" if result["confidence"] >= 0.65 else "LOW"
