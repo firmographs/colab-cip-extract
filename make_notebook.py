@@ -38,9 +38,11 @@ def _pip(pkg):
         capture_output=True, text=True,
     )
     if result.returncode != 0:
-        print(f"pip install failed for: {pkg}")
+        import re
+        safe = re.sub(r'https://[^@]+@', 'https://***@', pkg)
+        print(f"pip install failed for: {safe}")
         print(result.stderr[-800:])
-        raise RuntimeError(f"pip install failed: {pkg}")
+        raise RuntimeError(f"pip install failed: {safe}")
 
 from google.colab import userdata, drive
 
