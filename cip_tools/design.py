@@ -174,14 +174,21 @@ def write_script(
     )
     raw = ask(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096).strip()
 
-    # Strip markdown fences by slicing from first/last fence lines
-    if raw.startswith("```"):
-        lines = raw.splitlines()
-        lines = lines[1:]  # drop opening ```python line
-        if lines and lines[-1].strip().startswith("```"):
-            lines = lines[:-1]  # drop closing ``` line
-        return "\n".join(lines).strip()
-    return raw
+    # Extract code: find the LARGEST ```...``` block in the response.
+    # Using the largest block avoids false matches on short snippets inside the guide context.
+    blocks = re.findall(r"```(?:python)?\s*\n([\s\S]+?)(?:\n```|$)", raw)
+    if blocks:
+        candidate = max(blocks, key=len).strip()
+        if candidate and not candidate.startswith("```"):
+            return candidate
+
+    # Fallback: response has no fences at all — return as-is, or strip stray fence lines
+    lines = raw.splitlines()
+    if lines and lines[0].strip().startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].strip().startswith("```"):
+        lines = lines[:-1]
+    return "\n".join(lines).strip()
 
 
 def make_guide(
