@@ -118,7 +118,7 @@ OCR-truncated rows:
 **Split-document PDFs (descriptions and financial table in separate sections):**
 When project narratives are in one page range and dollar amounts in another:
   1. Identify both page ranges from the table of contents or section headers
-  2. Build a {normalized_name: description} lookup from the description section
+  2. Build a {{normalized_name: description}} lookup from the description section
   3. Extract the financial table from the financial section independently
   4. Join by fuzzy name matching: exact → substring → token overlap ≥ 50% → difflib
 Use PyMuPDF (import fitz) for the description section when the PDF has font-encoded
