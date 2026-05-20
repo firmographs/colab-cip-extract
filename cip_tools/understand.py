@@ -32,7 +32,7 @@ Standard output schema (every _final.csv must contain these columns):
 Return ONLY a JSON object — no prose, no markdown fences."""
 
 SCHEMA_JSON = """{
-  "format_type": "wide_excel|csv_tabular|pdf_table|long_csv|web_html|other",
+  "format_type": "wide_excel|csv_tabular|pdf_table|pdf_table_split|pdf_dot_stip_blocks|pdf_one_per_page|pdf_project_blocks|long_csv|web_html|other",
   "header_row_index": null_or_integer,
   "project_name_col": "column name or null",
   "project_id_col": "column name or null",
@@ -68,6 +68,10 @@ evidence. Also scan column headers, footnotes, and table titles for phrases like
 "amounts in thousands", "in millions", "$ millions", "000s omitted". Consider typical project sizes —
 if an infrastructure project shows a total of "500" it is almost certainly in thousands ($500,000), not $500.
 Set dollar_unit to 1 (full dollars), 1000 (thousands), or 1000000 (millions).
+For format_type: use one of wide_excel, csv_tabular, pdf_table, pdf_table_split, pdf_dot_stip_blocks,
+pdf_one_per_page, pdf_project_blocks, long_csv, web_html, or other.
+Use pdf_dot_stip_blocks when the PDF shows 3-line CN/PE/RW project blocks with year columns and a PREL column
+(typical of state DOT STIP/CIP documents where costs are in thousands).
 For extraction_approach: describe step-by-step how a Python script should extract one row per project.
 Set extraction_approach and other fields based on the MOST REPRESENTATIVE content section(s) you find.
 
@@ -158,7 +162,7 @@ def analyze(
 
     # Pre-seed dollar_unit from the regex hint; Claude can still override with a different value
     seed = {**DEFAULTS, "dollar_unit": dollar_unit_hint}
-    result = {**seed, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096)}
+    result = {**seed, **ask_json(user_msg, system=SYSTEM, model=SONNET, max_tokens=8192)}
     # Inject total_pages from ingest metadata so guide RAG can score on document size
     result["total_pages"] = metadata.get("total_pages", 0)
     print(f"  Analysis complete.")

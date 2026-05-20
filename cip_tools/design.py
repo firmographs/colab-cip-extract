@@ -116,6 +116,40 @@ OCR-truncated rows:
   some j>=2. If so, OCR dropped middle-column dashes and yr_vals[j] is actually the
   Total. Shift it: total = yr_vals[j]; yr_vals[j:] = zeros.
 
+**DOT/STIP 3-row block PDFs (state transportation improvement programs):**
+Signature: each project occupies exactly 3 lines — CN (construction), PE (preliminary
+engineering), RW (right-of-way) — with year columns and a Total column. The column
+header row says "Ph 2026 2027 2028 … PREL Total Federal Match".
+Costs are in thousands (header says "Dollars in Thousands"). Some projects have PREL
+costs instead of year costs (unfunded future phases).
+
+Use extract_text() NOT extract_words() — OCR fuses words into single tokens on these
+documents, making x-coordinate binning unreliable.
+
+Parsing approach:
+  1. For each line, split financial tokens from the RIGHT: scan right-to-left collecting
+     tokens that are numeric ("-" or digits/commas) or single note letters (B,R,P,W,G,M).
+     STOP before CN/PE/RW — those are phase markers belonging to the text side.
+  2. Financial token order: [2026, 2027, 2028, 2029, 2030, 2031, 2032, PREL, Total,
+     Federal, Match, Notes...]. Use indices 0-6 for year values, 7 for PREL, 8 for Total.
+  3. PREL vs Total: use max(PREL, Total) per phase row — PREL-only rows have Total=0
+     but represent real funded costs (just not yet scheduled to a specific year).
+  4. State machine — three states: seek → got_cn → got_pe:
+     - CN line (ends with " CN"): title row — strip trailing district digit and " CN"
+     - PE line (ends with " PE"): key number row — Key No. is the 5-digit number at start
+     - RW line (ends with " RW"): sponsor row — sponsor is text before program abbreviations
+     After RW, flush the project. Description lines come AFTER the RW row (post-flush),
+     not before — capture them by keeping a pointer to the last flushed project.
+  5. Total_Project_Budget = (CN_total + PE_total + RW_total) * 1000
+  6. Yearly costs = sum of CN+PE+RW year values for each year * 1000
+  7. yr_sum < Total is normal (PREL costs have no year). Only flag yr_sum > Total.
+  8. Deduplicate by Key No. — transit projects repeat the same key across fund sources.
+     Keep first occurrence only.
+  9. Stop processing when you encounter a section titled "Projects in Prior STIPs" —
+     those are historical closed projects, not active CIP.
+  10. Sponsor cleanup: strip trailing program tokens (TRNS-CAP, TRNS-OPS, BR-RESTORE,
+      RESTORE, PAVE, EARLY, etc.) but preserve entity suffixes like "RAIL (L)".
+
 **Split-document PDFs (descriptions and financial table in separate sections):**
 When project narratives are in one page range and dollar amounts in another:
   1. Identify both page ranges from the table of contents or section headers
@@ -127,7 +161,7 @@ OCR — fitz.open(f)[pg].get_text(sort=True) decodes the font correctly; pdfplum
 will garble the same text into unreadable characters.
 
 **regex-only fallback (use ONLY for narrative/per-project-page PDFs, not tables):**
-If the document has one page per project (not a tabular layout), THEN use:
+If the document has one project per page (not a tabular layout), THEN use:
   pdfplumber pg.extract_text() + re.split() to split into per-project blocks.
 
 Write ONLY the Python script, no explanation."""

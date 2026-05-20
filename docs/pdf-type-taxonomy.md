@@ -35,6 +35,24 @@ or summary table that holds the dollar amounts? If yes → `pdf_table_split`.
 
 ---
 
+### `pdf_dot_stip_blocks`
+State DOT STIP/CIP documents where each project occupies exactly **3 lines**:
+CN (construction), PE (preliminary engineering), and RW (right-of-way). Each
+line carries year-by-year cost columns and a Total column. Costs are expressed
+in thousands of dollars. The column header row says something like
+`Ph 2026 2027 2028 … PREL Total Federal Match`.
+
+A PREL column holds costs for unfunded future phases (no year assigned); use
+`max(PREL, Total)` per phase row because PREL-only rows have Total=0.
+
+Projects deduplicate by Key No. (5-digit number on the PE line); transit
+projects may repeat the same key across fund sources — keep first occurrence.
+
+**Key discriminator:** Does the PDF show 3-line CN/PE/RW blocks with year
+columns, a PREL column, and costs in thousands? If yes → `pdf_dot_stip_blocks`.
+
+---
+
 ### `pdf_project_blocks`
 Each project occupies 1–2 pages with a consistent repeating template containing
 narrative description, project metadata (manager, dates, status), and an inline
@@ -108,9 +126,12 @@ Is it a spreadsheet / CSV?
               Yes → pdf_project_blocks
               No  → pdf_project_blocks (default for running-text projects)
           Yes (it's tabular) →
-            Are descriptions in a separate section from the dollar table?
-              No  → pdf_table
-              Yes → pdf_table_split
+            Are projects in 3-line CN/PE/RW blocks with a PREL column (DOT STIP)?
+              Yes → pdf_dot_stip_blocks
+              No →
+                Are descriptions in a separate section from the dollar table?
+                  No  → pdf_table
+                  Yes → pdf_table_split
 ```
 
 ---
@@ -197,6 +218,7 @@ cross-checking the extraction guide and final CSV.
 | w1726 | lbwl.com | 73 | 4 | pdf_table | budget_attachment | 1 | high | Board meeting packet; CIP = pp.53-56 CAPITAL PORTFOLIO tables with FY2026-2031 columns (4 grouped sections) |
 | w1826 | dunedingov.com | 576 | 205 | pdf_project_blocks | budget_attachment | 1 | high | FL Adopted Budget pp.298-502; per-project template: Title→Overview→Metadata→Description→Capital Cost table |
 | w1826 | rfta.com | 122 | 1 | pdf_table | budget_attachment | 1000 | high | Transit annual budget; Capital Expenditures is a single page (p.79) 3-col table (in 1,000s) |
+| w1926 | idaho.gov_dot | 172 | 148 | pdf_dot_stip_blocks | tip_standalone | 1000 | high | Idaho DOT STIP 2026-2032; pages 25-121 are 3-row CN/PE/RW blocks with PREL+Total columns; 577 projects, $3.487B |
 
 ---
 
