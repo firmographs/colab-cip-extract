@@ -42,7 +42,7 @@ def ask(
     *,
     system: str = "",
     model: str = DEFAULT_MODEL,
-    max_tokens: int = 4096,
+    max_tokens: int = 16000,
     temperature: float = 0.2,
     retries: int = 3,
 ) -> str:
@@ -85,7 +85,7 @@ def ask_json(
     *,
     system: str = "",
     model: str = DEFAULT_MODEL,
-    max_tokens: int = 4096,
+    max_tokens: int = 16000,
 ) -> dict | list:
     """
     Like ask() but extracts and parses the first JSON block from the response.

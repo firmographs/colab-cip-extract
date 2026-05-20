@@ -218,7 +218,7 @@ def write_script(
     user_msg = USER_TEMPLATE
     for _k, _v in _replacements.items():
         user_msg = user_msg.replace(_k, _v)
-    raw = ask(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096).strip()
+    raw = ask(user_msg, system=SYSTEM, model=SONNET).strip()
 
     # Extract code: find the LARGEST ```...``` block in the response.
     # Using the largest block avoids false matches on short snippets inside the guide context.
