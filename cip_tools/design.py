@@ -45,7 +45,7 @@ The script must:
 1. Start with a CONFIGURATION block (all tuneable values as module-level constants).
    SOURCE_FILE must be set to the FULL PATH shown above (not just the filename).
    Include: DOLLAR_UNIT = {dollar_unit}
-2. Define a run() function that reads the source file and returns list[dict]
+2. Define a run() function that reads the source file and returns list[dict]. The LAST line of run() must be "return projects" (or whatever your list variable is named). Never omit the return statement.
 3. Each dict must contain EXACTLY these keys (use empty string for missing):
    {final_cols}
 4. Project_Index must be sequential integers starting at 1

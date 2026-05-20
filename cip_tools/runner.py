@@ -33,6 +33,10 @@ spec = importlib.util.spec_from_file_location("_cip_script", r{str(script_path)!
 mod  = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
 rows = mod.run()
+if rows is None:
+    raise RuntimeError("run() returned None — script is missing a return statement")
+if not isinstance(rows, list):
+    raise RuntimeError(f"run() must return list[dict], got {{type(rows).__name__}}")
 {limit_code}
 # Stringify any non-serialisable values
 clean = [{{str(k): str(v) if not isinstance(v, (str,int,float,type(None))) else v
