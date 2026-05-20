@@ -28,6 +28,7 @@ FINAL_COLS = [
     "Yearly_Costs_By_Category_JSON",
     "Description",
     "Scope",
+    "QA_Note",
 ]
 
 REQUIRED_COLS = {

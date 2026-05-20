@@ -76,18 +76,58 @@ Rules:
 - When iterating rows, skip silently if required fields are blank rather than raising
 - For column alignment: match columns by header name, never by fixed position index
 - Strip all whitespace from header names before using them as dict keys
+- QA_Note: set to "" normally; set to "yr_sum=X total=Y delta=Z" if
+  abs(sum(yr_vals) - total) > 1 and total > 0 (flags year/total mismatches per row)
 
-=== PDF-SPECIFIC REQUIREMENTS (apply when format is pdf) ===
-For PDF sources, the script MUST use regex on the extracted text — not table extraction:
-- Use pdfplumber to extract raw text from every page: pg.extract_text() or ""
-- Concatenate all page texts into one string with [page N] markers between pages
-- Use re.split() or re.finditer() to split the full text into per-project blocks,
-  anchored on the regex pattern that marks the START of each new project entry
-- Within each block, use re.search() to extract individual fields by their labels
-- For fund rows, use re.findall() to collect all fund name / amount pairs
-- Never rely on fixed line numbers or character positions — OCR shifts them
-- The project boundary pattern and field label patterns must come from studying
-  the EXTRACTED TEXT SAMPLE above — use the actual text, not assumptions
+=== PDF-SPECIFIC REQUIREMENTS (apply when format is pdf_table or pdf_text) ===
+
+**Tabular PDFs (financial table with column headers — the common case):**
+Use pdfplumber.extract_words(x_tolerance=3, y_tolerance=3) — NOT extract_text().
+Group words into visual rows by rounding w['top'] to the nearest integer.
+Assign each word to its column by x0 position using boundaries derived from the
+header row (set boundaries at midpoints between column center x-positions).
+Concatenate words in the same column bucket WITHOUT spaces — this naturally fixes
+OCR space-within-number artifacts ("7" + "5,000" → "75,000").
+
+Column boundary derivation:
+  1. Find the header row (contains year column names like "FY 2027")
+  2. Record x0 of each header word — these are the column centers
+  3. Set boundaries at midpoints; bin 0 (left of first boundary) = project name text
+  4. Remaining bins = financial columns in order
+
+Row classification:
+  - SKIP rows: line matches header/footer/summary patterns (APPENDIX, FY 20XX-20XX,
+    Total Uses, Non-Allocated, page numbers — build a SKIP_LINE_RE for these)
+  - DEPT header rows: text-only, name matches known department set (KNOWN_DEPTS)
+  - SUBTOTAL rows: first word of line is "$" — parse, do NOT discard (see below)
+  - PROJECT rows: has at least one non-empty financial bin
+  - NAME continuation rows: text-only, not a dept header — accumulate into pending_name
+
+Subtotal rows as checksums:
+  Parse the Total column value from each subtotal row into dept_subtotals[current_dept].
+  After all rows are processed, compare dept_project_sums to dept_subtotals and print
+  a cross-check table (dept | proj_sum | sub | OK/GAP) with a grand total footer.
+  A dept-level gap is expected when a sub-department's rows are tracked separately
+  but the PDF rolls them into a parent department's subtotal.
+
+OCR-truncated rows:
+  When total==0 but sum(yr_vals) > 0, check if yr_vals[j] == sum(yr_vals[:j]) for
+  some j>=2. If so, OCR dropped middle-column dashes and yr_vals[j] is actually the
+  Total. Shift it: total = yr_vals[j]; yr_vals[j:] = zeros.
+
+**Split-document PDFs (descriptions and financial table in separate sections):**
+When project narratives are in one page range and dollar amounts in another:
+  1. Identify both page ranges from the table of contents or section headers
+  2. Build a {normalized_name: description} lookup from the description section
+  3. Extract the financial table from the financial section independently
+  4. Join by fuzzy name matching: exact → substring → token overlap ≥ 50% → difflib
+Use PyMuPDF (import fitz) for the description section when the PDF has font-encoded
+OCR — fitz.open(f)[pg].get_text(sort=True) decodes the font correctly; pdfplumber
+will garble the same text into unreadable characters.
+
+**regex-only fallback (use ONLY for narrative/per-project-page PDFs, not tables):**
+If the document has one page per project (not a tabular layout), THEN use:
+  pdfplumber pg.extract_text() + re.split() to split into per-project blocks.
 
 Write ONLY the Python script, no explanation."""
 
@@ -112,10 +152,12 @@ Key variables to update each year:
 
 ## QA Checks
 - [ ] Row count matches source project count
-- [ ] Total budget matches published grand total
+- [ ] Total budget matches published grand total (or dept-subtotals sum if doc total includes non-project rows)
 - [ ] Spot-check 3 named projects against source
 - [ ] No blank Project_Title values
 - [ ] Fund breakdown sums match Total_Project_Budget
+- [ ] QA_Note column: zero rows flagged (non-empty = yr_sum ≠ total mismatch)
+- [ ] Subtotal cross-check grand total: OK (dept-level gaps expected for sub-dept groupings)
 
 ## Adaptation Notes
 Next year: update `SOURCE_FILE` path and verify year column names still match.
