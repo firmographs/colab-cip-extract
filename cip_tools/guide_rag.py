@@ -308,12 +308,26 @@ def _extract_config_constants(script: str) -> str:
     return "\n".join(config_lines).strip()
 
 
+def _extract_improvements_section(text: str) -> str:
+    """Pull the '## Parser Improvements' (or similar) section from a guide, if present.
+
+    These sections document structural patterns — coordinate-based parsing, split-doc
+    handling, etc. — that are more useful to Claude than config constants alone.
+    """
+    m = re.search(
+        r"(##\s+Parser Improvements.*?)(?=\n## |\Z)",
+        text,
+        re.DOTALL | re.IGNORECASE,
+    )
+    return m.group(1).strip() if m else ""
+
+
 def get_guide_excerpt(guide_path: str, mode: str = "config") -> str:
     """
     Return relevant excerpt from a guide file.
 
     mode="full"   — entire guide (for prior-year exact match)
-    mode="config" — just the CONFIGURATION constants from the script (for similar guides)
+    mode="config" — CONFIGURATION constants + Parser Improvements section (for similar guides)
     """
     try:
         text = Path(guide_path).read_text(encoding="utf-8", errors="replace")
@@ -323,12 +337,17 @@ def get_guide_excerpt(guide_path: str, mode: str = "config") -> str:
     if mode == "full":
         return text
 
-    # For similar guides: return the script config constants + first few section markers
+    # For similar guides: config constants + parser improvements narrative
     script = _extract_script_block(text)
-    if not script:
-        return text[:3000]
-    config = _extract_config_constants(script)
-    return config[:3000]  # cap per guide so total stays manageable
+    config = _extract_config_constants(script).strip() if script else text[:2000]
+    improvements = _extract_improvements_section(text)
+
+    parts = []
+    if config:
+        parts.append(config[:2500])
+    if improvements:
+        parts.append(improvements[:2000])
+    return "\n\n".join(parts) if parts else text[:3000]
 
 
 # ---------------------------------------------------------------------------

@@ -135,19 +135,26 @@ from cip_tools import guide_rag
 from IPython.display import display, Markdown
 import os
 
-_GUIDE_ROOT  = "/content/drive/Shareddrives/0_cip_data/2026"
+_GUIDE_ROOT  = "/content/drive/Shareddrives/0_cip_data/extract"
 _INDEX_PATH  = "/content/drive/Shareddrives/0_cip_data/extract/_guide_index.json"
 
-if os.path.exists(_INDEX_PATH):
+# Rebuild index if stale (> 7 days) or missing
+import time as _time
+_needs_rebuild = not os.path.exists(_INDEX_PATH)
+if not _needs_rebuild:
+    _age_days = (_time.time() - os.path.getmtime(_INDEX_PATH)) / 86400
+    _needs_rebuild = _age_days > 7
+
+if _needs_rebuild:
+    print("Building guide index (scans all *_guide.md files under extract/)...")
+    _GUIDE_INDEX = guide_rag.build_index(_GUIDE_ROOT, _INDEX_PATH)
+    display(Markdown(f"**Guide index built:** {len(_GUIDE_INDEX['guides'])} guides indexed."))
+else:
     _GUIDE_INDEX = guide_rag.load_index(_INDEX_PATH)
     display(Markdown(
         f"**Guide index loaded:** {len(_GUIDE_INDEX['guides'])} guides "
         f"(built {_GUIDE_INDEX['built_at'][:10]})"
     ))
-else:
-    print("Building guide index (first run — scans all *_guide.md files)...")
-    _GUIDE_INDEX = guide_rag.build_index(_GUIDE_ROOT, _INDEX_PATH)
-    display(Markdown(f"**Guide index built:** {len(_GUIDE_INDEX['guides'])} guides indexed."))
 '''
 
 STEPS12 = r'''
