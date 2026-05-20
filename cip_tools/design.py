@@ -51,7 +51,7 @@ The script must:
 5. Total_Project_Budget must be a numeric value (integer or float, no $ or commas)
 6. Fund_Names_JSON: JSON array of strings e.g. '["City", "Federal", "State"]'
 7. Fund_Budgets_JSON: JSON array of numbers matching Fund_Names_JSON
-8. Yearly_Costs_By_Category_JSON: JSON object e.g. '{{"2026": 500000, "2027": 250000}}'
+8. Yearly_Costs_By_Category_JSON: JSON object e.g. '{"2026": 500000, "2027": 250000}'
 9. If __name__ == "__main__": block that runs and prints a summary
 10. Handle encoding: try utf-8-sig first, fall back to latin-1
 11. DOLLAR_UNIT normalization: multiply EVERY parsed dollar amount by DOLLAR_UNIT after clean_num().
@@ -118,7 +118,7 @@ OCR-truncated rows:
 **Split-document PDFs (descriptions and financial table in separate sections):**
 When project narratives are in one page range and dollar amounts in another:
   1. Identify both page ranges from the table of contents or section headers
-  2. Build a {{normalized_name: description}} lookup from the description section
+  2. Build a {normalized_name: description} lookup from the description section
   3. Extract the financial table from the financial section independently
   4. Join by fuzzy name matching: exact → substring → token overlap ≥ 50% → difflib
 Use PyMuPDF (import fitz) for the description section when the PDF has font-encoded
@@ -202,18 +202,21 @@ def write_script(
         text_sample = metadata.get("project_sample_text", "") or metadata.get("full_cip_text", "")
     text_sample = text_sample[:8000]  # keep prompt manageable
 
-    user_msg = USER_TEMPLATE.format(
-        guide_block=_build_guide_block(guide_context, guide_mode),
-        filename=filename,
-        full_path=full_path or filename,
-        format_type=analysis.get("format_type", "unknown"),
-        approach=analysis.get("extraction_approach", ""),
-        analysis_json=json.dumps(analysis, indent=2)[:2000],
-        sample_rows=json.dumps(sample_rows[:5], default=str, indent=2)[:1500],
-        text_sample=text_sample or "(not available — use column analysis above)",
-        final_cols="\n   ".join(FINAL_COLS),
-        dollar_unit=analysis.get("dollar_unit", 1),
-    )
+    _replacements = {
+        "{guide_block}":   _build_guide_block(guide_context, guide_mode),
+        "{filename}":      filename,
+        "{full_path}":     full_path or filename,
+        "{format_type}":   analysis.get("format_type", "unknown"),
+        "{approach}":      analysis.get("extraction_approach", ""),
+        "{analysis_json}": json.dumps(analysis, indent=2)[:2000],
+        "{sample_rows}":   json.dumps(sample_rows[:5], default=str, indent=2)[:1500],
+        "{text_sample}":   text_sample or "(not available — use column analysis above)",
+        "{final_cols}":    "\n   ".join(FINAL_COLS),
+        "{dollar_unit}":   str(analysis.get("dollar_unit", 1)),
+    }
+    user_msg = USER_TEMPLATE
+    for _k, _v in _replacements.items():
+        user_msg = user_msg.replace(_k, _v)
     raw = ask(user_msg, system=SYSTEM, model=SONNET, max_tokens=4096).strip()
 
     # Extract code: find the LARGEST ```...``` block in the response.
