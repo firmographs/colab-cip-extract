@@ -317,3 +317,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1833Z,w1926,2026 05 08 - westlinnoregon.gov_cip_2026-2031,westlinnoregon.gov_cip_2026-2031,ok,,,75,33,no,0.067,135858000.0,0.0,1.0,203.8
 20260521T1836Z,w1926,2026 05 08 - wheaton.il.us_cip_2026-2030,wheaton.il.us_cip_2026-2030,ok,,,141,101,no,0.0,26320252.0,148581082.0,4.6451,221.2
 20260521T1840Z,w1926,2026 05 08 - wylietexas.gov_cip_2026-2030,wylietexas.gov_cip_2026-2030,ok,,,32,45,no,0.031,155566469.0,29187954.0,0.8124,128.7
+20260521T1842Z,w1926,2026 05 09 - eaglecounty.us_cip_2026-2026,eaglecounty.us_cip_2026-2026,ok,,,38,38,yes,0.974,34810668.0,34810668.0,0.0,153.1
