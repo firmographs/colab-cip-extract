@@ -290,3 +290,4 @@ pdfplumber.utils.exceptions.PdfminerException: [Errno 22] Invalid argument
                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: Unknown format code 'f' for object of type 'str'
 ",22,,,,,,,87.9
+20260521T1753Z,w1926,2026 03 27 - swt.usace.army.mil_cip_2026-2029,swt.usace.army.mil_cip_2026-2029,ok,,,45,43,yes,0.911,750750000.0,803000000.0,0.0696,89.0
