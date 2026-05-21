@@ -132,3 +132,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1137Z,w1726,2026 04 15 - greenwood.in.gov_cip_2025-2029,greenwood.in.gov_cip_2025-2029,ok,,,25,1,no,0.0,0.0,75372240.0,,71.6
 20260521T1138Z,w1726,2026 04 16 - lrd.usace.army.mil.pgh_cip_2026-2026,lrd.usace.army.mil.pgh_cip_2026-2026,ok,,,18,18,yes,1.0,0.0,56300000.0,,101.6
 20260521T1140Z,w1726,2026 04 16 - mvs.usace.army.mil_cip_2026-2027,mvs.usace.army.mil_cip_2026-2027,ok,,,16,16,yes,0.0,595250000.0,86250000.0,0.8551,73.4
+20260521T1141Z,w1726,2026 04 16 - nap.usace.army.mil_cip_2026-2026,nap.usace.army.mil_cip_2026-2026,ok,,,35,35,yes,0.0,717250000.0,717000000.0,0.0003,73.8
