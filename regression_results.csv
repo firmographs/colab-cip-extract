@@ -279,3 +279,4 @@ subprocess.TimeoutExpired: Command '['C:\\Users\\dave\\AppData\\Local\\Python\\p
     raise PdfminerException(e)
 pdfplumber.utils.exceptions.PdfminerException: [Errno 22] Invalid argument
 ",178,,,,,,,156.3
+20260521T1749Z,w1826,2026 05 05 - stpete.org_cip_2027-2031,stpete.org_cip_2027-2031,failed,gold_load,[Errno 2] No such file or directory: 'G:\\Shared drives\\0_cip_data\\2026\\w1826\\2026 05 05 - stpete.org_cip_2027-2031\\stpete.org_cip_2027-2031_final.csv',,,,,,,,0.0
