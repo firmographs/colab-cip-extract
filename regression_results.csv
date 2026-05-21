@@ -357,3 +357,8 @@ httpx.ReadTimeout: The read operation timed out
 httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.anthropic.com/v1/messages'
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
 ",28,,,,,,,23.8
+20260521T2045Z,w2026,2026 05 09 - westcovina.org_cip_2026-2030,westcovina.org_cip_2026-2030,failed,analyze,".py"", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.anthropic.com/v1/messages'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+",137,,,,,,,31.8
