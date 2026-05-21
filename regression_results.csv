@@ -92,3 +92,4 @@ pdfplumber.utils.exceptions.PdfminerException: [Errno 22] Invalid argument
     raise mapped_exc(message) from exc
 httpx.ReadError: [WinError 10054] An existing connection was forcibly closed by the remote host
 ",140,,,,,,,204.6
+20260521T0952Z,w1526,2026 04 04 - countyofsb.org_cip_2027-2031,countyofsb.org_cip_2027-2031,ok,,,192,147,no,0.172,136140000.0,43460659.0,0.6808,128.1
