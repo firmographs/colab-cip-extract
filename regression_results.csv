@@ -97,3 +97,8 @@ httpx.ReadError: [WinError 10054] An existing connection was forcibly closed by 
 20260521T1003Z,w1526,2026 04 10 - d-laketransit.org-ca_tip_2026-2026,d-laketransit.org-ca_tip_2026-2026,ok,,,18,2,no,0.0,982493.0,0.0,1.0,57.7
 20260521T1004Z,w1626,2026 02 26 - casscountynd.gov_cip_2026-2030,casscountynd.gov_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,99,,,,,,,900.4
 20260521T1019Z,w1626,2026 02 28 - stancounty.com_cip_2025-2029,stancounty.com_cip_2025-2029,ok,,,231,77,no,0.004,2025366338.0,501213147.659,0.7525,110.6
+20260521T1021Z,w1626,2026 03 07 - lcwsa.net_cip_2026-2030,lcwsa.net_cip_2026-2030,failed,test_run,"ne 159, in process
+    print(f""         ID={r.get('Project_Number_Primary','?')}  Total=${r.get('Total_Project_Budget',0):,.0f}"")
+                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unknown format code 'f' for object of type 'str'
+",197,,,,,,,87.4
