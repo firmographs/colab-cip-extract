@@ -102,3 +102,4 @@ httpx.ReadError: [WinError 10054] An existing connection was forcibly closed by 
                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: Unknown format code 'f' for object of type 'str'
 ",197,,,,,,,87.4
+20260521T1022Z,w1626,2026 04 04 - flyabe.com_cip_2024-2028,flyabe.com_cip_2024-2028,ok,,,77,26,no,0.545,85841913.0,2024.0,1.0,124.2
