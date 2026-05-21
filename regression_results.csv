@@ -106,3 +106,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1024Z,w1626,2026 04 07 - cityofplacerville.org_cip_2026-2026,cityofplacerville.org_cip_2026-2026,ok,,,10,8,no,0.8,0.0,383720.0,,76.4
 20260521T1026Z,w1626,2026 04 07 - co.marathon.wi.us_cip_2026-2030_proposed,co.marathon.wi.us_cip_2026-2030_proposed,ok,,,137,1200,no,0.701,0.0,223782953.56,,310.6
 20260521T1031Z,w1626,2026 04 09 - midpeninsulawater.org_cip_2026-2026,midpeninsulawater.org_cip_2026-2026,ok,,,13,11,no,0.692,21293806.0,114917606.0,4.3968,111.5
+20260521T1033Z,w1626,2026 04 09 - swbno.org_cip_2025-2034,swbno.org_cip_2025-2034,ok,,,151,87,no,0.0,391437216.0,1205991444.0,2.0809,153.8
