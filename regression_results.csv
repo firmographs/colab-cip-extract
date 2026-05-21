@@ -192,3 +192,4 @@ httpx.ReadTimeout: The read operation timed out
     raise mapped_exc(message) from exc
 httpx.ReadTimeout: The read operation timed out
 ",135,,,,,,,159.9
+20260521T1414Z,w1726,2026 04 24 - kentwa.gov_cip_2025-2030,kentwa.gov_cip_2025-2030,ok,,,115,2871,no,0.635,183586000.0,3.0774073436142334e+58,1.6762756112199369e+50,288.4
