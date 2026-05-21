@@ -28,3 +28,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: unsupported format string passed to NoneType.__format__
 ",31,,,,,,,97.1
+20260521T0737Z,w1326,2026 03 26 - clcwa.org_cip_2026-2026,clcwa.org_cip_2026-2026,ok,,,40,982,no,0.975,2887762.0,924090848.0,319.0024,135.8
