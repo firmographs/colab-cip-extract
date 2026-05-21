@@ -293,3 +293,8 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1753Z,w1926,2026 03 27 - swt.usace.army.mil_cip_2026-2029,swt.usace.army.mil_cip_2026-2029,ok,,,45,43,yes,0.911,750750000.0,803000000.0,0.0696,89.0
 20260521T1754Z,w1926,2026 03 30 - co.mclennan.tx.us_cip_2026-2026,co.mclennan.tx.us_cip_2026-2026,ok,,,57,22,no,0.579,1547696.0,73114666.0,46.241,106.2
 20260521T1756Z,w1926,2026 04 23 - whiteplainsny.gov_cip_2026-2032,whiteplainsny.gov_cip_2026-2032,ok,,,122,480,no,0.746,220952148.0,541298482.02,1.4498,141.1
+20260521T1758Z,w1926,2026 04 28 - sam.usace.army.mil_cip_2025-2029,sam.usace.army.mil_cip_2025-2029,failed,test_run,"ne 159, in process
+    print(f""         ID={r.get('Project_Number_Primary','?')}  Total=${r.get('Total_Project_Budget',0):,.0f}"")
+                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unknown format code 'f' for object of type 'str'
+",235,,,,,,,114.2
