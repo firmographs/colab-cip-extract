@@ -378,3 +378,8 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 20260521T2106Z,w2026,2026 05 13 - lakecountyca.gov_cip_2026-2026,lakecountyca.gov_cip_2026-2026,ok,,,214,19,no,0.0,1210440.0,490353.0,0.5949,96.9
 20260521T2108Z,w2026,2026 05 13 - templetx.gov_cip_2026-2031,templetx.gov_cip_2026-2031,ok,,,104,42,no,0.154,118800000.0,117019188.0,0.015,417.6
 20260521T2115Z,w2026,2026 05 13 - troymi.gov_cip_2027-2032_proposed,troymi.gov_cip_2027-2032_proposed,ok,,,64,709,no,0.266,105091000.0,88183262307.51,838.1134,199.4
+20260521T2118Z,w2026,2026 05 14 - taylorcountytexas.org_cip_2026-2026,taylorcountytexas.org_cip_2026-2026,failed,analyze,".py"", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.anthropic.com/v1/messages'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+",95,,,,,,,23.0
