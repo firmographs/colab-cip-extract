@@ -14,3 +14,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260521T0649Z,w1326,2026 03 21 - qacps.org_cip_2026-2026,qacps.org_cip_2026-2026,ok,,,20,20,yes,0.25,12996460.0,12996460.0,0.0,86.2
 20260521T0650Z,w1326,2026 03 22 - calvertnet.k12.md.us_cip_2026-2031,calvertnet.k12.md.us_cip_2026-2031,ok,,,26,1,no,0.0,0.0,0.0,,85.4
 20260521T0652Z,w1326,2026 03 22 - viennava.gov_cip_2026-2042,viennava.gov_cip_2026-2042,ok,,,44,36,no,0.682,49746000.0,134547812.0,1.7047,175.0
+20260521T0655Z,w1326,2026 03 23 - westchicago.org_cip_2025-2029,westchicago.org_cip_2025-2029,ok,,,140,987,no,0.336,38478200.0,4.0545291151183355e+38,1.0537210979511348e+31,197.2
