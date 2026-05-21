@@ -258,3 +258,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 ValueError: Unknown format code 'f' for object of type 'str'
 ",151,,,,,,,87.3
 20260521T1704Z,w1826,2026 05 02 - lrd.usace.army.mil.det_cip_2026-2027,lrd.usace.army.mil.det_cip_2026-2027,ok,,,44,44,yes,0.591,263162500.0,228000000.0,0.1336,103.2
+20260521T1706Z,w1826,2026 05 02 - twp.woodbridge.nj.us_cip_2026-2031,twp.woodbridge.nj.us_cip_2026-2031,ok,,,6,6,yes,1.0,14100000.0,0.0,1.0,143.2
