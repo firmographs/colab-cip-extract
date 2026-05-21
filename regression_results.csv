@@ -243,3 +243,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1633Z,w1826,2026 04 29 - mbta.com_tip_2027-2031_proposed,mbta.com_tip_2027-2031_proposed,ok,,,680,605,no,0.046,26433000000.0,0.0,1.0,131.5
 20260521T1635Z,w1826,2026 04 29 - northlibertyiowa.org_cip_2026-2030,northlibertyiowa.org_cip_2026-2030,ok,,,134,152,no,0.0,155961160.0,1.4495106703580197e+22,92940490463010.42,180.2
 20260521T1638Z,w1826,2026 04 30 - catchacat.org_tip_2026-2026,catchacat.org_tip_2026-2026,ok,,,8,8,yes,1.0,22173208.0,0.0,1.0,117.5
+20260521T1640Z,w1826,2026 04 30 - chesterfield.gov_cip_2027-2031_proposed,chesterfield.gov_cip_2027-2031_proposed,ok,,,44,0,no,0.0,101368200.0,0,1.0,221.9
