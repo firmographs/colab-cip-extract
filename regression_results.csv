@@ -43,3 +43,4 @@ ValueError: could not convert string to float: 'None'
 20260521T0752Z,w1326,2026 03 26 - swg.usace.army.mil_cip_2026-2031,swg.usace.army.mil_cip_2026-2031,ok,,,50,77,no,0.96,0.0,2841000000.0,,118.7
 20260521T0754Z,w1326,2026 03 26 - winchesterky.com_cip_2025-2025,winchesterky.com_cip_2025-2025,ok,,,28,26,no,0.214,2482723.0,0.0,1.0,176.9
 20260521T0758Z,w1326,2026 03 27 - netamu.com_cip_2026-2030,netamu.com_cip_2026-2030,ok,,,73,0,no,0.0,17253278.0,0,1.0,110.9
+20260521T0800Z,w1426,2026 03 10 - cliftonnj.org_cip_2025-2030,cliftonnj.org_cip_2025-2030,ok,,,46,46,yes,1.0,103030100.0,103030100.0,0.0,140.1
