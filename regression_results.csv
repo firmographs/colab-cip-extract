@@ -362,3 +362,8 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.anthropic.com/v1/messages'
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
 ",137,,,,,,,31.8
+20260521T2046Z,w2026,2026 05 11 - co.middlesex.nj.us_cip_2026-2031,co.middlesex.nj.us_cip_2026-2031,failed,analyze,".py"", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.anthropic.com/v1/messages'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+",16,,,,,,,11.3
