@@ -1,3 +1,4 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,elapsed_seconds
 20260521T0605Z,w1326,2026 02 25 - gwregion.org_cip_2021-2030,gwregion.org_cip_2021-2030,ok,,,338,112,no,0.0,3366489029.0,0.0,1.0,256.0
 20260521T0609Z,w1326,2026 03 10 - fairfaxva.gov_cip_2026-2030,fairfaxva.gov_cip_2026-2030,ok,,,153,153,yes,0.641,457364840.0,524935556.0,0.1477,518.4
+20260521T0618Z,w1326,2026 03 14 - northmiamifl.gov_cip_2026-2030,northmiamifl.gov_cip_2026-2030,ok,,,14,14,yes,0.0,41210524.0,15214000.0,0.6308,389.0
