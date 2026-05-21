@@ -96,3 +96,4 @@ httpx.ReadError: [WinError 10054] An existing connection was forcibly closed by 
 20260521T0954Z,w1526,2026 04 06 - sara-tx.org_cip_2026-2035,sara-tx.org_cip_2026-2035,ok,,,47,45,yes,0.0,530262822.0,87161.0,0.9998,514.6
 20260521T1003Z,w1526,2026 04 10 - d-laketransit.org-ca_tip_2026-2026,d-laketransit.org-ca_tip_2026-2026,ok,,,18,2,no,0.0,982493.0,0.0,1.0,57.7
 20260521T1004Z,w1626,2026 02 26 - casscountynd.gov_cip_2026-2030,casscountynd.gov_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,99,,,,,,,900.4
+20260521T1019Z,w1626,2026 02 28 - stancounty.com_cip_2025-2029,stancounty.com_cip_2025-2029,ok,,,231,77,no,0.004,2025366338.0,501213147.659,0.7525,110.6
