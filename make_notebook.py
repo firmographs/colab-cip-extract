@@ -93,7 +93,7 @@ print("Dependencies ready. Extract folders created.")
 SETUP = _SETUP_HEAD + f'_CIP_MODULES = {json.dumps(_mods)}\n' + _SETUP_TAIL
 
 CONFIG = r'''
-import os, datetime, ipywidgets as _w
+import os, re, datetime, ipywidgets as _w
 from IPython.display import display, Markdown
 
 _EXTRACT_ROOT = "/content/drive/Shareddrives/0_cip_data/extract"
@@ -113,9 +113,10 @@ else:
     def _pick(change=None):
         global SOURCE_FILE, AGENCY_ID, OUT_DIR, SCRIPTS_DIR
         SOURCE_FILE = f"{_inbox}/{_picker.value}"
-        AGENCY_ID   = os.path.splitext(_picker.value)[0]
-        _today      = datetime.date.today().strftime('%Y %m %d')
-        OUT_DIR     = f"{_EXTRACT_ROOT}/{_today} - {AGENCY_ID}"
+        # Strip _ocr suffix from agency ID used for output naming
+        _raw_id     = os.path.splitext(_picker.value)[0]
+        AGENCY_ID   = re.sub(r'_ocr$', '', _raw_id, flags=re.IGNORECASE)
+        OUT_DIR     = f"{_EXTRACT_ROOT}/{AGENCY_ID}"
         SCRIPTS_DIR = OUT_DIR
         os.makedirs(OUT_DIR, exist_ok=True)
         _out.clear_output()
@@ -358,15 +359,27 @@ display(Markdown(
 ))
 
 # --- Step 8: Save (only after validation passes) ---
-_final_path = Path(OUT_DIR) / f"{AGENCY_ID}_final.csv"
+import shutil
 
-# Version sweep: rename existing _final.csv before overwriting
-if _final_path.exists():
-    _ts = datetime.datetime.now().strftime('%H%M%S')
-    _prev_path = Path(OUT_DIR) / f"{AGENCY_ID}_final_prev_{_ts}.csv"
-    _final_path.rename(_prev_path)
-    display(Markdown(f"*Previous output archived as `{_prev_path.name}`*"))
+_out_dir   = Path(OUT_DIR)
+_old_dir   = _out_dir / "old"
+_final_path  = _out_dir / f"{AGENCY_ID}_final.csv"
+_guide_path  = _out_dir / f"{AGENCY_ID}_guide.md"
+_script_dest = _out_dir / f"{AGENCY_ID}_extract.py"
 
+# Sweep any existing output files into old/ before writing new ones
+_old_dir.mkdir(exist_ok=True)
+_ts = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+_swept = []
+for _existing in [_final_path, _guide_path, _script_dest]:
+    if _existing.exists():
+        _archived = _old_dir / f"{_existing.stem}_{_ts}{_existing.suffix}"
+        _existing.rename(_archived)
+        _swept.append(_archived.name)
+if _swept:
+    display(Markdown(f"*Archived to `old/`: {', '.join(_swept)}*"))
+
+# Write final outputs
 runner.save_final(_full_rows, _final_path)
 
 _guide_content = design.make_guide(
@@ -376,8 +389,15 @@ _guide_content = design.make_guide(
     script=_script_code,
     analysis_summary=_analysis_summary,
 )
-_guide_path = Path(OUT_DIR) / f"{AGENCY_ID}_guide.md"
 _guide_path.write_text(_guide_content, encoding='utf-8')
+
+# Copy extraction script into output folder
+shutil.copy2(_script_path, _script_dest)
+
+# Copy source PDF into output folder
+_pdf_dest = _out_dir / os.path.basename(SOURCE_FILE)
+if not _pdf_dest.exists():
+    shutil.copy2(SOURCE_FILE, _pdf_dest)
 
 display(Markdown(
     f"## Done\n\n"
@@ -386,6 +406,7 @@ display(Markdown(
     f"| `{AGENCY_ID}_extract.py` | Extraction script — reuse next year |\n"
     f"| `{AGENCY_ID}_final.csv` | Standard output ({len(_full_rows)} rows) |\n"
     f"| `{AGENCY_ID}_guide.md` | Curator guide with QA checklist |\n"
+    f"| `{os.path.basename(SOURCE_FILE)}` | Source PDF (copy) |\n"
 ))
 '''
 
