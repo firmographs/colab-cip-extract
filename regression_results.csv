@@ -273,3 +273,9 @@ subprocess.TimeoutExpired: Command '['C:\\Users\\dave\\AppData\\Local\\Python\\p
 20260521T1741Z,w1826,2026 05 04 - themdc.com_cip_2026-2030,themdc.com_cip_2026-2030,ok,,,40,1,no,0.025,4452288261.0,750000.0,0.9998,108.0
 20260521T1742Z,w1826,2026 05 04 - wildwoodnj.org_cip_2026-2031,wildwoodnj.org_cip_2026-2031,ok,,,28,27,yes,0.0,178257732.0,0.0,1.0,152.9
 20260521T1745Z,w1826,2026 05 05 - cityofblackhawk.org_cip_2026-2026,cityofblackhawk.org_cip_2026-2026,ok,,,24,53,no,0.0,5305000.0,14119589.0,1.6616,108.8
+20260521T1747Z,w1826,2026 05 05 - polk-county.net_cip_2026-2030,polk-county.net_cip_2026-2030,failed,ingest,"(self.layout._objs):
+                                        ^^^^^^^^^^^
+  File ""C:\Users\dave\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pdfplumber\page.py"", line 268, in layout
+    raise PdfminerException(e)
+pdfplumber.utils.exceptions.PdfminerException: [Errno 22] Invalid argument
+",178,,,,,,,156.3
