@@ -36,6 +36,7 @@ from pathlib import Path
 ALL_WEEKS = ["w1326", "w1426", "w1526", "w1626", "w1726", "w1826", "w1926", "w2026"]
 
 DATA_ROOT = Path(r"G:\Shared drives\0_cip_data\2026")
+OCR_ROOT  = Path(r"G:\Shared drives\CIP Staging\docs\input documents\in ocr PDF")
 
 RESULTS_FILE = Path(__file__).parent / "regression_results.csv"
 
@@ -161,11 +162,15 @@ def score_against_gold(extracted: list[dict], gold: list[dict]) -> dict:
 # Agency discovery
 # ---------------------------------------------------------------------------
 
-def find_eligible_agencies(data_root: Path, weeks: list[str]) -> list[dict]:
+def find_eligible_agencies(data_root: Path, weeks: list[str],
+                           ocr_root: Path = OCR_ROOT) -> list[dict]:
     """
     Scan week folders and return list of agency dicts with paths to:
       pdf, guide, gold_final
     Only returns agencies that have all three.
+
+    OCR PDFs may live either inside the agency folder OR in the shared
+    CIP Staging ocr folder (ocr_root). Both locations are checked.
     """
     agencies = []
     for week in weeks:
@@ -175,21 +180,27 @@ def find_eligible_agencies(data_root: Path, weeks: list[str]) -> list[dict]:
         for agency_dir in sorted(week_dir.iterdir()):
             if not agency_dir.is_dir() or not agency_dir.name.startswith("2026"):
                 continue
-            # Find files
-            pdfs   = list(agency_dir.glob("*_ocr.pdf"))
+
             guides = list(agency_dir.glob("*_guide.md"))
             finals = list(agency_dir.glob("*_final.csv"))
-
-            # Skip pre_backfill files etc — prefer shortest-named final
             finals = [f for f in finals if "pre_backfill" not in f.name
                       and "mapped" not in f.name]
 
-            if not (pdfs and guides and finals):
+            if not (guides and finals):
                 continue
 
             # Derive agency_id from folder name
             m = re.search(r" - (.+)$", agency_dir.name)
             agency_id = m.group(1) if m else agency_dir.name
+
+            # Look for OCR PDF — prefer agency folder, fall back to ocr_root
+            pdfs = list(agency_dir.glob("*_ocr.pdf"))
+            if not pdfs and ocr_root.exists():
+                stem = agency_id  # e.g. cityofbowie.org_cip_2026-2031
+                pdfs = list(ocr_root.glob(f"{stem}_ocr.pdf"))
+
+            if not pdfs:
+                continue
 
             agencies.append({
                 "week": week,
@@ -380,6 +391,8 @@ def main():
     parser = argparse.ArgumentParser(description="CIP regression harness")
     parser.add_argument("--weeks", default=",".join(ALL_WEEKS),
                         help="Comma-separated week codes (default: all)")
+    parser.add_argument("--week", dest="weeks",
+                        help="Single week code — alias for --weeks")
     parser.add_argument("--limit", type=int, default=None,
                         help="Max agencies to run (for testing)")
     parser.add_argument("--data-root", default=str(DATA_ROOT),
