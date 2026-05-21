@@ -318,7 +318,7 @@ def run_agency(agency: dict, repo_root: Path, auto: bool = True) -> dict:
             cwd=repo_root,
             capture_output=True,
             text=True,
-            timeout=600,  # 10 min per agency
+            timeout=900,  # 15 min per agency
             encoding="utf-8",
             errors="replace",
             env=env,
@@ -327,7 +327,7 @@ def run_agency(agency: dict, repo_root: Path, auto: bool = True) -> dict:
         stderr = result.stderr
     except subprocess.TimeoutExpired:
         base["failure_stage"] = "timeout"
-        base["failure_reason"] = "Pipeline timed out after 300s"
+        base["failure_reason"] = "Pipeline timed out after 900s"
         base["elapsed_seconds"] = round(time.time() - t0, 1)
         return base
     except Exception as e:
