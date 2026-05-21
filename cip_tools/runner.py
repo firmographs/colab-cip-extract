@@ -64,7 +64,7 @@ print(json.dumps(clean))
             [sys.executable, str(tmp)],
             capture_output=True,
             text=True,
-            timeout=120,
+            timeout=300,
         )
         stderr = result.stderr.strip()
         if result.returncode != 0:

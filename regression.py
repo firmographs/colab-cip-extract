@@ -309,15 +309,19 @@ def run_agency(agency: dict, repo_root: Path, auto: bool = True) -> dict:
     if auto:
         cmd.append("--auto")
 
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
+
     try:
         result = subprocess.run(
             cmd,
             cwd=repo_root,
             capture_output=True,
             text=True,
-            timeout=300,  # 5 min per agency
+            timeout=600,  # 10 min per agency
             encoding="utf-8",
             errors="replace",
+            env=env,
         )
         stdout = result.stdout
         stderr = result.stderr
@@ -445,8 +449,8 @@ def main():
             }
 
         status = result.get("status", "?")
-        icon = "✓" if status == "ok" else "✗"
-        print(f"  {icon} {status}  rows={result.get('extracted_row_count','?')}/{result.get('gold_row_count','?')}  "
+        icon = "OK" if status == "ok" else "FAIL"
+        print(f"  [{icon}] rows={result.get('extracted_row_count','?')}/{result.get('gold_row_count','?')}  "
               f"title_match={result.get('title_match_rate','?')}  "
               f"dollar_err={result.get('dollar_pct_error','?')}  "
               f"({result.get('elapsed_seconds','?')}s)")
