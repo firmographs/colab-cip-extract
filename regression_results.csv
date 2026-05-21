@@ -5,3 +5,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260521T0624Z,w1326,2026 03 14 - scmtd.com_cip_2026-2027,scmtd.com_cip_2026-2027,ok,,,17,9,no,0.235,67859000.0,83000000.0,0.2231,188.6
 20260521T0628Z,w1326,2026 03 17 - amtrak.com_cip_2026-2026,amtrak.com_cip_2026-2026,ok,,,138,12,no,0.0,3305348000.0,6800000000.0,1.0573,192.8
 20260521T0631Z,w1326,2026 03 17 - capitolcorridor.org_tip_2027-2028_proposed,capitolcorridor.org_tip_2027-2028_proposed,ok,,,24,8,no,0.0,1518150010.0,0.0,1.0,132.6
+20260521T0633Z,w1326,2026 03 18 - fishers.in.us_cip_2026-2030,fishers.in.us_cip_2026-2030,ok,,,60,0,no,0.0,93276149.0,0,1.0,207.4
