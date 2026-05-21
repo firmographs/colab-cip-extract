@@ -200,3 +200,4 @@ httpx.ReadTimeout: The read operation timed out
 20260521T1443Z,w1826,2026 04 07 - broomecounty.us_cip_2026-2031,broomecounty.us_cip_2026-2031,ok,,,99,173,no,0.778,58312789.0,166022039.0,1.8471,156.3
 20260521T1446Z,w1826,2026 04 07 - cupertino.gov_cip_2026-2030,cupertino.gov_cip_2026-2030,ok,,,34,443,no,0.118,0.0,58594166.0,,120.8
 20260521T1448Z,w1826,2026 04 20 - imperialctc.org_tip_2026-2026,imperialctc.org_tip_2026-2026,ok,,,41,40,yes,0.024,439000.0,17519882.0,38.9086,153.8
+20260521T1450Z,w1826,2026 04 20 - metrocouncil.org_cip_2026-2031,metrocouncil.org_cip_2026-2031,ok,,,87,1195,no,0.322,6095880000.0,0.0,1.0,134.4
