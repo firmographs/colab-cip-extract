@@ -262,3 +262,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1708Z,w1826,2026 05 03 - wbtownship.org_cip_2026-2030,wbtownship.org_cip_2026-2030,ok,,,61,31,no,0.672,0.0,0.0,,179.0
 20260521T1711Z,w1826,2026 05 04 - coonrapidsmn.gov_cip_2026-2030,coonrapidsmn.gov_cip_2026-2030,ok,,,281,0,no,0.0,54454672.0,0,1.0,175.9
 20260521T1714Z,w1826,2026 05 04 - forsyth.cc_cip_2026-2031,forsyth.cc_cip_2026-2031,ok,,,103,15,no,0.0,363180340.0,0.0,1.0,333.6
+20260521T1720Z,w1826,2026 05 04 - kmpud.com_cip_2026-2030,kmpud.com_cip_2026-2030,ok,,,163,531,no,0.0,13415380.0,0.0,1.0,100.4
