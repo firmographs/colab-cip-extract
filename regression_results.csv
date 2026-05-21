@@ -185,3 +185,10 @@ httpx.ReadTimeout: The read operation timed out
 20260521T1348Z,w1726,2026 04 23 - wvc-ut.gov_cip_2026-2031,wvc-ut.gov_cip_2026-2031,ok,,,38,126,no,0.0,104143555.0,0.0,1.0,237.3
 20260521T1352Z,w1726,2026 04 24 - cityofevanston.org_cip_2026-2030,cityofevanston.org_cip_2026-2030,ok,,,133,1289,no,0.489,90518361.0,1.1199955610863355e+26,1.2373131248878175e+18,278.1
 20260521T1356Z,w1726,2026 04 24 - cityoforange.org_cip_2026-2030,cityoforange.org_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,95,,,,,,,900.4
+20260521T1411Z,w1726,2026 04 24 - fortworthtexas.gov_cip_2026-2030,fortworthtexas.gov_cip_2026-2030,failed,design," in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File ""C:\Users\dave\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httpx\_transports\default.py"", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: The read operation timed out
+",135,,,,,,,159.9
