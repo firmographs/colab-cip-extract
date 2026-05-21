@@ -220,3 +220,4 @@ httpx.ReadTimeout: The read operation timed out
                ~~~~~~~~~~~~~~^^^^^^^^
 json.decoder.JSONDecodeError: Invalid \escape: line 41 column 556 (char 3416)
 ",315,,,,,,,47.5
+20260521T1537Z,w1826,2026 04 27 - waterburyct.org_cip_2027-2031,waterburyct.org_cip_2027-2031,ok,,,166,183,no,0.53,325378635.0,222133295.0,0.3173,122.2
