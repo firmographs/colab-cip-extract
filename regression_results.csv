@@ -231,3 +231,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1546Z,w1826,2026 04 28 - lansingmi.gov_cip_2027-2027_proposed,lansingmi.gov_cip_2027-2027_proposed,ok,,,40,4,no,0.0,0.0,9134043.0,,187.4
 20260521T1549Z,w1826,2026 04 28 - pueblo.us_cip_2026-2030,pueblo.us_cip_2026-2030,ok,,,86,414,no,0.814,192777629.0,1899327712.983,8.8524,145.5
 20260521T1552Z,w1826,2026 04 28 - swl.usace.army.mil_cip_2026-2028,swl.usace.army.mil_cip_2026-2028,ok,,,55,55,yes,0.182,3367500000.0,3020000000.0,0.1032,81.2
+20260521T1553Z,w1826,2026 04 28 - townofbreckenridge.com_cip_2026-2030,townofbreckenridge.com_cip_2026-2030,ok,,,57,854,no,0.789,5136032.0,1.0089615265877908e+16,1964476712.9064,214.0
