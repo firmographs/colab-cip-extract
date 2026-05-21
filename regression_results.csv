@@ -271,3 +271,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 subprocess.TimeoutExpired: Command '['C:\\Users\\dave\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe', 'C:\\Users\\dave\\AppData\\Local\\Temp\\tmpdmbfrb5a.py']' timed out after 300 seconds
 ",118,,,,,,,595.5
 20260521T1741Z,w1826,2026 05 04 - themdc.com_cip_2026-2030,themdc.com_cip_2026-2030,ok,,,40,1,no,0.025,4452288261.0,750000.0,0.9998,108.0
+20260521T1742Z,w1826,2026 05 04 - wildwoodnj.org_cip_2026-2031,wildwoodnj.org_cip_2026-2031,ok,,,28,27,yes,0.0,178257732.0,0.0,1.0,152.9
