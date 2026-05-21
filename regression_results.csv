@@ -113,3 +113,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1042Z,w1626,2026 04 15 - mendocinocounty.org_cip_2026-2026,mendocinocounty.org_cip_2026-2026,ok,,,48,378,no,0.0,4925963.94,558210553.0,112.3201,492.9
 20260521T1051Z,w1626,2026 04 16 - mvk.usace.army.mil_cip_2026-2027,mvk.usace.army.mil_cip_2026-2027,ok,,,8,4,no,0.0,0.0,12000000.0,,76.9
 20260521T1052Z,w1626,2026 04 18 - cityofsouthfultonga.gov_cip_2026-2030,cityofsouthfultonga.gov_cip_2026-2030,ok,,,27,28,yes,0.0,77515293.0,0.0,1.0,174.5
+20260521T1055Z,w1726,2026 03 12 - sbtnj.net_cip_2025-2030,sbtnj.net_cip_2025-2030,ok,,,19,21,no,0.0,39214401.0,78428802.0,1.0,109.0
