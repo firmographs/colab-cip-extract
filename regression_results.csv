@@ -1,0 +1,6 @@
+run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,elapsed_seconds
+20260521T0449Z,w1326,2026 02 25 - gwregion.org_cip_2021-2030,gwregion.org_cip_2021-2030,failed,design,".14-64\Lib\encodings\cp1252.py"", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 146-222: character maps to <undefined>
+",338,,,,,,,122.7
