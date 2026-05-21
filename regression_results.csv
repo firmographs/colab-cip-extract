@@ -1,2 +1,3 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,elapsed_seconds
 20260521T0510Z,w1326,2026 02 25 - gwregion.org_cip_2021-2030,gwregion.org_cip_2021-2030,failed,timeout,Pipeline timed out after 300s,338,,,,,,,600.1
+20260521T0520Z,w1326,2026 03 10 - fairfaxva.gov_cip_2026-2030,fairfaxva.gov_cip_2026-2030,ok,,,153,153,yes,0.092,457364840.0,0.0,1.0,576.4
