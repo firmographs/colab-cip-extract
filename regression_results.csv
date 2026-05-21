@@ -66,3 +66,4 @@ httpx.ReadTimeout: The read operation timed out
 20260521T0900Z,w1426,2026 03 30 - fredericksburgva.gov_cip_2025-2029,fredericksburgva.gov_cip_2025-2029,ok,,,85,92,no,0.988,189403024.0,30677616.0,0.838,707.9
 20260521T0912Z,w1426,2026 03 30 - mercedthebus.com_cip_2026-2026,mercedthebus.com_cip_2026-2026,ok,,,23,13,no,0.13,36509763.0,2600006728367.0,71213.0128,89.5
 20260521T0913Z,w1426,2026 03 30 - monroecountypa.gov_cip_2026-2026,monroecountypa.gov_cip_2026-2026,ok,,,14,41,no,0.0,9463123.0,684426134.0596,71.3256,90.4
+20260521T0915Z,w1426,2026 04 02 - countyofamherst.com_cip_2025-2029,countyofamherst.com_cip_2025-2029,ok,,,34,13,no,0.0,3996042.0,0.0,1.0,596.6
