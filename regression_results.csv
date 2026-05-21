@@ -213,3 +213,4 @@ httpx.ReadTimeout: The read operation timed out
 20260521T1527Z,w1826,2026 04 27 - co.burlington.nj.us_cip_2026-2031,co.burlington.nj.us_cip_2026-2031,ok,,,23,22,yes,0.87,638379611.0,638379611.0,0.0,94.8
 20260521T1529Z,w1826,2026 04 27 - hartford.gov_cip_2027-2031_proposed,hartford.gov_cip_2027-2031_proposed,ok,,,63,139,no,0.0,142090500.0,1601595454.05,10.2717,217.2
 20260521T1532Z,w1826,2026 04 27 - indepmo.org_cip_2027-2032,indepmo.org_cip_2027-2032,ok,,,179,180,yes,0.0,0.0,693148333.893352,,123.0
+20260521T1534Z,w1826,2026 04 27 - mvm.usace.army.mil_cip_2026-2027,mvm.usace.army.mil_cip_2026-2027,ok,,,9,6,no,0.222,0.0,35500000.0,,82.6
