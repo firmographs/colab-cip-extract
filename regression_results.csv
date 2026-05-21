@@ -226,3 +226,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 41 column 556 (char 3416)
                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: Unknown format code 'f' for object of type 'str'
 ",261,,,,,,,153.9
+20260521T1541Z,w1826,2026 04 28 - co.hidalgo.tx.us_cip_2026-2026,co.hidalgo.tx.us_cip_2026-2026,ok,,,50,50,yes,0.34,68585939.49,2918375.27,0.9574,166.2
