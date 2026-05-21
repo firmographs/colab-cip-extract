@@ -83,11 +83,8 @@ for _name, _code in _CIP_MODULES.items():
 if '/tmp' not in sys.path:
     sys.path.insert(0, '/tmp')
 
-# Create base extract folder structure on Drive
-_base = '/content/drive/Shareddrives/0_cip_data/extract'
-for _folder in [_base, f'{_base}/1_inbox']:
-    os.makedirs(_folder, exist_ok=True)
-print("Dependencies ready. Extract folders created.")
+os.makedirs('/content/drive/Shareddrives/CIP Staging/in process colab', exist_ok=True)
+print("Dependencies ready.")
 '''
 
 SETUP = _SETUP_HEAD + f'_CIP_MODULES = {json.dumps(_mods)}\n' + _SETUP_TAIL
@@ -96,8 +93,8 @@ CONFIG = r'''
 import os, re, datetime, ipywidgets as _w
 from IPython.display import display, Markdown
 
-_EXTRACT_ROOT = "/content/drive/Shareddrives/0_cip_data/extract"
-_inbox = f"{_EXTRACT_ROOT}/1_inbox"
+_EXTRACT_ROOT = "/content/drive/Shareddrives/CIP Staging/in process colab"
+_inbox = _EXTRACT_ROOT
 
 _files = sorted(
     f for f in os.listdir(_inbox)
@@ -136,8 +133,8 @@ from cip_tools import guide_rag
 from IPython.display import display, Markdown
 import os
 
-_GUIDE_ROOT  = "/content/drive/Shareddrives/0_cip_data/extract"
-_INDEX_PATH  = "/content/drive/Shareddrives/0_cip_data/extract/_guide_index.json"
+_GUIDE_ROOT  = "/content/drive/Shareddrives/CIP Staging/in process colab"
+_INDEX_PATH  = "/content/drive/Shareddrives/CIP Staging/in process colab/_guide_index.json"
 
 # Rebuild index if stale (> 7 days) or missing
 import time as _time
