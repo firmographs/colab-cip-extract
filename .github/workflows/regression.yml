@@ -1,0 +1,78 @@
+name: CIP Regression
+
+on:
+  workflow_dispatch:
+    inputs:
+      weeks:
+        description: "Comma-separated week codes (e.g. w1326,w1426) — leave blank for all"
+        required: false
+        default: "w1326,w1426,w1526,w1626,w1726,w1826,w1926,w2026"
+      limit:
+        description: "Max agencies to run (blank = all)"
+        required: false
+        default: ""
+      resume:
+        description: "Skip agencies already marked ok in results file"
+        type: boolean
+        default: true
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360   # 6 hours
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]" || pip install pdfplumber pandas httpx openpyxl beautifulsoup4
+
+      - name: Mount Google Drive data
+        # Data lives in Google Drive. On GH Actions we pull via rclone.
+        # Requires GDRIVE_RCLONE_CONF secret (base64-encoded rclone.conf).
+        run: |
+          sudo apt-get install -y rclone
+          mkdir -p ~/.config/rclone
+          echo "${{ secrets.GDRIVE_RCLONE_CONF }}" | base64 -d > ~/.config/rclone/rclone.conf
+          mkdir -p /mnt/cip_data
+          rclone mount "gdrive:0_cip_data/2026" /mnt/cip_data \
+            --daemon --vfs-cache-mode full --vfs-cache-max-size 20G \
+            --log-level INFO
+          sleep 10
+          ls /mnt/cip_data | head -5
+
+      - name: Configure git identity
+        run: |
+          git config user.email "ci@firmographs.com"
+          git config user.name "Firmographs CI"
+
+      - name: Run regression harness
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          LIMIT_ARG=""
+          if [ -n "${{ inputs.limit }}" ]; then
+            LIMIT_ARG="--limit ${{ inputs.limit }}"
+          fi
+          RESUME_ARG=""
+          if [ "${{ inputs.resume }}" = "true" ]; then
+            RESUME_ARG="--resume"
+          fi
+          python regression.py \
+            --weeks "${{ inputs.weeks }}" \
+            --data-root /mnt/cip_data \
+            --commit \
+            $RESUME_ARG \
+            $LIMIT_ARG
+
+      - name: Push results
+        run: |
+          git push origin HEAD
