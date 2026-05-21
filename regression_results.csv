@@ -21,3 +21,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260521T0712Z,w1326,2026 03 25 - centralsan.org_cip_2026-2035,centralsan.org_cip_2026-2035,ok,,,82,0,no,0.0,1265620000.0,0,1.0,450.7
 20260521T0720Z,w1326,2026 03 25 - cityofasbury.com_cip_2025-2030,cityofasbury.com_cip_2025-2030,ok,,,60,0,no,0.0,24973117.0,0,1.0,119.8
 20260521T0722Z,w1326,2026 03 25 - herndon-va.gov_cip_2026-2031,herndon-va.gov_cip_2026-2031,ok,,,46,76,no,0.0,263724208.0,3.5000020000022525e+23,1327144757223898.8,570.8
+20260521T0731Z,w1326,2026 03 25 - lrd.usace.army.mil.buf_cip_2026-2027,lrd.usace.army.mil.buf_cip_2026-2027,ok,,,19,19,yes,1.0,3000000.0,307000000.0,101.3333,85.9
