@@ -55,12 +55,13 @@ RESULT_COLS = [
     "title_match_rate", # 0.0-1.0
     "dollar_total_gold",
     "dollar_total_extracted",
-    "dollar_pct_error", # abs((extracted-gold)/gold) — blank if gold=0; capped at 9999
+    "dollar_pct_error", # abs((extracted-gold)/gold) — blank if gold=0
+    "dollar_blowup",    # yes if dollar_pct_error > 1e6 (column-alignment OCR artifact)
     "elapsed_seconds",
 ]
 
 TITLE_SIM_THRESHOLD = 0.75  # looser than qa.py's 0.85 — gold CSVs vary in title cleaning
-DOLLAR_ERROR_CAP = 9999.0   # cap dollar_pct_error to flag column-alignment blowups
+DOLLAR_BLOWUP_THRESHOLD = 1e6  # errors above this are OCR column-alignment artifacts
 
 
 # ---------------------------------------------------------------------------
@@ -148,18 +149,18 @@ def score_against_gold(extracted: list[dict], gold: list[dict]) -> dict:
     )
 
     if dollar_gold > 0:
-        dollar_pct_error = min(
-            abs(dollar_extracted - dollar_gold) / dollar_gold,
-            DOLLAR_ERROR_CAP,
-        )
+        dollar_pct_error = abs(dollar_extracted - dollar_gold) / dollar_gold
+        dollar_blowup = "yes" if dollar_pct_error > DOLLAR_BLOWUP_THRESHOLD else "no"
     else:
         dollar_pct_error = None
+        dollar_blowup = ""
 
     return {
         "title_match_rate": round(title_match_rate, 3) if title_match_rate is not None else "",
         "dollar_total_gold": dollar_gold,
-        "dollar_total_extracted": min(dollar_extracted, 1e15),  # cap display value
+        "dollar_total_extracted": dollar_extracted,
         "dollar_pct_error": round(dollar_pct_error, 4) if dollar_pct_error is not None else "",
+        "dollar_blowup": dollar_blowup,
     }
 
 
@@ -292,6 +293,7 @@ def run_agency(agency: dict, repo_root: Path, auto: bool = True) -> dict:
         "dollar_total_gold": "",
         "dollar_total_extracted": "",
         "dollar_pct_error": "",
+        "dollar_blowup": "",
         "elapsed_seconds": "",
     }
 
