@@ -74,3 +74,9 @@ httpx.ReadTimeout: The read operation timed out
 20260521T0934Z,w1526,2026 03 09 - culpepercounty.gov_cip_2026-2030,culpepercounty.gov_cip_2026-2030,ok,,,107,127,no,0.935,424478626.0,424478626.0,0.0,154.9
 20260521T0937Z,w1526,2026 03 12 - polkcountyiowa.gov_cip_2025-2025,polkcountyiowa.gov_cip_2025-2025,ok,,,98,95,yes,0.52,12664530.0,25428977.0,1.0079,87.6
 20260521T0939Z,w1526,2026 03 12 - portagecounty-oh.gov_cip_2026-2031,portagecounty-oh.gov_cip_2026-2031,ok,,,99,104,no,0.848,25750589.0,6793804.0,0.7362,122.0
+20260521T0941Z,w1526,2026 03 14 - rockvillemd.gov_cip_2026-2030,rockvillemd.gov_cip_2026-2030,failed,ingest,"(self.layout._objs):
+                                        ^^^^^^^^^^^
+  File ""C:\Users\dave\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pdfplumber\page.py"", line 268, in layout
+    raise PdfminerException(e)
+pdfplumber.utils.exceptions.PdfminerException: [Errno 22] Invalid argument
+",72,,,,,,,182.5
