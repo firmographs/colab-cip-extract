@@ -165,3 +165,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1307Z,w1726,2026 04 22 - lcps.org_cip_2025-2030,lcps.org_cip_2025-2030,ok,,,26,15,no,0.731,78340.0,43140.0,0.4493,258.8
 20260521T1311Z,w1726,2026 04 22 - leegov.com_dot_cip_2026-2035,leegov.com_dot_cip_2026-2035,ok,,,18,1,no,0.0,5870000.0,0.0,1.0,77.6
 20260521T1312Z,w1726,2026 04 22 - lrd.usace.army.mil.nsh_cip_2026-2028,lrd.usace.army.mil.nsh_cip_2026-2028,ok,,,52,52,yes,0.0,755750000.0,753250002.5,0.0033,98.4
+20260521T1314Z,w1726,2026 04 22 - portlandmaine.gov_cip_2026-2030,portlandmaine.gov_cip_2026-2030,ok,,,330,0,no,0.0,0.0,0,,250.8
