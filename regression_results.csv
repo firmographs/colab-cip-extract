@@ -138,3 +138,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1155Z,w1726,2026 04 19 - jamescitycountyva.gov_cip_2026-2030,jamescitycountyva.gov_cip_2026-2030,ok,,,143,135,no,0.0,454853800.0,1013474042.0,1.2281,219.2
 20260521T1159Z,w1726,2026 04 19 - roundrocktexas.gov_cip_2026-2030,roundrocktexas.gov_cip_2026-2030,ok,,,178,127,no,0.0,451802600.0,3109809813.66,5.8831,180.0
 20260521T1202Z,w1726,2026 04 20 - cityofglendora.org_cip_2026-2030,cityofglendora.org_cip_2026-2030,ok,,,68,44,no,0.971,108328533.0,103489669.0,0.0447,317.9
+20260521T1207Z,w1726,2026 04 20 - co.morris.nj.us_cip_2026-2031,co.morris.nj.us_cip_2026-2031,ok,,,36,40,no,0.861,262909092.0,38067831.0,0.8552,112.2
