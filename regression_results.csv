@@ -266,3 +266,7 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1722Z,w1826,2026 05 04 - norfolkcounty.org_cip_2026-2026,norfolkcounty.org_cip_2026-2026,ok,,,22,20,no,0.818,0.0,216632136.0,,75.6
 20260521T1723Z,w1826,2026 05 04 - ofallon.mo.us_cip_2026-2026,ofallon.mo.us_cip_2026-2026,ok,,,124,399,no,0.008,46556046.0,1556499011.0,32.4328,253.3
 20260521T1727Z,w1826,2026 05 04 - rfta.com_tip_2026-2026,rfta.com_tip_2026-2026,ok,,,32,51,no,0.0,7975000.0,194370320.0,23.3725,207.8
+20260521T1731Z,w1826,2026 05 04 - rochesterhills.org_cip_2027-2032_proposed,rochesterhills.org_cip_2027-2032_proposed,failed,full_run,"4-64\Lib\subprocess.py"", line 1644, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\Users\\dave\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe', 'C:\\Users\\dave\\AppData\\Local\\Temp\\tmpdmbfrb5a.py']' timed out after 300 seconds
+",118,,,,,,,595.5
