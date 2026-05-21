@@ -95,3 +95,4 @@ httpx.ReadError: [WinError 10054] An existing connection was forcibly closed by 
 20260521T0952Z,w1526,2026 04 04 - countyofsb.org_cip_2027-2031,countyofsb.org_cip_2027-2031,ok,,,192,147,no,0.172,136140000.0,43460659.0,0.6808,128.1
 20260521T0954Z,w1526,2026 04 06 - sara-tx.org_cip_2026-2035,sara-tx.org_cip_2026-2035,ok,,,47,45,yes,0.0,530262822.0,87161.0,0.9998,514.6
 20260521T1003Z,w1526,2026 04 10 - d-laketransit.org-ca_tip_2026-2026,d-laketransit.org-ca_tip_2026-2026,ok,,,18,2,no,0.0,982493.0,0.0,1.0,57.7
+20260521T1004Z,w1626,2026 02 26 - casscountynd.gov_cip_2026-2030,casscountynd.gov_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,99,,,,,,,900.4
