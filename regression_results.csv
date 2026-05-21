@@ -321,3 +321,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1845Z,w1926,2026 05 09 - salemcountynj.gov_cip_2024-2029,salemcountynj.gov_cip_2024-2029,ok,,,20,18,no,0.8,86768390.0,67952010.0,0.2169,100.8
 20260521T1847Z,w1926,2026 05 09 - sayreville.com_cip_2025-2030,sayreville.com_cip_2025-2030,ok,,,11,12,no,0.636,158540060.0,0.0,1.0,91.8
 20260521T1848Z,w1926,2026 05 10 - cityofpsl.com_cip_2027-2036_proposed,cityofpsl.com_cip_2027-2036_proposed,ok,,,193,81,no,0.425,0.0,353051744.0,,147.9
+20260521T1851Z,w1926,2026 05 10 - crwwd.com_cip_2026-2035,crwwd.com_cip_2026-2035,ok,,,81,79,yes,0.37,159235805.0,143608985.0,0.0981,139.8
