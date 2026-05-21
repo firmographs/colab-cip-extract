@@ -94,7 +94,7 @@ import os, re, datetime, ipywidgets as _w
 from IPython.display import display, Markdown
 
 _EXTRACT_ROOT = "/content/drive/Shareddrives/CIP Staging/in process colab"
-_inbox = _EXTRACT_ROOT
+_inbox = f"{_EXTRACT_ROOT}/1_inbox"
 
 _files = sorted(
     f for f in os.listdir(_inbox)
