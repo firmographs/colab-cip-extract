@@ -176,3 +176,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 httpx.ReadTimeout: The read operation timed out
 ",389,,,,,,,196.6
 20260521T1325Z,w1726,2026 04 23 - ci.oshkosh.wi.us_cip_2026-2035,ci.oshkosh.wi.us_cip_2026-2035,ok,,,331,691,no,0.52,0.0,934223109.0,,152.8
+20260521T1327Z,w1726,2026 04 23 - cityofwestland.com_cip_2027-2032_proposed,cityofwestland.com_cip_2027-2032_proposed,ok,,,200,65,no,0.31,129843952.0,-30386.22000000009,1.0002,105.3
