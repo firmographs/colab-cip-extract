@@ -245,3 +245,4 @@ ValueError: Unknown format code 'f' for object of type 'str'
 20260521T1638Z,w1826,2026 04 30 - catchacat.org_tip_2026-2026,catchacat.org_tip_2026-2026,ok,,,8,8,yes,1.0,22173208.0,0.0,1.0,117.5
 20260521T1640Z,w1826,2026 04 30 - chesterfield.gov_cip_2027-2031_proposed,chesterfield.gov_cip_2027-2031_proposed,ok,,,44,0,no,0.0,101368200.0,0,1.0,221.9
 20260521T1644Z,w1826,2026 04 30 - northglenn.org_cip_2026-2030,northglenn.org_cip_2026-2030,ok,,,52,42,no,0.827,20075764.0,49427649.0,1.4621,139.3
+20260521T1646Z,w1826,2026 04 30 - oakdaleirrigation.com_cip_2026-2026,oakdaleirrigation.com_cip_2026-2026,ok,,,59,1,no,0.0,27815000.0,5000000.0,0.8202,38.8
