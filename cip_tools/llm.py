@@ -73,8 +73,14 @@ def ask(
             data = resp.json()
             return data["content"][0]["text"]
         except httpx.HTTPStatusError as e:
-            if e.response.status_code == 529 and attempt < retries - 1:
+            retryable = e.response.status_code in (429, 500, 502, 503, 529)
+            if retryable and attempt < retries - 1:
                 time.sleep(30 * (attempt + 1))
+                continue
+            raise
+        except (httpx.ConnectError, httpx.ReadTimeout, httpx.RemoteProtocolError) as e:
+            if attempt < retries - 1:
+                time.sleep(15 * (attempt + 1))
                 continue
             raise
     raise RuntimeError("Exhausted retries")

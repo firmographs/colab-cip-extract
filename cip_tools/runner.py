@@ -49,9 +49,16 @@ if not isinstance(rows, list):
 sys.stdout = _real_stdout  # restore before we print JSON
 
 {limit_code}
-# Stringify any non-serialisable values
-clean = [{{str(k): str(v) if not isinstance(v, (str,int,float,type(None))) else v
-           for k,v in r.items()}} for r in rows]
+# Normalise numeric fields: None → 0, strings → float where possible
+_NUM_FIELDS = {{"Total_Project_Budget", "Project_Index"}}
+def _coerce(k, v):
+    if k in _NUM_FIELDS:
+        if v is None: return 0.0
+        try: return float(str(v).replace(",","").replace("$",""))
+        except (ValueError, TypeError): return 0.0
+    return str(v) if not isinstance(v, (str, int, float, type(None))) else v
+
+clean = [{{str(k): _coerce(k, v) for k, v in r.items()}} for r in rows]
 print(json.dumps(clean))
 """)
 

@@ -50,15 +50,17 @@ RESULT_COLS = [
     "failure_reason",   # short error message
     "gold_row_count",
     "extracted_row_count",
+    "zero_rows",        # yes if extracted_row_count == 0 despite ok status
     "row_count_match",  # yes | no | na
     "title_match_rate", # 0.0-1.0
     "dollar_total_gold",
     "dollar_total_extracted",
-    "dollar_pct_error", # abs((extracted-gold)/gold) — blank if gold=0
+    "dollar_pct_error", # abs((extracted-gold)/gold) — blank if gold=0; capped at 9999
     "elapsed_seconds",
 ]
 
 TITLE_SIM_THRESHOLD = 0.75  # looser than qa.py's 0.85 — gold CSVs vary in title cleaning
+DOLLAR_ERROR_CAP = 9999.0   # cap dollar_pct_error to flag column-alignment blowups
 
 
 # ---------------------------------------------------------------------------
@@ -146,14 +148,17 @@ def score_against_gold(extracted: list[dict], gold: list[dict]) -> dict:
     )
 
     if dollar_gold > 0:
-        dollar_pct_error = abs(dollar_extracted - dollar_gold) / dollar_gold
+        dollar_pct_error = min(
+            abs(dollar_extracted - dollar_gold) / dollar_gold,
+            DOLLAR_ERROR_CAP,
+        )
     else:
         dollar_pct_error = None
 
     return {
         "title_match_rate": round(title_match_rate, 3) if title_match_rate is not None else "",
         "dollar_total_gold": dollar_gold,
-        "dollar_total_extracted": dollar_extracted,
+        "dollar_total_extracted": min(dollar_extracted, 1e15),  # cap display value
         "dollar_pct_error": round(dollar_pct_error, 4) if dollar_pct_error is not None else "",
     }
 
@@ -281,6 +286,7 @@ def run_agency(agency: dict, repo_root: Path, auto: bool = True) -> dict:
         "failure_reason": "",
         "gold_row_count": "",
         "extracted_row_count": "",
+        "zero_rows": "",
         "row_count_match": "",
         "title_match_rate": "",
         "dollar_total_gold": "",
@@ -380,6 +386,7 @@ def run_agency(agency: dict, repo_root: Path, auto: bool = True) -> dict:
     base.update({
         "status": "ok",
         "extracted_row_count": n_ext,
+        "zero_rows": "yes" if n_ext == 0 else "no",
         "row_count_match": row_match,
         **scores,
         "elapsed_seconds": round(time.time() - t0, 1),
