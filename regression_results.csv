@@ -154,3 +154,8 @@ pdfplumber.utils.exceptions.PdfminerException: [Errno 22] Invalid argument
 ",132,,,,,,,724.5
 20260521T1248Z,w1726,2026 04 21 - townofjohnstown.com_cip_2026-2035,townofjohnstown.com_cip_2026-2035,ok,,,99,0,no,0.0,419261842.0,0,1.0,123.2
 20260521T1250Z,w1726,2026 04 22 - bia.gov_cip_2026-2030,bia.gov_cip_2026-2030,ok,,,72,27,no,0.528,0.0,53893000.0,,186.5
+20260521T1253Z,w1726,2026 04 22 - ci.brooklyn-center.mn.us_cip_2026-2035,ci.brooklyn-center.mn.us_cip_2026-2035,failed,test_run,"ne 159, in process
+    print(f""         ID={r.get('Project_Number_Primary','?')}  Total=${r.get('Total_Project_Budget',0):,.0f}"")
+                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unknown format code 'f' for object of type 'str'
+",118,,,,,,,96.0
