@@ -25,10 +25,18 @@ def _run_script(script_path: Path, capture_n: int | None = None) -> tuple[list[d
     Execute the extraction script and return (rows, stderr).
     The script must define run() returning list[dict].
     """
-    # We inject a small wrapper that calls run() and JSON-serialises the result
+    # We inject a small wrapper that calls run() and JSON-serialises the result.
+    # Stdout is redirected to stderr during import+run so any print()s in the
+    # script don't corrupt the JSON we parse from stdout.
     limit_code = f"rows = rows[:{capture_n}]" if capture_n else ""
     wrapper = textwrap.dedent(f"""
-import sys, json, importlib.util
+import sys, json, importlib.util, io
+
+# Redirect stdout → stderr while loading and running the script so any
+# print() calls in the generated script don't corrupt our JSON output.
+_real_stdout = sys.stdout
+sys.stdout = sys.stderr
+
 spec = importlib.util.spec_from_file_location("_cip_script", r{str(script_path)!r})
 mod  = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
@@ -37,6 +45,9 @@ if rows is None:
     raise RuntimeError("run() returned None — script is missing a return statement")
 if not isinstance(rows, list):
     raise RuntimeError(f"run() must return list[dict], got {{type(rows).__name__}}")
+
+sys.stdout = _real_stdout  # restore before we print JSON
+
 {limit_code}
 # Stringify any non-serialisable values
 clean = [{{str(k): str(v) if not isinstance(v, (str,int,float,type(None))) else v
