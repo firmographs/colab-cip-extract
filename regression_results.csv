@@ -80,3 +80,9 @@ httpx.ReadTimeout: The read operation timed out
     raise PdfminerException(e)
 pdfplumber.utils.exceptions.PdfminerException: [Errno 22] Invalid argument
 ",72,,,,,,,182.5
+20260521T0944Z,w1526,2026 03 19 - fallschurchva.gov_cip_2027-2032_proposed,fallschurchva.gov_cip_2027-2032_proposed,failed,ingest,"n enumerate(iter_pages()):
+                   ~~~~~~~~~^^^^^^^^^^^^^^
+  File ""C:\Users\dave\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pdfplumber\pdf.py"", line 161, in iter_pages
+    raise PdfminerException(e)
+pdfplumber.utils.exceptions.PdfminerException: [Errno 22] Invalid argument
+",50,,,,,,,84.2
