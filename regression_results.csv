@@ -40,3 +40,4 @@ TypeError: unsupported format string passed to NoneType.__format__
     ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: could not convert string to float: 'None'
 ",50,,,,,,,105.1
+20260521T0752Z,w1326,2026 03 26 - swg.usace.army.mil_cip_2026-2031,swg.usace.army.mil_cip_2026-2031,ok,,,50,77,no,0.96,0.0,2841000000.0,,118.7
