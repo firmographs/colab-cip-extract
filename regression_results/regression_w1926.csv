@@ -4,3 +4,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0205Z,w1926,2026 03 27 - mvr.usace.army.mil_cip_2026-2026,mvr.usace.army.mil_cip_2026-2026,failed,timeout,Pipeline timed out after 900s,22,,,,,,,,,900.0
 20260522T0220Z,w1926,2026 03 27 - swt.usace.army.mil_cip_2026-2029,swt.usace.army.mil_cip_2026-2029,ok,,,45,43,no,yes,0.444,750750000.0,1197000500.0,0.5944,no,82.8
 20260522T0222Z,w1926,2026 03 30 - co.mclennan.tx.us_cip_2026-2026,co.mclennan.tx.us_cip_2026-2026,ok,,,57,22,no,no,0.509,1547696.0,138.0,0.9999,no,106.3
+20260522T0223Z,w1926,2026 04 23 - whiteplainsny.gov_cip_2026-2032,whiteplainsny.gov_cip_2026-2032,ok,,,122,702,no,no,0.336,220952148.0,35881045319152.9,162391.8332,no,150.8
