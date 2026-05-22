@@ -19,3 +19,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1153Z,w1726,2026 04 16 - lrd.usace.army.mil.pgh_cip_2026-2026,lrd.usace.army.mil.pgh_cip_2026-2026,ok,,,18,18,no,yes,0.944,0.0,28100000.0,,,99.2
 20260522T1155Z,w1726,2026 04 16 - mvs.usace.army.mil_cip_2026-2027,mvs.usace.army.mil_cip_2026-2027,ok,,,16,16,no,yes,0.0,595250000.0,0.0,1.0,no,73.5
 20260522T1156Z,w1726,2026 04 16 - nap.usace.army.mil_cip_2026-2026,nap.usace.army.mil_cip_2026-2026,ok,,,35,64,no,no,0.0,717250000.0,254000000.0,0.6459,no,135.7
+20260522T1158Z,w1726,2026 04 16 - utah.gov_dnr_cip_2027-2031,utah.gov_dnr_cip_2027-2031,ok,,,36,233,no,no,0.222,1092788957.0,768691704.0,0.2966,no,749.9
