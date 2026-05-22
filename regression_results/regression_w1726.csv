@@ -36,3 +36,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1359Z,w1726,2026 04 21 - townofjohnstown.com_cip_2026-2035,townofjohnstown.com_cip_2026-2035,ok,,,99,0,yes,no,0.0,419261842.0,0,1.0,no,0.0
 20260522T1359Z,w1726,2026 04 22 - bia.gov_cip_2026-2030,bia.gov_cip_2026-2030,ok,,,72,65,no,no,0.292,0.0,33683562400.0,,,0.2
 20260522T1359Z,w1726,2026 04 22 - ci.brooklyn-center.mn.us_cip_2026-2035,ci.brooklyn-center.mn.us_cip_2026-2035,ok,,,118,65,no,no,0.415,235805703.0,35406034.0,0.8499,no,0.5
+20260522T1359Z,w1726,2026 04 22 - co.scott.mn.us_cip_2026-2035,co.scott.mn.us_cip_2026-2035,ok,,,133,47,no,no,0.353,372436004.0,1.500000150000065e+28,4.027537976699119e+19,yes,0.4
