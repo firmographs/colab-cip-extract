@@ -21,3 +21,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0707Z,w1326,2026 03 25 - centralsan.org_cip_2026-2035,centralsan.org_cip_2026-2035,failed,timeout,Pipeline timed out after 900s,82,,,,,,,,,900.1
 20260522T0722Z,w1326,2026 03 25 - cityofasbury.com_cip_2025-2030,cityofasbury.com_cip_2025-2030,ok,,,60,9,no,no,0.017,24973117.0,0.0,1.0,no,262.1
 20260522T0727Z,w1326,2026 03 25 - herndon-va.gov_cip_2026-2031,herndon-va.gov_cip_2026-2031,ok,,,46,202,no,no,0.0,263724208.0,208233621.4,0.2104,no,398.6
+20260522T0733Z,w1326,2026 03 25 - lrd.usace.army.mil.buf_cip_2026-2027,lrd.usace.army.mil.buf_cip_2026-2027,ok,,,19,18,no,no,0.316,3000000.0,134000000.0,43.6667,no,93.2
