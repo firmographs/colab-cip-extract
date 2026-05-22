@@ -10,3 +10,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0204Z,w1426,2026 03 26 - idahofallsidaho.gov_cip_2026-2026,idahofallsidaho.gov_cip_2026-2026,ok,,,195,362,no,no,0.667,152848413.0,6.015919198539903e+17,3935872855.2919,yes,131.6
 20260522T0207Z,w1426,2026 03 26 - swf.usace.army.mil_cip_2026-2028,swf.usace.army.mil_cip_2026-2028,ok,,,128,124,no,yes,0.117,4133000000.0,2140000000.0,0.4822,no,82.9
 20260522T0208Z,w1426,2026 03 27 - flyoma.com_cip_2026-2030,flyoma.com_cip_2026-2030,ok,,,16,20,no,no,0.688,924680000.0,882642080.0,0.0455,no,63.1
+20260522T0209Z,w1426,2026 03 27 - townofmamaroneckny.org_cip_2025-2029,townofmamaroneckny.org_cip_2025-2029,ok,,,93,66,no,no,0.0,74994430.0,225402708.53,2.0056,no,205.1
