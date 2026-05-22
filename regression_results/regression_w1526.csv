@@ -3,3 +3,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1353Z,w1526,2026 03 12 - polkcountyiowa.gov_cip_2025-2025,polkcountyiowa.gov_cip_2025-2025,ok,,,98,86,no,no,0.969,12664530.0,7832751.0,0.3815,no,1.3
 20260522T1353Z,w1526,2026 03 12 - portagecounty-oh.gov_cip_2026-2031,portagecounty-oh.gov_cip_2026-2031,ok,,,99,50,no,no,0.414,25750589.0,0.0,1.0,no,0.5
 20260522T1353Z,w1526,2026 03 14 - rockvillemd.gov_cip_2026-2030,rockvillemd.gov_cip_2026-2030,ok,,,72,82,no,no,0.986,382369898.0,303727564.0,0.2057,no,0.7
+20260522T1353Z,w1526,2026 03 19 - fallschurchva.gov_cip_2027-2032_proposed,fallschurchva.gov_cip_2027-2032_proposed,ok,,,50,50,no,yes,0.78,162593523.0,0.0,1.0,no,0.2
