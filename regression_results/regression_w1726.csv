@@ -8,3 +8,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0201Z,w1726,2026 04 05 - co.lancaster.pa.us_cip_2026-2026,co.lancaster.pa.us_cip_2026-2026,ok,,,12,12,no,yes,0.167,4209624.0,12602023.0,1.9936,no,125.1
 20260522T0203Z,w1726,2026 04 08 - saw.usace.army.mil_cip_2026-2029,saw.usace.army.mil_cip_2026-2029,ok,,,21,21,no,yes,1.0,340500000.0,589000000.0,0.7298,no,83.7
 20260522T0204Z,w1726,2026 04 09 - jurupavalley.org_cip_2026-2030,jurupavalley.org_cip_2026-2030,ok,,,62,34,no,no,0.548,382841676.0,8.500014691802232e+20,2220242785636.1187,yes,103.8
+20260522T0206Z,w1726,2026 04 09 - lbwl.com_cip_2026-2031,lbwl.com_cip_2026-2031,ok,,,29,2,no,no,0.0,719150430.0,756177942.0,0.0515,no,61.1
