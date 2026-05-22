@@ -28,3 +28,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0741Z,w1326,2026 03 26 - covingtonky.gov_cip_2025-2025,covingtonky.gov_cip_2025-2025,ok,,,46,39,no,no,0.043,0.0,146046163.0,,,125.8
 20260522T0743Z,w1326,2026 03 26 - hackensack.org_cip_2024-2029,hackensack.org_cip_2024-2029,ok,,,12,12,no,yes,0.583,33066362.0,0.0,1.0,no,112.9
 20260522T0745Z,w1326,2026 03 26 - idaho.gov_state_cip_2026-2026,idaho.gov_state_cip_2026-2026,ok,,,8,12,no,no,0.125,832600.0,5359300.0,5.4368,no,87.5
+20260522T0747Z,w1326,2026 03 26 - mesacounty.us_cip_2026-2031_proposed,mesacounty.us_cip_2026-2031_proposed,ok,,,126,13,no,no,0.103,232353890.0,7585000.0,0.9674,no,94.3
