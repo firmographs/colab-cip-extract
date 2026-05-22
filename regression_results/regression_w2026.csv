@@ -6,3 +6,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0213Z,w2026,2026 05 01 - plano.gov_cip_2026-2030,plano.gov_cip_2026-2030,ok,,,612,612,no,yes,0.871,2234116382.0,2207875407.45,0.0117,no,618.3
 20260522T0223Z,w2026,2026 05 02 - scwa.com_cip_2027-2027,scwa.com_cip_2027-2027,ok,,,27,12,no,no,0.0,2432.0,278432574.0,114486.0781,no,89.1
 20260522T0225Z,w2026,2026 05 07 - willcountyillinois.com_cip_2026-2030,willcountyillinois.com_cip_2026-2030,ok,,,40,101,no,no,0.025,50000.0,303266356.0,6064.3271,no,280.4
+20260522T0229Z,w2026,2026 05 07 - woodstockva.gov _cip_2027-2031,woodstockva.gov _cip_2027-2031,ok,,,84,0,yes,no,0.0,102841960.0,0,1.0,no,92.6
