@@ -32,3 +32,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 30 column 376 (char 2352)
 20260522T0300Z,w1826,2026 04 28 - townofbreckenridge.com_cip_2026-2030,townofbreckenridge.com_cip_2026-2030,ok,,,57,215,no,no,0.737,5136032.0,2.9498217370850595e+31,5.743386600950032e+24,yes,174.4
 20260522T0303Z,w1826,2026 04 28 - westerville.org_cip_2026-2030,westerville.org_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,162,,,,,,,,,900.1
 20260522T0318Z,w1826,2026 04 29 - camdencounty.com_cip_2026-2031,camdencounty.com_cip_2026-2031,ok,,,56,64,no,no,0.982,127456000.0,63727955.0,0.5,no,129.6
+20260522T0320Z,w1826,2026 04 29 - casitaswater.com_cip_2027-2027_proposed,casitaswater.com_cip_2027-2027_proposed,ok,,,62,155,no,no,0.548,41668199.0,782069665.0,17.769,no,55.7
