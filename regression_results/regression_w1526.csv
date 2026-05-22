@@ -6,3 +6,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0159Z,w1526,2026 03 19 - fallschurchva.gov_cip_2027-2032_proposed,fallschurchva.gov_cip_2027-2032_proposed,ok,,,50,50,no,yes,0.78,162593523.0,186400270.0,0.1464,no,170.0
 20260522T0202Z,w1526,2026 03 24 - apsva.us_cip_2025-2034,apsva.us_cip_2025-2034,ok,,,15,318,no,no,0.267,1096.18,2879059350000.0,2626447617.0919,yes,100.3
 20260522T0204Z,w1526,2026 03 26 - glynncounty.org_cip_2026-2030_proposed,glynncounty.org_cip_2026-2030_proposed,ok,,,140,21,no,no,0.0,21631419.0,7854607914.0,362.1111,no,193.4
+20260522T0207Z,w1526,2026 04 04 - countyofsb.org_cip_2027-2031,countyofsb.org_cip_2027-2031,ok,,,192,160,no,no,0.568,136140000.0,163537083.76,0.2012,no,146.7
