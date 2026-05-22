@@ -66,3 +66,4 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.com/v1/messages'
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
 ",61,,,,,,,,,125.5
+20260522T0442Z,w1826,2026 05 04 - coonrapidsmn.gov_cip_2026-2030,coonrapidsmn.gov_cip_2026-2030,ok,,,281,77,no,no,0.028,54454672.0,20681011.0,0.6202,no,173.8
