@@ -14,3 +14,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0213Z,w1426,2026 03 30 - dentoncounty.gov_cip_2026-2026,dentoncounty.gov_cip_2026-2026,ok,,,58,76,no,no,0.0,0.0,6070296.0,,,156.6
 20260522T0215Z,w1426,2026 03 30 - douglasvillega.gov_cip_2025-2028,douglasvillega.gov_cip_2025-2028,ok,,,58,32,no,no,0.0,8247172.0,52262922.0,5.3371,no,215.7
 20260522T0219Z,w1426,2026 03 30 - fredericksburgva.gov_cip_2025-2029,fredericksburgva.gov_cip_2025-2029,ok,,,85,90,no,no,0.988,189403024.0,133161998.0,0.2969,no,140.0
+20260522T0221Z,w1426,2026 03 30 - mercedthebus.com_cip_2026-2026,mercedthebus.com_cip_2026-2026,ok,,,23,22,no,yes,0.478,36509763.0,6235824.0,0.8292,no,91.0
