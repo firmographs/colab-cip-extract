@@ -31,3 +31,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0306Z,w1726,2026 04 21 - caddo.org_cip_2026-2026,caddo.org_cip_2026-2026,ok,,,130,3,no,no,0.0,0.0,777499911.0,,,141.2
 20260522T0309Z,w1726,2026 04 21 - charleston-sc.gov_cip_2026-2030,charleston-sc.gov_cip_2026-2030,ok,,,63,63,no,yes,1.0,860548859.0,1630034225.0,0.8942,no,94.3
 20260522T0310Z,w1726,2026 04 21 - cityhs.net_cip_2027-2031,cityhs.net_cip_2027-2031,ok,,,199,9,no,no,0.0,0.0,384726670.0,,,203.7
+20260522T0314Z,w1726,2026 04 21 - flower-mound.com_cip_2026-2035,flower-mound.com_cip_2026-2035,ok,,,292,319,no,no,0.75,1340264202.0,329703306.26,0.754,no,601.6
