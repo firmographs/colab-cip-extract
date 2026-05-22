@@ -4,3 +4,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0203Z,w1626,2026 03 07 - lcwsa.net_cip_2026-2030,lcwsa.net_cip_2026-2030,ok,,,197,168,no,no,0.0,14333776.0,5334335.0,0.6278,no,123.2
 20260522T0206Z,w1626,2026 04 04 - flyabe.com_cip_2024-2028,flyabe.com_cip_2024-2028,ok,,,77,0,yes,no,0.0,85841913.0,0,1.0,no,103.0
 20260522T0207Z,w1626,2026 04 07 - cityofplacerville.org_cip_2026-2026,cityofplacerville.org_cip_2026-2026,ok,,,10,8,no,no,0.8,0.0,383720.0,,,67.0
+20260522T0208Z,w1626,2026 04 07 - co.marathon.wi.us_cip_2026-2030_proposed,co.marathon.wi.us_cip_2026-2030_proposed,ok,,,137,4643,no,no,0.759,0.0,3365940662.0,,,607.8
