@@ -8,3 +8,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0201Z,w1826,2026 04 24 - gbww.org_cip_2025-2046,gbww.org_cip_2025-2046,ok,,,23,2,no,no,0.0,127205000.0,15650000.0,0.877,no,150.3
 20260522T0203Z,w1826,2026 04 24 - nws.usace.army.mil_cip_2025-2026,nws.usace.army.mil_cip_2025-2026,ok,,,54,46,no,no,0.852,1745500000.0,1565000000.0,0.1034,no,79.5
 20260522T0205Z,w1826,2026 04 24 - summitoh.net_cip_2026-2031,summitoh.net_cip_2026-2031,ok,,,288,216,no,no,0.0,174022912.0,413428755.0,1.3757,no,142.6
+20260522T0207Z,w1826,2026 04 27 - augustaks.org_cip_2026-2030,augustaks.org_cip_2026-2030,ok,,,25,0,yes,no,0.0,110127040.0,0,1.0,no,265.5
