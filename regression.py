@@ -38,8 +38,8 @@ ALL_WEEKS = ["w1326", "w1426", "w1526", "w1626", "w1726", "w1826", "w1926", "w20
 DATA_ROOT = Path(r"G:\Shared drives\0_cip_data\2026")
 OCR_ROOT  = Path(r"G:\Shared drives\CIP Staging\docs\input documents\in ocr PDF")
 
-RESULTS_DIR  = Path(__file__).parent / "regression_results"
-RESULTS_FILE = Path(__file__).parent / "regression_results.csv"  # merged output
+RESULTS_DIR    = Path(__file__).parent / "regression_results"
+RESULTS_ARCHIVE = Path(__file__).parent / "regression_archive"  # stamped merged files
 
 RESULT_COLS = [
     "run_at_utc",
@@ -260,7 +260,10 @@ def append_result(week: str, row: dict) -> None:
 # ---------------------------------------------------------------------------
 
 def merge_results(repo_root: Path) -> Path:
-    out = repo_root / "regression_results.csv"
+    """Merge per-week files into a stamped archive file. Never overwrites."""
+    RESULTS_ARCHIVE.mkdir(exist_ok=True)
+    stamp = _now_utc()
+    out = RESULTS_ARCHIVE / f"regression_{stamp}.csv"
     all_rows = []
     for week in ALL_WEEKS:
         f = week_results_file(week)
@@ -271,7 +274,76 @@ def merge_results(repo_root: Path) -> Path:
         writer = csv.DictWriter(fh, fieldnames=RESULT_COLS, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(all_rows)
+    # Also write a convenience symlink-equivalent: latest.csv
+    latest = RESULTS_ARCHIVE / "latest.csv"
+    import shutil
+    shutil.copy2(out, latest)
     return out
+
+
+def latest_archive() -> Path | None:
+    """Return the most recent stamped archive file, or None."""
+    if not RESULTS_ARCHIVE.exists():
+        return None
+    files = sorted(RESULTS_ARCHIVE.glob("regression_2*.csv"))
+    return files[-1] if files else None
+
+
+def score_only(agency: dict, repo_root: Path) -> dict | None:
+    """
+    Score an agency using its already-produced _final.csv — no pipeline rerun.
+    Returns a result dict or None if outputs don't exist.
+    """
+    t0 = time.time()
+    out_dir = repo_root / "regression_outputs" / agency["week"] / agency["agency_id"]
+    final_path = out_dir / f"{agency['agency_id']}_final.csv"
+    if not final_path.exists():
+        return None
+
+    base = {
+        "run_at_utc": _now_utc(),
+        "week": agency["week"],
+        "agency_folder": agency["agency_folder"],
+        "agency_id": agency["agency_id"],
+        "status": "ok",
+        "failure_stage": "",
+        "failure_reason": "",
+        "zero_rows": "",
+        "dollar_blowup": "",
+        "elapsed_seconds": 0,
+    }
+
+    try:
+        gold = _load_gold_csv(agency["gold_path"])
+        base["gold_row_count"] = len(gold)
+    except Exception as e:
+        base["status"] = "failed"
+        base["failure_stage"] = "gold_load"
+        base["failure_reason"] = str(e)[:200]
+        return base
+
+    try:
+        with open(final_path, encoding="utf-8-sig") as f:
+            extracted = list(csv.DictReader(f))
+    except Exception as e:
+        base["status"] = "failed"
+        base["failure_stage"] = "output_load"
+        base["failure_reason"] = str(e)[:200]
+        return base
+
+    scores = score_against_gold(extracted, gold)
+    n_ext = len(extracted)
+    n_gold = len(gold)
+    row_match = "yes" if abs(n_ext - n_gold) / max(n_gold, 1) <= 0.05 else "no"
+
+    base.update({
+        "extracted_row_count": n_ext,
+        "zero_rows": "yes" if n_ext == 0 else "no",
+        "row_count_match": row_match,
+        **scores,
+        "elapsed_seconds": round(time.time() - t0, 1),
+    })
+    return base
 
 
 # ---------------------------------------------------------------------------
@@ -505,9 +577,11 @@ def main():
     parser.add_argument("--no-auto", action="store_true",
                         help="Run pipeline interactively (not --auto)")
     parser.add_argument("--merge", action="store_true",
-                        help="Merge all per-week files into regression_results.csv and exit")
+                        help="Merge per-week files into stamped archive file and exit")
     parser.add_argument("--status", action="store_true",
                         help="Print live progress summary from per-week files and exit")
+    parser.add_argument("--score-only", action="store_true",
+                        help="Score existing _final.csv outputs without rerunning pipeline")
     args = parser.parse_args()
 
     repo_root = Path(__file__).parent
@@ -559,7 +633,13 @@ def main():
         week = agency["week"]
         print(f"[{i}/{len(todo)}] {week} / {agency['agency_id']}")
         try:
-            result = run_agency(agency, repo_root, auto=auto)
+            if getattr(args, 'score_only', False):
+                result = score_only(agency, repo_root)
+                if result is None:
+                    print(f"  [SKIP] no _final.csv on disk")
+                    continue
+            else:
+                result = run_agency(agency, repo_root, auto=auto)
         except Exception:
             result = {
                 "run_at_utc": _now_utc(),
