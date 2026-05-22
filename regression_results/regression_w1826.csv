@@ -81,3 +81,8 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.com/v1/messages'
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
 ",118,,,,,,,,,134.9
+20260522T0506Z,w1826,2026 05 04 - themdc.com_cip_2026-2030,themdc.com_cip_2026-2030,failed,analyze,"tpx\_models.py"", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.com/v1/messages'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
+",40,,,,,,,,,109.2
