@@ -7,3 +7,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1350Z,w1326,2026 03 17 - capitolcorridor.org_tip_2027-2028_proposed,capitolcorridor.org_tip_2027-2028_proposed,ok,,,24,86,no,no,0.708,1518150010.0,4.203420286577973e+16,27687778.5929,yes,0.2
 20260522T1350Z,w1326,2026 03 18 - fishers.in.us_cip_2026-2030,fishers.in.us_cip_2026-2030,ok,,,60,8,no,no,0.0,93276149.0,16283510.0,0.8254,no,0.1
 20260522T1351Z,w1326,2026 03 18 - nbcua.com_cip_2027-2031,nbcua.com_cip_2027-2031,ok,,,17,18,no,no,0.294,0.0,0.0,,,0.1
+20260522T1351Z,w1326,2026 03 19 - hcpss.org_cip_2027-2027,hcpss.org_cip_2027-2027,ok,,,66,17,no,no,0.0,116636000.0,0.0,1.0,no,0.1
