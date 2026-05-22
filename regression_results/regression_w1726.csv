@@ -1,2 +1,3 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,zero_rows,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,dollar_blowup,elapsed_seconds
 20260522T0146Z,w1726,2026 03 12 - sbtnj.net_cip_2025-2030,sbtnj.net_cip_2025-2030,ok,,,19,18,no,no,0.947,39214401.0,37945000.0,0.0324,no,127.7
+20260522T0149Z,w1726,2026 03 23 - westerville.org_cip_2025-2029,westerville.org_cip_2025-2029,ok,,,188,1,no,no,0.0,62764700.0,4030509865.0,63.2162,no,186.2
