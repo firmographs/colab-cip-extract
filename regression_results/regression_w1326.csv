@@ -22,3 +22,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
 20260522T0233Z,w1326,2026 03 23 - westchicago.org_cip_2025-2029,westchicago.org_cip_2025-2029,ok,,,140,653,no,no,0.607,38478200.0,8.842527547719847e+27,2.2980616421038008e+20,yes,176.1
 20260522T0235Z,w1326,2026 03 24 - cityhpil.com_cip_2026-2035,cityhpil.com_cip_2026-2035,ok,,,95,84,no,no,0.074,39773000.0,4.7755401380682575e+78,1.2006990013497242e+71,yes,518.5
 20260522T0244Z,w1326,2026 03 24 - spotsylvania.k12.va.us_cip_2027-2031,spotsylvania.k12.va.us_cip_2027-2031,failed,timeout,Pipeline timed out after 900s,218,,,,,,,,,900.0
+20260522T0259Z,w1326,2026 03 25 - cascadecountymt.gov_cip_2025-2025,cascadecountymt.gov_cip_2025-2025,ok,,,44,43,no,yes,0.955,17523889.0,17303889.0,0.0126,no,55.2
