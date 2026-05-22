@@ -36,3 +36,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1403Z,w1826,2026 04 29 - mbta.com_tip_2027-2031_proposed,mbta.com_tip_2027-2031_proposed,ok,,,680,605,no,no,0.046,26433000000.0,0.0,1.0,no,12.5
 20260522T1404Z,w1826,2026 04 29 - northlibertyiowa.org_cip_2026-2030,northlibertyiowa.org_cip_2026-2030,ok,,,134,152,no,no,0.0,155961160.0,1.4495106703580197e+22,92940490463010.42,yes,0.3
 20260522T1404Z,w1826,2026 04 30 - catchacat.org_tip_2026-2026,catchacat.org_tip_2026-2026,ok,,,8,15,no,no,0.75,22173208.0,510866.0,0.977,no,0.0
+20260522T1404Z,w1826,2026 04 30 - chesterfield.gov_cip_2027-2031_proposed,chesterfield.gov_cip_2027-2031_proposed,ok,,,44,3,no,no,0.0,101368200.0,25442556413.0,249.9915,no,0.1
