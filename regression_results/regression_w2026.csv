@@ -16,3 +16,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1408Z,w2026,2026 05 12 - stlouis-mo.gov_cip_2027-2031,stlouis-mo.gov_cip_2027-2031,ok,,,19,14,no,no,0.737,217856500.0,581.0,1.0,no,0.1
 20260522T1408Z,w2026,2026 05 12 - vrf.us_cip_2026-2030,vrf.us_cip_2026-2030,ok,,,92,81,no,no,0.848,34296842.0,8609045.0,0.749,no,0.3
 20260522T1408Z,w2026,2026 05 13 - lakecountyca.gov_cip_2026-2026,lakecountyca.gov_cip_2026-2026,ok,,,214,52,no,no,0.0,1210440.0,811978.0,0.3292,no,0.6
+20260522T1408Z,w2026,2026 05 13 - templetx.gov_cip_2026-2031,templetx.gov_cip_2026-2031,ok,,,104,42,no,no,0.154,118800000.0,117019188.0,0.015,no,0.3
