@@ -52,3 +52,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0420Z,w1726,2026 04 23 - mercedid.org_cip_2027-2027,mercedid.org_cip_2027-2027,ok,,,68,75,no,no,0.0,80564000.0,80564000.0,0.0,no,225.7
 20260522T0423Z,w1726,2026 04 23 - sac.usace.army.mil_cip_2026-2027,sac.usace.army.mil_cip_2026-2027,ok,,,31,32,no,yes,1.0,0.0,990700000.0,,,81.2
 20260522T0425Z,w1726,2026 04 23 - valleywater.org_cip_2027-2031,valleywater.org_cip_2027-2031,ok,,,76,0,yes,no,0.0,10397947000.0,0,1.0,no,328.4
+20260522T0430Z,w1726,2026 04 23 - victorvilleca.gov_cip_2025-2026,victorvilleca.gov_cip_2025-2026,ok,,,149,3,no,no,0.0,45022575.0,0.0,1.0,no,232.8
