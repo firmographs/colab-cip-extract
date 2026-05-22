@@ -11,3 +11,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0207Z,w1826,2026 04 27 - augustaks.org_cip_2026-2030,augustaks.org_cip_2026-2030,ok,,,25,0,yes,no,0.0,110127040.0,0,1.0,no,265.5
 20260522T0212Z,w1826,2026 04 27 - centennialwater.org_cip_2025-2034,centennialwater.org_cip_2025-2034,ok,,,55,239,no,no,1.0,263959705.0,2.789051916455351e+16,105662032.3947,yes,127.1
 20260522T0214Z,w1826,2026 04 27 - chemungcountyny.gov_cip_2026-2030,chemungcountyny.gov_cip_2026-2030,ok,,,55,0,yes,no,0.0,21767480.0,0,1.0,no,256.0
+20260522T0218Z,w1826,2026 04 27 - chesterfieldtwp.org_cip_2026-2031,chesterfieldtwp.org_cip_2026-2031,ok,,,127,4672,no,no,0.992,78446371.0,24678729939.3712,313.5936,no,172.6
