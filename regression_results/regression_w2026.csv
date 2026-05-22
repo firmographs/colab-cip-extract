@@ -1,3 +1,4 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,zero_rows,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,dollar_blowup,elapsed_seconds
 20260522T1407Z,w2026,2026 03 03 - springhilltn.org_cip_2026-2026,springhilltn.org_cip_2026-2026,ok,,,59,156,no,no,0.492,13860761.0,197266955.12,13.232,no,0.3
 20260522T1407Z,w2026,2026 03 10 - mlgw.com_cip_2026-2030,mlgw.com_cip_2026-2030,ok,,,133,883,no,no,0.842,332169148.0,192312297000.0,577.9589,no,5.3
+20260522T1407Z,w2026,2026 04 20 - bricktownship.net_cip_2026-2031,bricktownship.net_cip_2026-2031,ok,,,9,9,no,yes,1.0,55999999.0,0.0,1.0,no,0.0
