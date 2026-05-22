@@ -11,3 +11,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1351Z,w1326,2026 03 19 - pecsd.org_cip_2026-2026,pecsd.org_cip_2026-2026,ok,,,16,15,no,no,0.25,11066936.0,30916936.0,1.7936,no,0.0
 20260522T1351Z,w1326,2026 03 20 - udc.edu_cip_2025-2030,udc.edu_cip_2025-2030,ok,,,12,13,no,no,0.583,95500000.0,66000000.0,0.3089,no,0.1
 20260522T1351Z,w1326,2026 03 21 - cityofbowie.org_cip_2026-2031,cityofbowie.org_cip_2026-2031,ok,,,51,107,no,no,0.0,190525448.0,434804574000.0,2281.1338,no,0.5
+20260522T1351Z,w1326,2026 03 21 - qacps.org_cip_2026-2026,qacps.org_cip_2026-2026,ok,,,20,20,no,yes,0.6,12996460.0,12996460.0,0.0,no,0.1
