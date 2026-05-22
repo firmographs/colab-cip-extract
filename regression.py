@@ -425,6 +425,66 @@ def run_agency(agency: dict, repo_root: Path, auto: bool = True) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# Live status report
+# ---------------------------------------------------------------------------
+
+def _print_status() -> None:
+    from collections import Counter
+    all_rows = []
+    print(f"\n{'Week':<8} {'Done':>5} {'OK':>5} {'Fail':>5} {'Last agency'}")
+    print("-" * 70)
+    for week in ALL_WEEKS:
+        f = week_results_file(week)
+        if not f.exists():
+            print(f"{week:<8} {'—':>5}")
+            continue
+        with open(f, encoding="utf-8") as fh:
+            rows = list(csv.DictReader(fh))
+        ok   = sum(1 for r in rows if r["status"] == "ok")
+        fail = sum(1 for r in rows if r["status"] == "failed")
+        last = rows[-1]["agency_id"] if rows else ""
+        print(f"{week:<8} {len(rows):>5} {ok:>5} {fail:>5}   {last[:50]}")
+        all_rows.extend(rows)
+
+    if not all_rows:
+        print("No results yet.")
+        return
+
+    ok_rows  = [r for r in all_rows if r["status"] == "ok"]
+    fail_rows = [r for r in all_rows if r["status"] == "failed"]
+    total = len(all_rows)
+    ok    = len(ok_rows)
+
+    print("-" * 70)
+    print(f"{'TOTAL':<8} {total:>5} {ok:>5} {len(fail_rows):>5}")
+
+    # Quality metrics
+    zero     = sum(1 for r in ok_rows if r.get("zero_rows") == "yes")
+    row_match = sum(1 for r in ok_rows if r.get("row_count_match") == "yes")
+    blowup   = sum(1 for r in ok_rows if r.get("dollar_blowup") == "yes")
+    d_rows   = [r for r in ok_rows if r.get("dollar_pct_error") not in ("", None)
+                and r.get("dollar_blowup") != "yes"]
+    u10      = sum(1 for r in d_rows if float(r["dollar_pct_error"]) < 0.10)
+    t_rows   = [r for r in ok_rows if r.get("title_match_rate") not in ("", None)]
+    avg_title = sum(float(r["title_match_rate"]) for r in t_rows) / len(t_rows) if t_rows else 0
+
+    print(f"\nQuality ({ok} OK agencies):")
+    print(f"  Zero rows extracted : {zero:>3} / {ok}")
+    print(f"  Row count match ±5% : {row_match:>3} / {ok}  ({row_match/ok*100:.0f}%)" if ok else "")
+    print(f"  Dollar blowup (OCR) : {blowup:>3} / {ok}")
+    print(f"  Dollar error <10%   : {u10:>3} / {len(d_rows)}  ({u10/len(d_rows)*100:.0f}%)" if d_rows else "")
+    print(f"  Avg title match     : {avg_title:.3f}")
+
+    # Failure breakdown
+    stages = Counter(r["failure_stage"] for r in fail_rows)
+    if stages:
+        print(f"\nFailures by stage:")
+        for stage, count in stages.most_common():
+            print(f"  {stage:<20} {count}")
+    print()
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -446,9 +506,15 @@ def main():
                         help="Run pipeline interactively (not --auto)")
     parser.add_argument("--merge", action="store_true",
                         help="Merge all per-week files into regression_results.csv and exit")
+    parser.add_argument("--status", action="store_true",
+                        help="Print live progress summary from per-week files and exit")
     args = parser.parse_args()
 
     repo_root = Path(__file__).parent
+
+    if args.status:
+        _print_status()
+        return
 
     if args.merge:
         out = merge_results(repo_root)
