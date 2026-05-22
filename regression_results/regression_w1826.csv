@@ -3,3 +3,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1401Z,w1826,2026 04 07 - cupertino.gov_cip_2026-2030,cupertino.gov_cip_2026-2030,ok,,,34,7,no,no,0.0,0.0,5720000.0,,,0.0
 20260522T1401Z,w1826,2026 04 20 - imperialctc.org_tip_2026-2026,imperialctc.org_tip_2026-2026,ok,,,41,45,no,no,0.244,439000.0,5.805997535200425e+95,1.3225506913896186e+90,yes,0.1
 20260522T1401Z,w1826,2026 04 20 - metrocouncil.org_cip_2026-2031,metrocouncil.org_cip_2026-2031,ok,,,87,1148,no,no,0.172,6095880000.0,5.56091892541782e+17,91224218.0696,yes,3.1
+20260522T1401Z,w1826,2026 04 22 - tampabaywater.org_cip_2027-2036,tampabaywater.org_cip_2027-2036,ok,,,91,91,no,yes,1.0,0.0,475175581.0,,,0.7
