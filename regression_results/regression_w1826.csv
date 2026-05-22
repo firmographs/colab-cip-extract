@@ -25,3 +25,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1403Z,w1826,2026 04 28 - pueblo.us_cip_2026-2030,pueblo.us_cip_2026-2030,ok,,,86,84,no,yes,0.0,192777629.0,205142145380.766,1063.1388,no,0.2
 20260522T1403Z,w1826,2026 04 28 - swl.usace.army.mil_cip_2026-2028,swl.usace.army.mil_cip_2026-2028,ok,,,55,55,no,yes,0.0,3367500000.0,3367500000.0,0.0,no,0.1
 20260522T1403Z,w1826,2026 04 28 - townofbreckenridge.com_cip_2026-2030,townofbreckenridge.com_cip_2026-2030,ok,,,57,215,no,no,0.737,5136032.0,2.9498217370850595e+31,5.743386600950032e+24,yes,0.5
+20260522T1403Z,w1826,2026 04 28 - westerville.org_cip_2026-2030,westerville.org_cip_2026-2030,ok,,,162,79,no,no,0.049,148881564.0,199048033.3,0.337,no,0.6
