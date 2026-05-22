@@ -27,3 +27,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
 20260522T0305Z,w1326,2026 03 25 - cityofasbury.com_cip_2025-2030,cityofasbury.com_cip_2025-2030,ok,,,60,0,yes,no,0.0,24973117.0,0,1.0,no,125.9
 20260522T0307Z,w1326,2026 03 25 - herndon-va.gov_cip_2026-2031,herndon-va.gov_cip_2026-2031,ok,,,46,242,no,no,0.0,263724208.0,1814475261.0,5.8802,no,311.7
 20260522T0312Z,w1326,2026 03 25 - lrd.usace.army.mil.buf_cip_2026-2027,lrd.usace.army.mil.buf_cip_2026-2027,ok,,,19,19,no,yes,0.526,3000000.0,470500000.0,155.8333,no,112.6
+20260522T0314Z,w1326,2026 03 25 - lrd.usace.army.mil.chi_cip_2026-2028,lrd.usace.army.mil.chi_cip_2026-2028,ok,,,46,20,no,no,0.174,0.0,90750000.0,,,98.1
