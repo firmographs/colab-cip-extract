@@ -33,3 +33,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
 20260522T0332Z,w1326,2026 03 26 - covingtonky.gov_cip_2025-2025,covingtonky.gov_cip_2025-2025,ok,,,46,32,no,no,0.652,0.0,63764555.0,,,264.7
 20260522T0337Z,w1326,2026 03 26 - hackensack.org_cip_2024-2029,hackensack.org_cip_2024-2029,ok,,,12,0,yes,no,0.0,33066362.0,0,1.0,no,105.8
 20260522T0339Z,w1326,2026 03 26 - idaho.gov_state_cip_2026-2026,idaho.gov_state_cip_2026-2026,ok,,,8,15,no,no,0.0,832600.0,6776700.0,7.1392,no,95.2
+20260522T0340Z,w1326,2026 03 26 - mesacounty.us_cip_2026-2031_proposed,mesacounty.us_cip_2026-2031_proposed,ok,,,126,30,no,no,0.238,232353890.0,48339859.37,0.792,no,71.4
