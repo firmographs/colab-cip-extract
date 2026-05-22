@@ -42,3 +42,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1404Z,w1826,2026 04 30 - portmanatee.com_cip_2025-2031,portmanatee.com_cip_2025-2031,ok,,,30,36,no,no,0.933,19606093.0,93480475.0,3.7679,no,0.1
 20260522T1404Z,w1826,2026 04 30 - sdcwa.org_cip_2026-2031,sdcwa.org_cip_2026-2031,ok,,,46,3298,no,no,0.978,319551840.0,10153189271200.0,31772.2149,no,11.1
 20260522T1404Z,w1826,2026 05 01 - centro.org_tip_2027-2031,centro.org_tip_2027-2031,ok,,,40,8,no,no,0.0,534020000.0,0.0,1.0,no,0.0
+20260522T1404Z,w1826,2026 05 01 - dunedingov.com_cip_2026-2031,dunedingov.com_cip_2026-2031,ok,,,102,68,no,no,0.235,41724481.0,33100131312869.0,793301.4095,no,0.4
