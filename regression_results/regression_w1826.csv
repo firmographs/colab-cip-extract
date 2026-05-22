@@ -60,3 +60,4 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.com/v1/messages'
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
 ",44,,,,,,,,,110.6
+20260522T0438Z,w1826,2026 05 02 - twp.woodbridge.nj.us_cip_2026-2031,twp.woodbridge.nj.us_cip_2026-2031,ok,,,6,6,no,yes,1.0,14100000.0,13100000.0,0.0709,no,101.0
