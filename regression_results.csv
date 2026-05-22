@@ -401,3 +401,4 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 20260522T0037Z,w1726,2026 04 23 - ci.olympia.wa.us_cip_2026-2031,ci.olympia.wa.us_cip_2026-2031,ok,,,389,667,no,no,0.167,344333136.0,17884521.0,0.9481,203.8
 20260522T0041Z,w1726,2026 04 24 - cityoforange.org_cip_2026-2030,cityoforange.org_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,95,,,,,,,,900.4
 20260522T0056Z,w1726,2026 04 24 - fortworthtexas.gov_cip_2026-2030,fortworthtexas.gov_cip_2026-2030,ok,,,135,4,no,no,0.0,3941827057.0,1000000000000000.0,9999.0,160.0
+20260522T0059Z,w1726,2026 04 26 - nwk.usace.army.mil_cip_2026-2029,nwk.usace.army.mil_cip_2026-2029,ok,,,48,49,no,yes,0.917,2497150000.0,0.0,1.0,94.7
