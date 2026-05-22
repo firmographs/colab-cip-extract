@@ -18,3 +18,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1408Z,w2026,2026 05 13 - lakecountyca.gov_cip_2026-2026,lakecountyca.gov_cip_2026-2026,ok,,,214,52,no,no,0.0,1210440.0,811978.0,0.3292,no,0.6
 20260522T1408Z,w2026,2026 05 13 - templetx.gov_cip_2026-2031,templetx.gov_cip_2026-2031,ok,,,104,42,no,no,0.154,118800000.0,117019188.0,0.015,no,0.3
 20260522T1408Z,w2026,2026 05 13 - troymi.gov_cip_2027-2032_proposed,troymi.gov_cip_2027-2032_proposed,ok,,,64,30,no,no,0.109,105091000.0,63088686.0,0.3997,no,0.2
+20260522T1408Z,w2026,2026 05 14 - taylorcountytexas.org_cip_2026-2026,taylorcountytexas.org_cip_2026-2026,ok,,,95,45,no,no,0.0,119857121.0,0.0,1.0,no,0.2
