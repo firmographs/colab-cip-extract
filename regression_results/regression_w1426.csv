@@ -8,3 +8,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0200Z,w1426,2026 03 26 - centennialwater.org_cip_2025-2034_proposed,centennialwater.org_cip_2025-2034_proposed,ok,,,55,380,no,no,0.836,263853705.0,3000000.0,0.9886,no,127.0
 20260522T0202Z,w1426,2026 03 26 - housingforhouston.com_cip_2023-2027,housingforhouston.com_cip_2023-2027,ok,,,192,15,no,no,0.0,42847305.0,42847305.0,0.0,no,144.6
 20260522T0204Z,w1426,2026 03 26 - idahofallsidaho.gov_cip_2026-2026,idahofallsidaho.gov_cip_2026-2026,ok,,,195,362,no,no,0.667,152848413.0,6.015919198539903e+17,3935872855.2919,yes,131.6
+20260522T0207Z,w1426,2026 03 26 - swf.usace.army.mil_cip_2026-2028,swf.usace.army.mil_cip_2026-2028,ok,,,128,124,no,yes,0.117,4133000000.0,2140000000.0,0.4822,no,82.9
