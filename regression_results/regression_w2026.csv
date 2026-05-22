@@ -20,3 +20,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0320Z,w2026,2026 05 13 - lakecountyca.gov_cip_2026-2026,lakecountyca.gov_cip_2026-2026,ok,,,214,52,no,no,0.0,1210440.0,811978.0,0.3292,no,179.0
 20260522T0323Z,w2026,2026 05 13 - templetx.gov_cip_2026-2031,templetx.gov_cip_2026-2031,failed,timeout,Pipeline timed out after 900s,104,,,,,,,,,900.2
 20260522T0338Z,w2026,2026 05 13 - troymi.gov_cip_2027-2032_proposed,troymi.gov_cip_2027-2032_proposed,ok,,,64,30,no,no,0.109,105091000.0,63088686.0,0.3997,no,178.8
+20260522T0341Z,w2026,2026 05 14 - taylorcountytexas.org_cip_2026-2026,taylorcountytexas.org_cip_2026-2026,ok,,,95,45,no,no,0.0,119857121.0,0.0,1.0,no,184.2
