@@ -15,3 +15,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1402Z,w1826,2026 04 27 - co.burlington.nj.us_cip_2026-2031,co.burlington.nj.us_cip_2026-2031,ok,,,23,0,yes,no,0.0,638379611.0,0,1.0,no,0.0
 20260522T1402Z,w1826,2026 04 27 - hartford.gov_cip_2027-2031_proposed,hartford.gov_cip_2027-2031_proposed,ok,,,63,2,no,no,0.0,142090500.0,5498295.0,0.9613,no,0.0
 20260522T1402Z,w1826,2026 04 27 - indepmo.org_cip_2027-2032,indepmo.org_cip_2027-2032,ok,,,179,179,no,yes,0.0,0.0,703024373.893352,,,3.2
+20260522T1402Z,w1826,2026 04 27 - mvm.usace.army.mil_cip_2026-2027,mvm.usace.army.mil_cip_2026-2027,ok,,,9,9,no,yes,1.0,0.0,135500000.0,,,0.0
