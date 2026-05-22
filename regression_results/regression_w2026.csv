@@ -18,3 +18,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0302Z,w2026,2026 05 12 - vrf.us_cip_2026-2030,vrf.us_cip_2026-2030,ok,,,92,81,no,no,0.848,34296842.0,8609045.0,0.749,no,202.4
 20260522T0305Z,w2026,2026 05 12 - webbcountytx.gov_cip_2026-2026,webbcountytx.gov_cip_2026-2026,failed,timeout,Pipeline timed out after 900s,19,,,,,,,,,900.4
 20260522T0320Z,w2026,2026 05 13 - lakecountyca.gov_cip_2026-2026,lakecountyca.gov_cip_2026-2026,ok,,,214,52,no,no,0.0,1210440.0,811978.0,0.3292,no,179.0
+20260522T0323Z,w2026,2026 05 13 - templetx.gov_cip_2026-2031,templetx.gov_cip_2026-2031,failed,timeout,Pipeline timed out after 900s,104,,,,,,,,,900.2
