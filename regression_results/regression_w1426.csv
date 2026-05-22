@@ -1,23 +1,2 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,zero_rows,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,dollar_blowup,elapsed_seconds
-20260522T0758Z,w1426,2026 03 10 - cliftonnj.org_cip_2025-2030,cliftonnj.org_cip_2025-2030,failed,timeout,Pipeline timed out after 900s,46,,,,,,,,,900.1
-20260522T0813Z,w1426,2026 03 10 - kenoshacounty.org_cip_2026-2030,kenoshacounty.org_cip_2026-2030,ok,,,138,665,no,no,0.0,147762000.0,2091114.99,0.9858,no,581.5
-20260522T0822Z,w1426,2026 03 10 - maryland.gov_tip_2026-2031,maryland.gov_tip_2026-2031,ok,,,49,49,no,yes,0.755,8341139.0,152591000.0,17.2938,no,130.3
-20260522T0825Z,w1426,2026 03 16 - sacsewer.com_cip_2026-2035,sacsewer.com_cip_2026-2035,ok,,,77,442,no,no,0.052,3598026.0,346488945.52,95.2997,no,100.4
-20260522T0826Z,w1426,2026 03 23 - cityoflaurel.org_cip_2026-2031,cityoflaurel.org_cip_2026-2031,ok,,,63,412,no,no,0.032,23897932.0,63107535.12938,1.6407,no,140.8
-20260522T0829Z,w1426,2026 03 25 - cid.utah.gov_cip_2025-2025,cid.utah.gov_cip_2025-2025,ok,,,12,4,no,no,0.0,24300.0,1267.903,0.9478,no,79.6
-20260522T0830Z,w1426,2026 03 26 - centennialwater.org_cip_2025-2034_proposed,centennialwater.org_cip_2025-2034_proposed,ok,,,55,65,no,no,0.909,263853705.0,1396084730.0,4.2911,no,124.6
-20260522T0832Z,w1426,2026 03 26 - housingforhouston.com_cip_2023-2027,housingforhouston.com_cip_2023-2027,ok,,,192,15,no,no,0.0,42847305.0,42847305.0,0.0,no,123.7
-20260522T0834Z,w1426,2026 03 26 - idahofallsidaho.gov_cip_2026-2026,idahofallsidaho.gov_cip_2026-2026,ok,,,195,141,no,no,0.067,152848413.0,13965639.0,0.9086,no,133.7
-20260522T0837Z,w1426,2026 03 26 - swf.usace.army.mil_cip_2026-2028,swf.usace.army.mil_cip_2026-2028,ok,,,128,124,no,yes,0.969,4133000000.0,942000000.0,0.7721,no,90.6
-20260522T0838Z,w1426,2026 03 27 - flyoma.com_cip_2026-2030,flyoma.com_cip_2026-2030,ok,,,16,15,no,no,0.688,924680000.0,923800000.0,0.001,no,72.8
-20260522T0839Z,w1426,2026 03 27 - townofmamaroneckny.org_cip_2025-2029,townofmamaroneckny.org_cip_2025-2029,ok,,,93,55,no,no,0.022,74994430.0,13382834.0,0.8215,no,213.6
-20260522T0843Z,w1426,2026 03 30 - dentoncounty.gov_cip_2026-2026,dentoncounty.gov_cip_2026-2026,ok,,,58,63,no,no,0.0,0.0,5539491.0,,,157.7
-20260522T0846Z,w1426,2026 03 30 - douglasvillega.gov_cip_2025-2028,douglasvillega.gov_cip_2025-2028,ok,,,58,2,no,no,0.0,8247172.0,5018216.0,0.3915,no,191.5
-20260522T0849Z,w1426,2026 03 30 - fredericksburgva.gov_cip_2025-2029,fredericksburgva.gov_cip_2025-2029,ok,,,85,92,no,no,0.988,189403024.0,147758029.0,0.2199,no,136.2
-20260522T0851Z,w1426,2026 03 30 - mercedthebus.com_cip_2026-2026,mercedthebus.com_cip_2026-2026,ok,,,23,31,no,no,0.652,36509763.0,109298083377331.0,2993666.2932,yes,86.0
-20260522T0853Z,w1426,2026 03 30 - monroecountypa.gov_cip_2026-2026,monroecountypa.gov_cip_2026-2026,ok,,,14,17,no,no,0.0,9463123.0,8.935523856721453e+28,9.442468259919534e+21,yes,77.0
-20260522T0854Z,w1426,2026 04 02 - countyofamherst.com_cip_2025-2029,countyofamherst.com_cip_2025-2029,failed,timeout,Pipeline timed out after 900s,34,,,,,,,,,900.2
-20260522T0909Z,w1426,2026 04 02 - glsd.org_cip_2026-2030,glsd.org_cip_2026-2030,ok,,,25,17,no,no,0.52,21923808.0,41016228811.0,1869.8533,no,135.5
-20260522T0911Z,w1426,2026 04 02 - kirkwoodmo.org_cip_2025-2029,kirkwoodmo.org_cip_2025-2029,ok,,,148,237,no,no,0.831,94883686.0,2106722367.65,21.2032,no,326.2
-20260522T0917Z,w1426,2026 04 03 - columbiasc.gov_cip_2026-2026,columbiasc.gov_cip_2026-2026,ok,,,27,26,no,yes,0.926,0.0,111268827.0,,,88.4
-20260522T0918Z,w1426,2026 04 04 - cuwcd.com_cip_2026-2026,cuwcd.com_cip_2026-2026,ok,,,42,38,no,no,0.048,201443256.0,2002775884.0,8.9421,no,99.8
+20260522T1352Z,w1426,2026 03 10 - cliftonnj.org_cip_2025-2030,cliftonnj.org_cip_2025-2030,ok,,,46,46,no,yes,1.0,103030100.0,103030100.0,0.0,no,0.2
