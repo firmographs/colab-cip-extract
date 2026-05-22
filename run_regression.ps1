@@ -11,13 +11,13 @@
 #   .\run_regression.ps1 -Resume           # skip already-ok agencies
 
 param(
-    [string]$Weeks  = "w1326,w1426,w1526,w1626,w1726,w1826,w1926,w2026",
-    [int]$Limit     = 0,
+    [string[]]$Weeks = @("w1326","w1426","w1526","w1626","w1726","w1826","w1926","w2026"),
+    [int]$Limit      = 0,
     [switch]$Resume
 )
 
 $RepoRoot = $PSScriptRoot
-$WeekList = $Weeks -split ","
+$WeekList = $Weeks
 
 Write-Host "=== CIP Regression Runner (parallel) ===" -ForegroundColor Cyan
 Write-Host "Weeks: $($WeekList -join ', ')"
@@ -25,47 +25,55 @@ Write-Host "Repo:  $RepoRoot"
 if ($Resume) { Write-Host "Mode:  --resume (skipping already-ok agencies)" }
 Write-Host ""
 
-$jobs = @()
+# Launch one process per week, each writing to its own output log
+$procs = @()
+New-Item -ItemType Directory -Path "$RepoRoot\regression_results" -Force | Out-Null
+
 foreach ($week in $WeekList) {
     Write-Host "Launching $week ..." -ForegroundColor Yellow
 
-    $scriptArgs = @(
-        "$RepoRoot\regression.py",
+    $logFile = "$RepoRoot\regression_results\log_$week.txt"
+
+    # Build argument list as array — avoids space-splitting issues in Start-Process
+    $dopplerArgList = @(
+        "run", "--project", "firmographs", "--config", "prd", "--",
+        "python", "$RepoRoot\regression.py",
         "--week", $week,
         "--commit"
     )
-    if ($Resume) { $scriptArgs += "--resume" }
-    if ($Limit -gt 0) {
-        $scriptArgs += "--limit"
-        $scriptArgs += "$Limit"
-    }
+    if ($Resume) { $dopplerArgList += "--resume" }
+    if ($Limit -gt 0) { $dopplerArgList += @("--limit", "$Limit") }
 
-    $job = Start-Job -ScriptBlock {
-        param($RepoRoot, $scriptArgs)
-        Set-Location $RepoRoot
-        & doppler run --project firmographs --config prd -- python @scriptArgs 2>&1
-    } -ArgumentList $RepoRoot, $scriptArgs
+    $proc = Start-Process -FilePath "doppler" `
+        -ArgumentList $dopplerArgList `
+        -WorkingDirectory $RepoRoot `
+        -RedirectStandardOutput $logFile `
+        -RedirectStandardError "$RepoRoot\regression_results\err_$week.txt" `
+        -NoNewWindow -PassThru
 
-    $jobs += [pscustomobject]@{ Week = $week; Job = $job }
+    $procs += [pscustomobject]@{ Week = $week; Proc = $proc; Log = $logFile }
 }
 
 Write-Host ""
-Write-Host "All $($jobs.Count) weeks launched. Waiting for completion..." -ForegroundColor Cyan
+Write-Host "All $($procs.Count) weeks launched. Waiting for completion..." -ForegroundColor Cyan
 Write-Host ""
 
-# Poll and report as each week finishes
-$pending = [System.Collections.Generic.List[object]]($jobs)
+# Poll every 60s and report as each week finishes
+$pending = [System.Collections.Generic.List[object]]($procs)
 while ($pending.Count -gt 0) {
-    Start-Sleep -Seconds 30
-    $done = $pending | Where-Object { $_.Job.State -ne 'Running' }
+    Start-Sleep -Seconds 60
+    $done = $pending | Where-Object { $_.Proc.HasExited }
     foreach ($item in $done) {
-        $out = Receive-Job -Job $item.Job
-        $exitOk = $item.Job.State -eq 'Completed'
-        $color = if ($exitOk) { "Green" } else { "Red" }
-        Write-Host "--- $($item.Week) finished ---" -ForegroundColor $color
-        $out | Select-Object -Last 8 | ForEach-Object { Write-Host "  $_" }
+        $color = if ($item.Proc.ExitCode -eq 0) { "Green" } else { "Red" }
+        Write-Host "--- $($item.Week) finished (exit $($item.Proc.ExitCode)) ---" -ForegroundColor $color
+        if (Test-Path $item.Log) {
+            Get-Content $item.Log | Select-Object -Last 10 | ForEach-Object { Write-Host "  $_" }
+        }
         Write-Host ""
         $pending.Remove($item) | Out-Null
+    }
+    if ($pending.Count -gt 0) {
+        Write-Host "  Still running: $($pending.Week -join ', ')" -ForegroundColor DarkGray
     }
 }
 
