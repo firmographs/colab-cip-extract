@@ -29,3 +29,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1407Z,w1926,2026 05 10 - perthamboynj.org _cip_2024-2029,perthamboynj.org _cip_2024-2029,ok,,,15,12,no,no,1.0,330891657.0,233034609.0,0.2957,no,0.0
 20260522T1407Z,w1926,2026 05 10 - roxburynj.us_cip_2024-2029,roxburynj.us_cip_2024-2029,ok,,,19,0,yes,no,0.0,10099096.0,0,1.0,no,0.0
 20260522T1407Z,w1926,2026 05 11 - paramountcity.com_cip_2026-2029,paramountcity.com_cip_2026-2029,ok,,,192,33,no,no,0.26,132653599.0,32919161231191.0,248157.8248,no,0.3
+20260522T1407Z,w1926,2026 05 11 - traversecitymi.gov_cip_2027-2032,traversecitymi.gov_cip_2027-2032,ok,,,88,448,no,no,0.705,12307000.0,1.5415490788055006e+24,1.25257908410295e+17,yes,1.9
