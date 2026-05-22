@@ -24,3 +24,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
 20260522T0244Z,w1326,2026 03 24 - spotsylvania.k12.va.us_cip_2027-2031,spotsylvania.k12.va.us_cip_2027-2031,failed,timeout,Pipeline timed out after 900s,218,,,,,,,,,900.0
 20260522T0259Z,w1326,2026 03 25 - cascadecountymt.gov_cip_2025-2025,cascadecountymt.gov_cip_2025-2025,ok,,,44,43,no,yes,0.955,17523889.0,17303889.0,0.0126,no,55.2
 20260522T0300Z,w1326,2026 03 25 - centralsan.org_cip_2026-2035,centralsan.org_cip_2026-2035,ok,,,82,0,yes,no,0.0,1265620000.0,0,1.0,no,289.3
+20260522T0305Z,w1326,2026 03 25 - cityofasbury.com_cip_2025-2030,cityofasbury.com_cip_2025-2030,ok,,,60,0,yes,no,0.0,24973117.0,0,1.0,no,125.9
