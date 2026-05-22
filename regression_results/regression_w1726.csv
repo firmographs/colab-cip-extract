@@ -29,3 +29,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1242Z,w1726,2026 04 21 - apgov.us_cip_2026-2030,apgov.us_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,111,,,,,,,,,900.2
 20260522T1257Z,w1726,2026 04 21 - blm.gov_cip_2026-2026,blm.gov_cip_2026-2026,ok,,,45,60,no,no,0.467,0.0,133804000.0,,,193.8
 20260522T1301Z,w1726,2026 04 21 - caddo.org_cip_2026-2026,caddo.org_cip_2026-2026,ok,,,130,3,no,no,0.0,0.0,7785566.0,,,184.2
+20260522T1304Z,w1726,2026 04 21 - charleston-sc.gov_cip_2026-2030,charleston-sc.gov_cip_2026-2030,ok,,,63,63,no,yes,1.0,860548859.0,1630034225.0,0.8942,no,140.0
