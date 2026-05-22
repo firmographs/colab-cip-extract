@@ -12,3 +12,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0227Z,w1626,2026 04 15 - greenvillenc.gov_cip_2026-2030,greenvillenc.gov_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,65,,,,,,,,,900.1
 20260522T0242Z,w1626,2026 04 15 - mendocinocounty.org_cip_2026-2026,mendocinocounty.org_cip_2026-2026,ok,,,48,109,no,no,0.0,4925963.94,26875532.669999998,4.4559,no,499.4
 20260522T0250Z,w1626,2026 04 16 - mvk.usace.army.mil_cip_2026-2027,mvk.usace.army.mil_cip_2026-2027,ok,,,8,4,no,no,0.0,0.0,12000000.0,,,80.7
+20260522T0251Z,w1626,2026 04 18 - cityofsouthfultonga.gov_cip_2026-2030,cityofsouthfultonga.gov_cip_2026-2030,ok,,,27,15,no,no,0.0,77515293.0,946166.0,0.9878,no,176.6
