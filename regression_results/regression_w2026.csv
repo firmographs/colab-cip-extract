@@ -10,3 +10,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0231Z,w2026,2026 05 07 - yakimatransit.org_tip_2026-2031,yakimatransit.org_tip_2026-2031,ok,,,32,31,no,yes,0.0,73705102.0,72228102.0,0.02,no,137.5
 20260522T0233Z,w2026,2026 05 08 - wauwatosa.net_cip_2026-2030,wauwatosa.net_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,110,,,,,,,,,900.4
 20260522T0248Z,w2026,2026 05 08 - worcesterma.gov_cip_2027-2027_proposed,worcesterma.gov_cip_2027-2027_proposed,ok,,,78,10,no,no,0.013,328205958.0,0.0,1.0,no,124.6
+20260522T0250Z,w2026,2026 05 08 - wpcsd.k12.ny.us_cip_2027-2027,wpcsd.k12.ny.us_cip_2027-2027,ok,,,28,2,no,no,0.0,0.0,11296690.0,,,82.7
