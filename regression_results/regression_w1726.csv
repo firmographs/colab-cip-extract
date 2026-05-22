@@ -16,3 +16,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1148Z,w1726,2026 04 14 - hamiltonnj.com_cip_2026-2031,hamiltonnj.com_cip_2026-2031,ok,,,11,10,no,no,0.909,7031023.0,23270051.55,2.3096,no,110.1
 20260522T1150Z,w1726,2026 04 14 - ky.gov_cip_2026-2026,ky.gov_cip_2026-2026,ok,,,35,3,no,no,0.114,81322933.0,12409000.0,0.8474,no,50.4
 20260522T1151Z,w1726,2026 04 15 - greenwood.in.gov_cip_2025-2029,greenwood.in.gov_cip_2025-2029,ok,,,25,46,no,no,0.0,0.0,1272960610.0,,,122.6
+20260522T1153Z,w1726,2026 04 16 - lrd.usace.army.mil.pgh_cip_2026-2026,lrd.usace.army.mil.pgh_cip_2026-2026,ok,,,18,18,no,yes,0.944,0.0,28100000.0,,,99.2
