@@ -19,3 +19,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
 ",20,,,,,,,,,24.1
 20260522T0229Z,w1326,2026 03 22 - calvertnet.k12.md.us_cip_2026-2031,calvertnet.k12.md.us_cip_2026-2031,ok,,,26,1,no,no,0.0,0.0,0.0,,,68.1
 20260522T0230Z,w1326,2026 03 22 - viennava.gov_cip_2026-2042,viennava.gov_cip_2026-2042,ok,,,44,48,no,no,0.795,49746000.0,148431000.0,1.9838,no,161.9
+20260522T0233Z,w1326,2026 03 23 - westchicago.org_cip_2025-2029,westchicago.org_cip_2025-2029,ok,,,140,653,no,no,0.607,38478200.0,8.842527547719847e+27,2.2980616421038008e+20,yes,176.1
