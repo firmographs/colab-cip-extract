@@ -2,3 +2,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0146Z,w1926,2026 03 08 - madera.gov_cip_2026-2030,madera.gov_cip_2026-2030,ok,,,134,895,no,no,0.03,251303293.0,11014959808.293,42.8313,no,223.3
 20260522T0150Z,w1926,2026 03 27 - cloquetmn.gov_cip_2025-2029,cloquetmn.gov_cip_2025-2029,failed,timeout,Pipeline timed out after 900s,57,,,,,,,,,900.0
 20260522T0205Z,w1926,2026 03 27 - mvr.usace.army.mil_cip_2026-2026,mvr.usace.army.mil_cip_2026-2026,failed,timeout,Pipeline timed out after 900s,22,,,,,,,,,900.0
+20260522T0220Z,w1926,2026 03 27 - swt.usace.army.mil_cip_2026-2029,swt.usace.army.mil_cip_2026-2029,ok,,,45,43,no,yes,0.444,750750000.0,1197000500.0,0.5944,no,82.8
