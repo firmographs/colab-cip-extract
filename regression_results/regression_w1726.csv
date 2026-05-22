@@ -76,3 +76,8 @@ httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
 ",153,,,,,,,,,185.2
 20260522T0506Z,w1726,2026 04 24 - nwo.usace.army.mil_cip_2024-2027,nwo.usace.army.mil_cip_2024-2027,ok,,,30,32,no,no,1.0,0.0,5480600000.0,,,118.1
+20260522T0508Z,w1726,2026 04 25 - dupageairport.com_cip_2026-2026,dupageairport.com_cip_2026-2026,failed,analyze,"tpx\_models.py"", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.com/v1/messages'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
+",59,,,,,,,,,118.8
