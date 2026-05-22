@@ -46,3 +46,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1400Z,w1726,2026 04 22 - scwd.org_cip_2026-2030,scwd.org_cip_2026-2030,ok,,,82,38,no,no,0.098,343836342.0,91.25,1.0,no,0.2
 20260522T1400Z,w1726,2026 04 22 - snco.us_cip_2026-2030,snco.us_cip_2026-2030,ok,,,69,19,no,no,0.188,0.0,13217506.0,,,0.1
 20260522T1400Z,w1726,2026 04 23 - ci.olympia.wa.us_cip_2026-2031,ci.olympia.wa.us_cip_2026-2031,ok,,,389,173,no,no,0.09,344333136.0,217864016.0,0.3673,no,3.2
+20260522T1400Z,w1726,2026 04 23 - ci.oshkosh.wi.us_cip_2026-2035,ci.oshkosh.wi.us_cip_2026-2035,ok,,,331,597,no,no,0.505,0.0,681808010.61667,,,4.9
