@@ -7,3 +7,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0829Z,w1426,2026 03 25 - cid.utah.gov_cip_2025-2025,cid.utah.gov_cip_2025-2025,ok,,,12,4,no,no,0.0,24300.0,1267.903,0.9478,no,79.6
 20260522T0830Z,w1426,2026 03 26 - centennialwater.org_cip_2025-2034_proposed,centennialwater.org_cip_2025-2034_proposed,ok,,,55,65,no,no,0.909,263853705.0,1396084730.0,4.2911,no,124.6
 20260522T0832Z,w1426,2026 03 26 - housingforhouston.com_cip_2023-2027,housingforhouston.com_cip_2023-2027,ok,,,192,15,no,no,0.0,42847305.0,42847305.0,0.0,no,123.7
+20260522T0834Z,w1426,2026 03 26 - idahofallsidaho.gov_cip_2026-2026,idahofallsidaho.gov_cip_2026-2026,ok,,,195,141,no,no,0.067,152848413.0,13965639.0,0.9086,no,133.7
