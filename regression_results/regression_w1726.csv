@@ -13,3 +13,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0211Z,w1726,2026 04 13 - rctc.org_tip_2026-2031,rctc.org_tip_2026-2031,ok,,,8,43,no,no,0.0,0.0,1845670000.0,,,131.3
 20260522T0213Z,w1726,2026 04 13 - rdu.com_cip_2027-2027,rdu.com_cip_2027-2027,ok,,,37,36,no,yes,0.946,2439625000.0,2564457641.0,0.0512,no,102.9
 20260522T0215Z,w1726,2026 04 14 - akronohio.gov_cip_2026-2026,akronohio.gov_cip_2026-2026,ok,,,171,186,no,no,0.819,341909940.0,38170409.0,0.8884,no,145.6
+20260522T0218Z,w1726,2026 04 14 - hamiltonnj.com_cip_2026-2031,hamiltonnj.com_cip_2026-2031,ok,,,11,3,no,no,0.0,7031023.0,1492977.0,0.7877,no,98.0
