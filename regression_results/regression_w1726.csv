@@ -34,3 +34,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0314Z,w1726,2026 04 21 - flower-mound.com_cip_2026-2035,flower-mound.com_cip_2026-2035,ok,,,292,319,no,no,0.75,1340264202.0,329703306.26,0.754,no,601.6
 20260522T0324Z,w1726,2026 04 21 - fortbendcountytx.gov_cip_2026-2026,fortbendcountytx.gov_cip_2026-2026,ok,,,132,20510,no,no,0.053,58685695.0,4.148689102044002e+27,7.069336236103197e+19,yes,843.3
 20260522T0338Z,w1726,2026 04 21 - townofjohnstown.com_cip_2026-2035,townofjohnstown.com_cip_2026-2035,ok,,,99,0,yes,no,0.0,419261842.0,0,1.0,no,114.3
+20260522T0340Z,w1726,2026 04 22 - bia.gov_cip_2026-2030,bia.gov_cip_2026-2030,ok,,,72,65,no,no,0.292,0.0,33683562400.0,,,208.0
