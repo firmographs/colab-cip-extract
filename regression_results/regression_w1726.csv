@@ -2,3 +2,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0146Z,w1726,2026 03 12 - sbtnj.net_cip_2025-2030,sbtnj.net_cip_2025-2030,ok,,,19,18,no,no,0.947,39214401.0,37945000.0,0.0324,no,127.7
 20260522T0149Z,w1726,2026 03 23 - westerville.org_cip_2025-2029,westerville.org_cip_2025-2029,ok,,,188,1,no,no,0.0,62764700.0,4030509865.0,63.2162,no,186.2
 20260522T0152Z,w1726,2026 03 31 - cityofrockledge.org_cip_2026-2030,cityofrockledge.org_cip_2026-2030,ok,,,56,24,no,no,0.179,82817259.0,1527272916.0,17.4415,no,88.4
+20260522T0153Z,w1726,2026 04 02 - kinggeorgecountyva.gov_cip_2026-2026,kinggeorgecountyva.gov_cip_2026-2026,ok,,,10,10,no,yes,0.2,3452903.0,3452903.0,0.0,no,63.3
