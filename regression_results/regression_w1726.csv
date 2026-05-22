@@ -11,3 +11,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1354Z,w1726,2026 04 09 - lbwl.com_cip_2026-2031,lbwl.com_cip_2026-2031,ok,,,29,2,no,no,0.0,719150430.0,14638000.0,0.9796,no,0.0
 20260522T1354Z,w1726,2026 04 09 - marysvillewa.gov_tip_2026-2031,marysvillewa.gov_tip_2026-2031,ok,,,60,81,no,no,1.0,372914000.0,409973000.0,0.0994,no,0.2
 20260522T1355Z,w1726,2026 04 13 - rctc.org_tip_2026-2031,rctc.org_tip_2026-2031,ok,,,8,46,no,no,0.0,0.0,922835000.0,,,0.0
+20260522T1355Z,w1726,2026 04 13 - rdu.com_cip_2027-2027,rdu.com_cip_2027-2027,ok,,,37,35,no,no,0.784,2439625000.0,2490920641.0,0.021,no,0.2
