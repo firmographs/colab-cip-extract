@@ -12,3 +12,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0838Z,w1426,2026 03 27 - flyoma.com_cip_2026-2030,flyoma.com_cip_2026-2030,ok,,,16,15,no,no,0.688,924680000.0,923800000.0,0.001,no,72.8
 20260522T0839Z,w1426,2026 03 27 - townofmamaroneckny.org_cip_2025-2029,townofmamaroneckny.org_cip_2025-2029,ok,,,93,55,no,no,0.022,74994430.0,13382834.0,0.8215,no,213.6
 20260522T0843Z,w1426,2026 03 30 - dentoncounty.gov_cip_2026-2026,dentoncounty.gov_cip_2026-2026,ok,,,58,63,no,no,0.0,0.0,5539491.0,,,157.7
+20260522T0846Z,w1426,2026 03 30 - douglasvillega.gov_cip_2025-2028,douglasvillega.gov_cip_2025-2028,ok,,,58,2,no,no,0.0,8247172.0,5018216.0,0.3915,no,191.5
