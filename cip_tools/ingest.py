@@ -198,9 +198,21 @@ def _toc_cip_page(all_pages: list[tuple[int, str]]) -> int | None:
     """Scan TOC pages and extract the document page number where the CIP chapter starts.
 
     TOC lines look like:  "Capital Improvement Program ........... 197"
-    We parse the trailing integer and convert from 1-based doc page to 0-based index.
+    We parse the trailing integer and find the closest real PDF page index.
+
+    The printed page number in the TOC uses the document's own numbering, which is
+    offset from the PDF's 0-based index by the number of front-matter pages (covers,
+    letters, TOC itself). We search with a tolerance of +-20 pages to cover any
+    front-matter length without needing to estimate the offset explicitly.
+
+    Search order: exact -> +1, +2, ... +20 -> -1, -2, ... -20.
+    Prefers pages at or after the target (a section start is more likely to land
+    slightly later than earlier due to front-matter).
+
     Returns the 0-based index into all_pages, or None if not found.
     """
+    pnum_to_idx = {pnum: idx for idx, (pnum, _) in enumerate(all_pages)}
+
     for _idx, (_pnum, text) in enumerate(all_pages[:30]):
         if not _is_toc_page(text):
             continue
@@ -208,19 +220,18 @@ def _toc_cip_page(all_pages: list[tuple[int, str]]) -> int | None:
             low = line.lower()
             if not any(t in low for t in _CIP_TRIGGERS):
                 continue
-            # Find trailing page number: last run of digits on the line
             m = re.search(r'(\d+)\s*$', line.strip())
             if not m:
                 continue
-            doc_page = int(m.group(1))  # 1-based page number from TOC
-            # Find the matching index in all_pages (page numbers are 0-based there)
-            for idx, (pnum, _) in enumerate(all_pages):
-                if pnum + 1 == doc_page:
-                    return idx
-            # If exact match not found (roman numeral offset), search nearby
-            for idx, (pnum, _) in enumerate(all_pages):
-                if abs((pnum + 1) - doc_page) <= 5:
-                    return idx
+            printed_page = int(m.group(1))  # 1-based page number from TOC
+            base = printed_page - 1         # 0-based equivalent assuming no front matter
+
+            # Search: exact first, then outward in both directions.
+            # Positive deltas first (front matter shifts the real page later in PDF).
+            for delta in [0] + [d for r in range(1, 21) for d in (r, -r)]:
+                candidate = base + delta
+                if candidate in pnum_to_idx:
+                    return pnum_to_idx[candidate]
     return None
 
 

@@ -129,15 +129,66 @@ def _extract_metadata(guide_path: str) -> dict[str, Any]:
     }
 
 
-def build_index(guide_root: str, index_path: str) -> dict:
-    """Scan guide_root for *_guide.md files, extract metadata, write JSON index."""
+def _load_quality_scores(quality_csv: str | None) -> dict[str, dict]:
+    """Load regression quality scores keyed by agency_id.
+
+    quality_csv is the path to a regression archive CSV (e.g. regression_archive/latest.csv).
+    Returns {} if path is None or file doesn't exist.
+    """
+    if not quality_csv:
+        return {}
+    p = Path(quality_csv)
+    if not p.exists():
+        return {}
+    import csv as _csv
+    scores: dict[str, dict] = {}
+    with open(p, encoding="utf-8") as f:
+        for row in _csv.DictReader(f):
+            aid = row.get("agency_id", "").strip()
+            if not aid:
+                continue
+            try:
+                title_rate = float(row.get("title_match_rate") or 0)
+                row_match = row.get("row_count_match", "") == "yes"
+                dollar_err = row.get("dollar_pct_error", "")
+                dollar_ok = dollar_err not in ("", "N/A") and abs(float(dollar_err)) < 0.10
+            except (ValueError, TypeError):
+                title_rate, row_match, dollar_ok = 0.0, False, False
+
+            # Composite quality: 0–3 (one point each: row match, title ≥0.9, dollar <10%)
+            quality = int(row_match) + int(title_rate >= 0.9) + int(dollar_ok)
+            scores[aid] = {
+                "quality": quality,
+                "row_count_match": row_match,
+                "title_match_rate": title_rate,
+                "dollar_ok": dollar_ok,
+            }
+    return scores
+
+
+def build_index(guide_root: str, index_path: str, quality_csv: str | None = None) -> dict:
+    """Scan guide_root for *_guide.md files, extract metadata, write JSON index.
+
+    quality_csv: optional path to a regression archive CSV — when provided, each guide
+    entry gets a 'quality' field (0–3) so find_similar() can prioritize proven exemplars.
+    """
     guide_root_p = Path(guide_root)
     print(f"Scanning {guide_root} for guide files...")
+
+    quality_scores = _load_quality_scores(quality_csv)
+    if quality_scores:
+        print(f"  Quality scores loaded: {len(quality_scores)} agencies")
 
     guides = []
     for p in sorted(guide_root_p.rglob("*_guide.md")):
         meta = _extract_metadata(str(p))
         if meta:
+            aid = meta.get("agency_id", "")
+            if aid in quality_scores:
+                meta["quality"] = quality_scores[aid]["quality"]
+                meta["title_match_rate"] = quality_scores[aid]["title_match_rate"]
+            else:
+                meta["quality"] = -1  # unscored
             guides.append(meta)
 
     index = {
@@ -275,6 +326,18 @@ def find_similar(filename: str, analysis: dict, index: dict, top_k: int = 3) -> 
         # Multi-row flag
         if g.get("multi_row_projects") == multi_row:
             score += 3
+
+        # Quality bonus/penalty — only apply when scores are known (quality >= 0)
+        quality = g.get("quality", -1)
+        if quality == 3:
+            score += 8   # perfect score: strong boost
+        elif quality == 2:
+            score += 4
+        elif quality == 1:
+            score += 1
+        elif quality == 0:
+            score -= 5   # known-bad: suppress
+        # quality == -1 (unscored): no adjustment
 
         if score > 0:
             scored.append((score, g))

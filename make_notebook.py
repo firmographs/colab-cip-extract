@@ -133,8 +133,9 @@ from cip_tools import guide_rag
 from IPython.display import display, Markdown
 import os
 
-_GUIDE_ROOT  = "/content/drive/Shareddrives/CIP Staging/in process colab"
-_INDEX_PATH  = "/content/drive/Shareddrives/CIP Staging/in process colab/_guide_index.json"
+_GUIDE_ROOT   = "/content/drive/Shareddrives/CIP Staging/in process colab"
+_INDEX_PATH   = "/content/drive/Shareddrives/CIP Staging/in process colab/_guide_index.json"
+_QUALITY_CSV  = "/content/drive/Shareddrives/CIP Staging/in process colab/_regression_latest.csv"
 
 # Rebuild index if stale (> 7 days) or missing
 import time as _time
@@ -143,9 +144,15 @@ if not _needs_rebuild:
     _age_days = (_time.time() - os.path.getmtime(_INDEX_PATH)) / 86400
     _needs_rebuild = _age_days > 7
 
+_quality_csv_arg = _QUALITY_CSV if os.path.exists(_QUALITY_CSV) else None
+if _quality_csv_arg:
+    print(f"Quality scores found: {_QUALITY_CSV}")
+else:
+    print("No quality scores file found — all guides treated equally.")
+
 if _needs_rebuild:
     print("Building guide index (scans all *_guide.md files under extract/)...")
-    _GUIDE_INDEX = guide_rag.build_index(_GUIDE_ROOT, _INDEX_PATH)
+    _GUIDE_INDEX = guide_rag.build_index(_GUIDE_ROOT, _INDEX_PATH, quality_csv=_quality_csv_arg)
     display(Markdown(f"**Guide index built:** {len(_GUIDE_INDEX['guides'])} guides indexed."))
 else:
     _GUIDE_INDEX = guide_rag.load_index(_INDEX_PATH)
