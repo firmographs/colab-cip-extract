@@ -25,3 +25,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0247Z,w1726,2026 04 19 - roundrocktexas.gov_cip_2026-2030,roundrocktexas.gov_cip_2026-2030,ok,,,178,26,no,no,0.0,451802600.0,11363125.0,0.9748,no,327.8
 20260522T0253Z,w1726,2026 04 20 - cityofglendora.org_cip_2026-2030,cityofglendora.org_cip_2026-2030,ok,,,68,44,no,no,0.971,108328533.0,108328533.0,0.0,no,197.9
 20260522T0256Z,w1726,2026 04 20 - co.morris.nj.us_cip_2026-2031,co.morris.nj.us_cip_2026-2031,ok,,,36,36,no,yes,0.667,262909092.0,84335816.0,0.6792,no,103.5
+20260522T0258Z,w1726,2026 04 20 - emwd.org_cip_2026-2030,emwd.org_cip_2026-2030,ok,,,20,147,no,no,1.0,167326600.0,2.3061830853943293e+24,1.3782525225483152e+16,yes,122.0
