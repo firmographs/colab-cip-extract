@@ -1,15 +1,2 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,zero_rows,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,dollar_blowup,elapsed_seconds
-20260522T0146Z,w1626,2026 02 26 - casscountynd.gov_cip_2026-2030,casscountynd.gov_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,99,,,,,,,,,900.4
-20260522T0201Z,w1626,2026 02 28 - stancounty.com_cip_2025-2029,stancounty.com_cip_2025-2029,ok,,,231,131,no,no,0.017,2025366338.0,269970906.0,0.8667,no,120.6
-20260522T0203Z,w1626,2026 03 07 - lcwsa.net_cip_2026-2030,lcwsa.net_cip_2026-2030,ok,,,197,168,no,no,0.0,14333776.0,5334335.0,0.6278,no,123.2
-20260522T0206Z,w1626,2026 04 04 - flyabe.com_cip_2024-2028,flyabe.com_cip_2024-2028,ok,,,77,0,yes,no,0.0,85841913.0,0,1.0,no,103.0
-20260522T0207Z,w1626,2026 04 07 - cityofplacerville.org_cip_2026-2026,cityofplacerville.org_cip_2026-2026,ok,,,10,8,no,no,0.8,0.0,383720.0,,,67.0
-20260522T0208Z,w1626,2026 04 07 - co.marathon.wi.us_cip_2026-2030_proposed,co.marathon.wi.us_cip_2026-2030_proposed,ok,,,137,4643,no,no,0.759,0.0,3365940662.0,,,607.8
-20260522T0219Z,w1626,2026 04 09 - midpeninsulawater.org_cip_2026-2026,midpeninsulawater.org_cip_2026-2026,ok,,,13,2,no,no,0.0,21293806.0,20703805.0,0.0277,no,74.1
-20260522T0220Z,w1626,2026 04 09 - swbno.org_cip_2025-2034,swbno.org_cip_2025-2034,ok,,,151,97,no,no,0.0,391437216.0,1227314613.1,2.1354,no,101.9
-20260522T0222Z,w1626,2026 04 14 - kingcounty.gov_tip_2025-2030,kingcounty.gov_tip_2025-2030,ok,,,38,2,no,no,0.079,0.0,398453.0,,,118.9
-20260522T0224Z,w1626,2026 04 14 - revere.org_cip_2026-2030,revere.org_cip_2026-2030,ok,,,118,14,no,no,0.0,0.0,58873291.85,,,171.2
-20260522T0227Z,w1626,2026 04 15 - greenvillenc.gov_cip_2026-2030,greenvillenc.gov_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,65,,,,,,,,,900.1
-20260522T0242Z,w1626,2026 04 15 - mendocinocounty.org_cip_2026-2026,mendocinocounty.org_cip_2026-2026,ok,,,48,109,no,no,0.0,4925963.94,26875532.669999998,4.4559,no,499.4
-20260522T0250Z,w1626,2026 04 16 - mvk.usace.army.mil_cip_2026-2027,mvk.usace.army.mil_cip_2026-2027,ok,,,8,4,no,no,0.0,0.0,12000000.0,,,80.7
-20260522T0251Z,w1626,2026 04 18 - cityofsouthfultonga.gov_cip_2026-2030,cityofsouthfultonga.gov_cip_2026-2030,ok,,,27,15,no,no,0.0,77515293.0,946166.0,0.9878,no,176.6
+20260522T0952Z,w1626,2026 02 26 - casscountynd.gov_cip_2026-2030,casscountynd.gov_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,99,,,,,,,,,900.4
