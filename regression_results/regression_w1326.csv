@@ -2,3 +2,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0540Z,w1326,2026 02 25 - gwregion.org_cip_2021-2030,gwregion.org_cip_2021-2030,ok,,,338,117,no,no,0.038,3366489029.0,1593699054.64071,0.5266,no,182.9
 20260522T0543Z,w1326,2026 03 10 - fairfaxva.gov_cip_2026-2030,fairfaxva.gov_cip_2026-2030,ok,,,153,153,no,yes,1.0,457364840.0,527428502.0,0.1532,no,191.4
 20260522T0546Z,w1326,2026 03 14 - northmiamifl.gov_cip_2026-2030,northmiamifl.gov_cip_2026-2030,ok,,,14,14,no,yes,0.0,41210524.0,44090524.0,0.0699,no,177.3
+20260522T0549Z,w1326,2026 03 14 - scmtd.com_cip_2026-2027,scmtd.com_cip_2026-2027,ok,,,17,9,no,no,0.235,67859000.0,199000000.0,1.9326,no,142.7
