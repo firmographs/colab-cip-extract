@@ -3,3 +3,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0153Z,w2026,2026 03 10 - mlgw.com_cip_2026-2030,mlgw.com_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,133,,,,,,,,,900.1
 20260522T0208Z,w2026,2026 04 20 - bricktownship.net_cip_2026-2031,bricktownship.net_cip_2026-2031,ok,,,9,9,no,yes,1.0,55999999.0,0.0,1.0,no,92.5
 20260522T0210Z,w2026,2026 04 30 - monroecounty.gov_cip_2027-2032_proposed,monroecounty.gov_cip_2027-2032_proposed,ok,,,169,0,yes,no,0.0,621886000.0,0,1.0,no,190.2
+20260522T0213Z,w2026,2026 05 01 - plano.gov_cip_2026-2030,plano.gov_cip_2026-2030,ok,,,612,612,no,yes,0.871,2234116382.0,2207875407.45,0.0117,no,618.3
