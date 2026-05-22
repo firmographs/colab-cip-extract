@@ -9,3 +9,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0624Z,w1326,2026 03 18 - nbcua.com_cip_2027-2031,nbcua.com_cip_2027-2031,ok,,,17,18,no,no,0.294,0.0,0.0,,,112.1
 20260522T0626Z,w1326,2026 03 19 - hcpss.org_cip_2027-2027,hcpss.org_cip_2027-2027,ok,,,66,17,no,no,0.0,116636000.0,0.0,1.0,no,114.3
 20260522T0628Z,w1326,2026 03 19 - pecsd.org_cip_2026-2026,pecsd.org_cip_2026-2026,ok,,,16,15,no,no,0.25,11066936.0,30916936.0,1.7936,no,98.2
+20260522T0630Z,w1326,2026 03 20 - udc.edu_cip_2025-2030,udc.edu_cip_2025-2030,ok,,,12,13,no,no,0.583,95500000.0,66000000.0,0.3089,no,101.6
