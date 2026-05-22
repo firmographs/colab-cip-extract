@@ -56,3 +56,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1405Z,w1826,2026 05 04 - rfta.com_tip_2026-2026,rfta.com_tip_2026-2026,ok,,,32,51,no,no,0.0,7975000.0,194370320.0,23.3725,no,0.1
 20260522T1405Z,w1826,2026 05 04 - themdc.com_cip_2026-2030,themdc.com_cip_2026-2030,ok,,,40,1,no,no,0.025,4452288261.0,750000.0,0.9998,no,0.1
 20260522T1405Z,w1826,2026 05 04 - wildwoodnj.org_cip_2026-2031,wildwoodnj.org_cip_2026-2031,ok,,,28,27,no,yes,0.0,178257732.0,0.0,1.0,no,0.0
+20260522T1405Z,w1826,2026 05 05 - cityofblackhawk.org_cip_2026-2026,cityofblackhawk.org_cip_2026-2026,ok,,,24,53,no,no,0.0,5305000.0,14119589.0,1.6616,no,0.1
