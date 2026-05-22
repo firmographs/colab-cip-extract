@@ -18,3 +18,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0223Z,w1426,2026 03 30 - monroecountypa.gov_cip_2026-2026,monroecountypa.gov_cip_2026-2026,ok,,,14,130,no,no,0.0,9463123.0,4.514351232393441e+21,477046661275926.75,yes,84.0
 20260522T0224Z,w1426,2026 04 02 - countyofamherst.com_cip_2025-2029,countyofamherst.com_cip_2025-2029,ok,,,34,0,yes,no,0.0,3996042.0,0,1.0,no,269.7
 20260522T0229Z,w1426,2026 04 02 - glsd.org_cip_2026-2030,glsd.org_cip_2026-2030,ok,,,25,15,no,no,0.0,21923808.0,0.0,1.0,no,271.4
+20260522T0233Z,w1426,2026 04 02 - kirkwoodmo.org_cip_2025-2029,kirkwoodmo.org_cip_2025-2029,ok,,,148,0,yes,no,0.0,94883686.0,0,1.0,no,249.4
