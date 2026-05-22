@@ -20,3 +20,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1402Z,w1826,2026 04 27 - waterburyct.org_cip_2027-2031,waterburyct.org_cip_2027-2031,ok,,,166,85,no,no,0.235,325378635.0,142161110604.0,435.9098,no,0.9
 20260522T1402Z,w1826,2026 04 28 - cityofattleboro.us_cip_2027-2031,cityofattleboro.us_cip_2027-2031,ok,,,261,255,no,yes,0.973,228194449.0,349002949.01803,0.5294,no,7.5
 20260522T1403Z,w1826,2026 04 28 - co.hidalgo.tx.us_cip_2026-2026,co.hidalgo.tx.us_cip_2026-2026,ok,,,50,72,no,no,0.96,68585939.49,94141525200590.14,1372605.7748,yes,0.2
+20260522T1403Z,w1826,2026 04 28 - egf.mn_cip_2026-2030,egf.mn_cip_2026-2030,ok,,,47,98,no,no,0.34,23672119.0,0.0,1.0,no,0.1
