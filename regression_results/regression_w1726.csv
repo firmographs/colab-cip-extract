@@ -64,3 +64,4 @@ httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.
 For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
 ",133,,,,,,,,,188.9
 20260522T0440Z,w1726,2026 04 24 - cityoforange.org_cip_2026-2030,cityoforange.org_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,95,,,,,,,,,900.4
+20260522T0455Z,w1726,2026 04 24 - fortworthtexas.gov_cip_2026-2030,fortworthtexas.gov_cip_2026-2030,ok,,,135,0,yes,no,0.0,3941827057.0,0,1.0,no,245.2
