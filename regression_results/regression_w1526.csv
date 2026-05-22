@@ -1,11 +1,2 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,zero_rows,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,dollar_blowup,elapsed_seconds
-20260522T0920Z,w1526,2026 03 09 - culpepercounty.gov_cip_2026-2030,culpepercounty.gov_cip_2026-2030,ok,,,107,125,no,no,0.935,424478626.0,424478626.0,0.0,no,124.6
-20260522T0922Z,w1526,2026 03 12 - polkcountyiowa.gov_cip_2025-2025,polkcountyiowa.gov_cip_2025-2025,ok,,,98,86,no,no,0.969,12664530.0,7832751.0,0.3815,no,95.5
-20260522T0924Z,w1526,2026 03 12 - portagecounty-oh.gov_cip_2026-2031,portagecounty-oh.gov_cip_2026-2031,ok,,,99,50,no,no,0.414,25750589.0,0.0,1.0,no,95.9
-20260522T0925Z,w1526,2026 03 14 - rockvillemd.gov_cip_2026-2030,rockvillemd.gov_cip_2026-2030,ok,,,72,82,no,no,0.986,382369898.0,303727564.0,0.2057,no,343.0
-20260522T0931Z,w1526,2026 03 19 - fallschurchva.gov_cip_2027-2032_proposed,fallschurchva.gov_cip_2027-2032_proposed,ok,,,50,50,no,yes,0.78,162593523.0,0.0,1.0,no,172.9
-20260522T0934Z,w1526,2026 03 24 - apsva.us_cip_2025-2034,apsva.us_cip_2025-2034,ok,,,15,4,no,no,0.133,1096.18,0.0,1.0,no,86.5
-20260522T0936Z,w1526,2026 03 26 - glynncounty.org_cip_2026-2030_proposed,glynncounty.org_cip_2026-2030_proposed,ok,,,140,46,no,no,0.0,21631419.0,170000196.0,6.8589,no,314.3
-20260522T0941Z,w1526,2026 04 04 - countyofsb.org_cip_2027-2031,countyofsb.org_cip_2027-2031,ok,,,192,281,no,no,0.505,136140000.0,542103725.0,2.982,no,149.8
-20260522T0943Z,w1526,2026 04 06 - sara-tx.org_cip_2026-2035,sara-tx.org_cip_2026-2035,ok,,,47,42,no,no,0.0,530262822.0,94230146.0,0.8223,no,425.3
-20260522T0951Z,w1526,2026 04 10 - d-laketransit.org-ca_tip_2026-2026,d-laketransit.org-ca_tip_2026-2026,ok,,,18,2,no,no,0.0,982493.0,2033.0,0.9979,no,104.1
+20260522T1353Z,w1526,2026 03 09 - culpepercounty.gov_cip_2026-2030,culpepercounty.gov_cip_2026-2030,ok,,,107,125,no,no,0.935,424478626.0,424478626.0,0.0,no,1.7
