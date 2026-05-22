@@ -31,3 +31,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
 20260522T0316Z,w1326,2026 03 25 - nwp.usace.army.mil_cip_2026-2027,nwp.usace.army.mil_cip_2026-2027,ok,,,31,24,no,no,0.581,895750000.0,800500000.0,0.1063,no,80.7
 20260522T0317Z,w1326,2026 03 26 - clcwa.org_cip_2026-2026,clcwa.org_cip_2026-2026,failed,timeout,Pipeline timed out after 900s,40,,,,,,,,,900.0
 20260522T0332Z,w1326,2026 03 26 - covingtonky.gov_cip_2025-2025,covingtonky.gov_cip_2025-2025,ok,,,46,32,no,no,0.652,0.0,63764555.0,,,264.7
+20260522T0337Z,w1326,2026 03 26 - hackensack.org_cip_2024-2029,hackensack.org_cip_2024-2029,ok,,,12,0,yes,no,0.0,33066362.0,0,1.0,no,105.8
