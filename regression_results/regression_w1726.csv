@@ -3,3 +3,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1056Z,w1726,2026 03 23 - westerville.org_cip_2025-2029,westerville.org_cip_2025-2029,ok,,,188,140,no,no,0.016,62764700.0,5988178.03,0.9046,no,187.1
 20260522T1059Z,w1726,2026 03 31 - cityofrockledge.org_cip_2026-2030,cityofrockledge.org_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,56,,,,,,,,,900.0
 20260522T1114Z,w1726,2026 04 02 - kinggeorgecountyva.gov_cip_2026-2026,kinggeorgecountyva.gov_cip_2026-2026,ok,,,10,10,no,yes,0.6,3452903.0,3452903.0,0.0,no,73.4
+20260522T1116Z,w1726,2026 04 04 - fmwd.com_cip_2026-2045,fmwd.com_cip_2026-2045,ok,,,53,100,no,no,0.811,35631749.0,1755051771279.0,49254.2799,no,100.3
