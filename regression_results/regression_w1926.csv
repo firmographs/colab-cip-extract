@@ -22,3 +22,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0305Z,w1926,2026 05 08 - wheaton.il.us_cip_2026-2030,wheaton.il.us_cip_2026-2030,ok,,,141,102,no,no,0.617,26320252.0,1881497304.0,70.4848,no,527.0
 20260522T0314Z,w1926,2026 05 08 - wylietexas.gov_cip_2026-2030,wylietexas.gov_cip_2026-2030,ok,,,32,3,no,no,0.0,155566469.0,39615000.0,0.7454,no,145.9
 20260522T0317Z,w1926,2026 05 09 - eaglecounty.us_cip_2026-2026,eaglecounty.us_cip_2026-2026,ok,,,38,76,no,no,0.974,34810668.0,34810668.0,0.0,no,145.5
+20260522T0319Z,w1926,2026 05 09 - salemcountynj.gov_cip_2024-2029,salemcountynj.gov_cip_2024-2029,ok,,,20,3,no,no,0.05,86768390.0,7006.0,0.9999,no,92.4
