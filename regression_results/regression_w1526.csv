@@ -1,0 +1,2 @@
+run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,zero_rows,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,dollar_blowup,elapsed_seconds
+20260522T0146Z,w1526,2026 03 09 - culpepercounty.gov_cip_2026-2030,culpepercounty.gov_cip_2026-2030,ok,,,107,125,no,no,0.935,424478626.0,846001252.0,0.993,no,126.5
