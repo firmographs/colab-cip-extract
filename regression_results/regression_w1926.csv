@@ -25,3 +25,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0319Z,w1926,2026 05 09 - salemcountynj.gov_cip_2024-2029,salemcountynj.gov_cip_2024-2029,ok,,,20,3,no,no,0.05,86768390.0,7006.0,0.9999,no,92.4
 20260522T0321Z,w1926,2026 05 09 - sayreville.com_cip_2025-2030,sayreville.com_cip_2025-2030,ok,,,11,9,no,no,0.818,158540060.0,154590110.0,0.0249,no,105.9
 20260522T0323Z,w1926,2026 05 10 - cityofpsl.com_cip_2027-2036_proposed,cityofpsl.com_cip_2027-2036_proposed,ok,,,193,120,no,no,0.601,0.0,700755814.0,,,131.2
+20260522T0325Z,w1926,2026 05 10 - crwwd.com_cip_2026-2035,crwwd.com_cip_2026-2035,ok,,,81,4,no,no,0.049,159235805.0,11400000.0,0.9284,no,110.5
