@@ -15,3 +15,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0215Z,w1726,2026 04 14 - akronohio.gov_cip_2026-2026,akronohio.gov_cip_2026-2026,ok,,,171,186,no,no,0.819,341909940.0,38170409.0,0.8884,no,145.6
 20260522T0218Z,w1726,2026 04 14 - hamiltonnj.com_cip_2026-2031,hamiltonnj.com_cip_2026-2031,ok,,,11,3,no,no,0.0,7031023.0,1492977.0,0.7877,no,98.0
 20260522T0219Z,w1726,2026 04 14 - ky.gov_cip_2026-2026,ky.gov_cip_2026-2026,ok,,,35,4,no,no,0.114,81322933.0,17804000.0,0.7811,no,40.6
+20260522T0220Z,w1726,2026 04 15 - greenwood.in.gov_cip_2025-2029,greenwood.in.gov_cip_2025-2029,ok,,,25,0,yes,no,0.0,0.0,0,,,71.3
