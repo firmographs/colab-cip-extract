@@ -38,7 +38,8 @@ ALL_WEEKS = ["w1326", "w1426", "w1526", "w1626", "w1726", "w1826", "w1926", "w20
 DATA_ROOT = Path(r"G:\Shared drives\0_cip_data\2026")
 OCR_ROOT  = Path(r"G:\Shared drives\CIP Staging\docs\input documents\in ocr PDF")
 
-RESULTS_FILE = Path(__file__).parent / "regression_results.csv"
+RESULTS_DIR  = Path(__file__).parent / "regression_results"
+RESULTS_FILE = Path(__file__).parent / "regression_results.csv"  # merged output
 
 RESULT_COLS = [
     "run_at_utc",
@@ -224,12 +225,19 @@ def find_eligible_agencies(data_root: Path, weeks: list[str],
 # Already-run check
 # ---------------------------------------------------------------------------
 
-def load_completed_ids(results_file: Path) -> set[str]:
-    """Return set of agency_folder values already in results file."""
-    if not results_file.exists():
+def week_results_file(week: str) -> Path:
+    """Per-week CSV path — safe for parallel runs."""
+    RESULTS_DIR.mkdir(exist_ok=True)
+    return RESULTS_DIR / f"regression_{week}.csv"
+
+
+def load_completed_ids(week: str) -> set[str]:
+    """Return set of agency_folder values already marked ok for this week."""
+    f = week_results_file(week)
+    if not f.exists():
         return set()
-    with open(results_file, encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
+    with open(f, encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
     return {r["agency_folder"] for r in rows if r.get("status") == "ok"}
 
 
@@ -237,13 +245,33 @@ def load_completed_ids(results_file: Path) -> set[str]:
 # Write one result row
 # ---------------------------------------------------------------------------
 
-def append_result(results_file: Path, row: dict) -> None:
-    exists = results_file.exists()
-    with open(results_file, "a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=RESULT_COLS, extrasaction="ignore")
+def append_result(week: str, row: dict) -> None:
+    f = week_results_file(week)
+    exists = f.exists()
+    with open(f, "a", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=RESULT_COLS, extrasaction="ignore")
         if not exists:
             writer.writeheader()
         writer.writerow(row)
+
+
+# ---------------------------------------------------------------------------
+# Merge all per-week files into regression_results.csv
+# ---------------------------------------------------------------------------
+
+def merge_results(repo_root: Path) -> Path:
+    out = repo_root / "regression_results.csv"
+    all_rows = []
+    for week in ALL_WEEKS:
+        f = week_results_file(week)
+        if f.exists():
+            with open(f, encoding="utf-8") as fh:
+                all_rows.extend(csv.DictReader(fh))
+    with open(out, "w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=RESULT_COLS, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(all_rows)
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -411,25 +439,49 @@ def main():
     parser.add_argument("--data-root", default=str(DATA_ROOT),
                         help="Root path to week folders")
     parser.add_argument("--resume", action="store_true",
-                        help="Skip agencies already marked ok in results file")
+                        help="Skip agencies already marked ok in per-week results file")
     parser.add_argument("--commit", action="store_true",
-                        help="Git-commit results file after each agency")
+                        help="Git-commit per-week results file after each agency")
     parser.add_argument("--no-auto", action="store_true",
                         help="Run pipeline interactively (not --auto)")
+    parser.add_argument("--merge", action="store_true",
+                        help="Merge all per-week files into regression_results.csv and exit")
     args = parser.parse_args()
+
+    repo_root = Path(__file__).parent
+
+    if args.merge:
+        out = merge_results(repo_root)
+        with open(out, encoding="utf-8") as f:
+            all_rows = list(csv.DictReader(f))
+        ok = sum(1 for r in all_rows if r["status"] == "ok")
+        failed = sum(1 for r in all_rows if r["status"] == "failed")
+        print(f"Merged {len(all_rows)} rows -> {out}")
+        print(f"Total: {len(all_rows)}  OK: {ok}  Failed: {failed}")
+        from collections import Counter
+        stages = Counter(r["failure_stage"] for r in all_rows if r["status"] == "failed")
+        if stages:
+            print("Failure stages:")
+            for stage, count in stages.most_common():
+                print(f"  {stage}: {count}")
+        return
 
     weeks = [w.strip() for w in args.weeks.split(",")]
     data_root = Path(args.data_root)
-    repo_root = Path(__file__).parent
     auto = not args.no_auto
 
     print(f"Scanning {data_root} for weeks: {weeks}")
     agencies = find_eligible_agencies(data_root, weeks)
     print(f"Found {len(agencies)} eligible agencies (guide + final + ocr PDF)")
 
-    completed = load_completed_ids(RESULTS_FILE) if args.resume else set()
-    if completed:
+    # Per-week resume: load completed from each week's own file
+    if args.resume:
+        completed = set()
+        for w in weeks:
+            completed |= load_completed_ids(w)
         print(f"Resuming — skipping {len(completed)} already-completed agencies")
+    else:
+        completed = set()
 
     todo = [a for a in agencies if a["agency_folder"] not in completed]
     if args.limit:
@@ -438,13 +490,14 @@ def main():
     print(f"Running {len(todo)} agencies\n")
 
     for i, agency in enumerate(todo, 1):
-        print(f"[{i}/{len(todo)}] {agency['week']} / {agency['agency_id']}")
+        week = agency["week"]
+        print(f"[{i}/{len(todo)}] {week} / {agency['agency_id']}")
         try:
             result = run_agency(agency, repo_root, auto=auto)
         except Exception:
             result = {
                 "run_at_utc": _now_utc(),
-                "week": agency["week"],
+                "week": week,
                 "agency_folder": agency["agency_folder"],
                 "agency_id": agency["agency_id"],
                 "status": "failed",
@@ -464,30 +517,16 @@ def main():
               f"dollar_err={result.get('dollar_pct_error','?')}  "
               f"({result.get('elapsed_seconds','?')}s)")
 
-        append_result(RESULTS_FILE, result)
+        append_result(week, result)
 
         if args.commit:
-            msg = (f"regression: {agency['week']}/{agency['agency_id']} "
-                   f"— {status} ({i}/{len(todo)})")
-            git_commit(repo_root, RESULTS_FILE, msg)
+            wf = week_results_file(week)
+            msg = (f"regression: {week}/{agency['agency_id']} — {status} ({i}/{len(todo)})")
+            git_commit(repo_root, wf, msg)
 
-    print(f"\nDone. Results: {RESULTS_FILE}")
-
-    # Summary
-    if RESULTS_FILE.exists():
-        with open(RESULTS_FILE, encoding="utf-8") as f:
-            all_rows = list(csv.DictReader(f))
-        ok = sum(1 for r in all_rows if r["status"] == "ok")
-        failed = sum(1 for r in all_rows if r["status"] == "failed")
-        print(f"Total: {len(all_rows)}  OK: {ok}  Failed: {failed}")
-
-        # Failure breakdown
-        from collections import Counter
-        stages = Counter(r["failure_stage"] for r in all_rows if r["status"] == "failed")
-        if stages:
-            print("Failure stages:")
-            for stage, count in stages.most_common():
-                print(f"  {stage}: {count}")
+    week_str = weeks[0] if len(weeks) == 1 else f"{weeks[0]}-{weeks[-1]}"
+    print(f"\nDone. Per-week files in: {RESULTS_DIR}/")
+    print("Run with --merge to combine into regression_results.csv")
 
 
 if __name__ == "__main__":
