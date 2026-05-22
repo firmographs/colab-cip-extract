@@ -27,3 +27,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0323Z,w1926,2026 05 10 - cityofpsl.com_cip_2027-2036_proposed,cityofpsl.com_cip_2027-2036_proposed,ok,,,193,120,no,no,0.601,0.0,700755814.0,,,131.2
 20260522T0325Z,w1926,2026 05 10 - crwwd.com_cip_2026-2035,crwwd.com_cip_2026-2035,ok,,,81,4,no,no,0.049,159235805.0,11400000.0,0.9284,no,110.5
 20260522T0327Z,w1926,2026 05 10 - mcounty.com_cip_2026-2026,mcounty.com_cip_2026-2026,ok,,,15,199,no,no,0.0,0.0,278166428.0,,,246.2
+20260522T0331Z,w1926,2026 05 10 - perthamboynj.org _cip_2024-2029,perthamboynj.org _cip_2024-2029,ok,,,15,12,no,no,1.0,330891657.0,233034609.0,0.2957,no,168.0
