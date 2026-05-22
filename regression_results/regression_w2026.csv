@@ -23,3 +23,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0341Z,w2026,2026 05 14 - taylorcountytexas.org_cip_2026-2026,taylorcountytexas.org_cip_2026-2026,ok,,,95,45,no,no,0.0,119857121.0,0.0,1.0,no,184.2
 20260522T0345Z,w2026,2026 05 14 - townofmorristown.org_cip_2025-2030,townofmorristown.org_cip_2025-2030,ok,,,14,13,no,no,0.929,9045630.0,4522815.0,0.5,no,100.4
 20260522T0346Z,w2026,2026 05 14 - ttsa.ca.gov_cip_2027-2031,ttsa.ca.gov_cip_2027-2031,ok,,,57,0,yes,no,0.0,337090000.0,0,1.0,no,117.1
+20260522T0348Z,w2026,2026 05 15 - southfeather.com_cip_2026-2026,southfeather.com_cip_2026-2026,failed,timeout,Pipeline timed out after 900s,197,,,,,,,,,900.1
