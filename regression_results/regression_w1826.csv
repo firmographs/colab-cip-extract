@@ -71,3 +71,8 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 20260522T0451Z,w1826,2026 05 04 - kmpud.com_cip_2026-2030,kmpud.com_cip_2026-2030,ok,,,163,364,no,no,0.0,13415380.0,214.0,1.0,no,132.6
 20260522T0453Z,w1826,2026 05 04 - norfolkcounty.org_cip_2026-2026,norfolkcounty.org_cip_2026-2026,ok,,,22,22,no,yes,0.818,0.0,123336857208.0,,,196.1
 20260522T0456Z,w1826,2026 05 04 - ofallon.mo.us_cip_2026-2026,ofallon.mo.us_cip_2026-2026,ok,,,124,710,no,no,0.008,46556046.0,1111401123423.74,23871.3263,no,315.7
+20260522T0501Z,w1826,2026 05 04 - rfta.com_tip_2026-2026,rfta.com_tip_2026-2026,failed,analyze,"tpx\_models.py"", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.com/v1/messages'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
+",32,,,,,,,,,140.5
