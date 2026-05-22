@@ -23,3 +23,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0239Z,w1726,2026 04 19 - henrico.us_cip_2027-2031,henrico.us_cip_2027-2031,ok,,,114,114,no,yes,0.982,687477914.0,3.390522884272201e+37,4.9318280852760614e+28,yes,255.6
 20260522T0244Z,w1726,2026 04 19 - jamescitycountyva.gov_cip_2026-2030,jamescitycountyva.gov_cip_2026-2030,ok,,,143,4,no,no,0.0,454853800.0,9.569004264640381e+41,2.1037538357688518e+33,yes,216.8
 20260522T0247Z,w1726,2026 04 19 - roundrocktexas.gov_cip_2026-2030,roundrocktexas.gov_cip_2026-2030,ok,,,178,26,no,no,0.0,451802600.0,11363125.0,0.9748,no,327.8
+20260522T0253Z,w1726,2026 04 20 - cityofglendora.org_cip_2026-2030,cityofglendora.org_cip_2026-2030,ok,,,68,44,no,no,0.971,108328533.0,108328533.0,0.0,no,197.9
