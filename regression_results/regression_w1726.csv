@@ -28,3 +28,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1240Z,w1726,2026 04 20 - emwd.org_cip_2026-2030,emwd.org_cip_2026-2030,ok,,,20,83,no,no,0.1,167326600.0,3873884.0,0.9768,no,141.9
 20260522T1242Z,w1726,2026 04 21 - apgov.us_cip_2026-2030,apgov.us_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,111,,,,,,,,,900.2
 20260522T1257Z,w1726,2026 04 21 - blm.gov_cip_2026-2026,blm.gov_cip_2026-2026,ok,,,45,60,no,no,0.467,0.0,133804000.0,,,193.8
+20260522T1301Z,w1726,2026 04 21 - caddo.org_cip_2026-2026,caddo.org_cip_2026-2026,ok,,,130,3,no,no,0.0,0.0,7785566.0,,,184.2
