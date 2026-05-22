@@ -29,3 +29,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1403Z,w1826,2026 04 29 - camdencounty.com_cip_2026-2031,camdencounty.com_cip_2026-2031,ok,,,56,64,no,no,0.982,127456000.0,63727955.0,0.5,no,0.8
 20260522T1403Z,w1826,2026 04 29 - casitaswater.com_cip_2027-2027_proposed,casitaswater.com_cip_2027-2027_proposed,ok,,,62,155,no,no,0.548,41668199.0,782069665.0,17.769,no,0.4
 20260522T1403Z,w1826,2026 04 29 - cdaid.org_cip_2025-2029,cdaid.org_cip_2025-2029,ok,,,60,9,no,no,0.0,85520492.0,0.0,1.0,no,0.1
+20260522T1403Z,w1826,2026 04 29 - cedarparktexas.gov_cip_2026-2031,cedarparktexas.gov_cip_2026-2031,ok,,,70,29,no,no,0.0,411114025.0,1246336094.0,2.0316,no,0.2
