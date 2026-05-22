@@ -5,3 +5,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0153Z,w1726,2026 04 02 - kinggeorgecountyva.gov_cip_2026-2026,kinggeorgecountyva.gov_cip_2026-2026,ok,,,10,10,no,yes,0.2,3452903.0,3452903.0,0.0,no,63.3
 20260522T0154Z,w1726,2026 04 04 - fmwd.com_cip_2026-2045,fmwd.com_cip_2026-2045,ok,,,53,99,no,no,0.943,35631749.0,496862548693786.0,13944376.2096,yes,95.1
 20260522T0156Z,w1726,2026 04 04 - galvestontx.gov_cip_2026-2030,galvestontx.gov_cip_2026-2030,ok,,,140,40,no,no,0.157,303792277.0,336368512.0,0.1072,no,275.5
+20260522T0201Z,w1726,2026 04 05 - co.lancaster.pa.us_cip_2026-2026,co.lancaster.pa.us_cip_2026-2026,ok,,,12,12,no,yes,0.167,4209624.0,12602023.0,1.9936,no,125.1
