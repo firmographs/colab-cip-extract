@@ -19,3 +19,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0253Z,w1926,2026 05 08 - co.burlington.nj.us_cip_2025-2030,co.burlington.nj.us_cip_2025-2030,ok,,,19,0,yes,no,0.0,482715845.0,0,1.0,no,106.2
 20260522T0255Z,w1926,2026 05 08 - coralsprings.org_cip_2026-2031,coralsprings.org_cip_2026-2031,ok,,,158,164,no,yes,0.0,0.0,20206189.27,,,499.5
 20260522T0303Z,w1926,2026 05 08 - westlinnoregon.gov_cip_2026-2031,westlinnoregon.gov_cip_2026-2031,ok,,,75,40,no,no,0.667,135858000.0,147410580.0,0.085,no,147.1
+20260522T0305Z,w1926,2026 05 08 - wheaton.il.us_cip_2026-2030,wheaton.il.us_cip_2026-2030,ok,,,141,102,no,no,0.617,26320252.0,1881497304.0,70.4848,no,527.0
