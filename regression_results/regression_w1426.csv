@@ -19,3 +19,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0224Z,w1426,2026 04 02 - countyofamherst.com_cip_2025-2029,countyofamherst.com_cip_2025-2029,ok,,,34,0,yes,no,0.0,3996042.0,0,1.0,no,269.7
 20260522T0229Z,w1426,2026 04 02 - glsd.org_cip_2026-2030,glsd.org_cip_2026-2030,ok,,,25,15,no,no,0.0,21923808.0,0.0,1.0,no,271.4
 20260522T0233Z,w1426,2026 04 02 - kirkwoodmo.org_cip_2025-2029,kirkwoodmo.org_cip_2025-2029,ok,,,148,0,yes,no,0.0,94883686.0,0,1.0,no,249.4
+20260522T0238Z,w1426,2026 04 03 - columbiasc.gov_cip_2026-2026,columbiasc.gov_cip_2026-2026,ok,,,27,27,no,yes,0.926,0.0,115168827.0,,,87.8
