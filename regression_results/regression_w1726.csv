@@ -48,3 +48,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0409Z,w1726,2026 04 23 - ci.olympia.wa.us_cip_2026-2031,ci.olympia.wa.us_cip_2026-2031,ok,,,389,173,no,no,0.09,344333136.0,217864016.0,0.3673,no,182.5
 20260522T0412Z,w1726,2026 04 23 - ci.oshkosh.wi.us_cip_2026-2035,ci.oshkosh.wi.us_cip_2026-2035,ok,,,331,597,no,no,0.505,0.0,681808010.61667,,,182.9
 20260522T0415Z,w1726,2026 04 23 - cityofwestland.com_cip_2027-2032_proposed,cityofwestland.com_cip_2027-2032_proposed,ok,,,200,127,no,no,0.185,129843952.0,5547750196642.38,42725.2888,no,81.7
+20260522T0416Z,w1726,2026 04 23 - jeffersoncountywv.org_cip_2027-2032,jeffersoncountywv.org_cip_2027-2032,ok,,,52,43,no,no,0.635,129736922.0,0.0,1.0,no,194.1
