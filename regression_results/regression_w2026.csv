@@ -10,3 +10,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1408Z,w2026,2026 05 07 - yakimatransit.org_tip_2026-2031,yakimatransit.org_tip_2026-2031,ok,,,32,31,no,yes,0.0,73705102.0,72228102.0,0.02,no,0.1
 20260522T1408Z,w2026,2026 05 08 - worcesterma.gov_cip_2027-2027_proposed,worcesterma.gov_cip_2027-2027_proposed,ok,,,78,10,no,no,0.013,328205958.0,0.0,1.0,no,0.1
 20260522T1408Z,w2026,2026 05 08 - wpcsd.k12.ny.us_cip_2027-2027,wpcsd.k12.ny.us_cip_2027-2027,ok,,,28,2,no,no,0.0,0.0,11296690.0,,,0.0
+20260522T1408Z,w2026,2026 05 09 - westcovina.org_cip_2026-2030,westcovina.org_cip_2026-2030,ok,,,137,1,no,no,0.0,108621673.0,4642536.0,0.9573,no,0.0
