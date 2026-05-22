@@ -38,3 +38,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
 20260522T0343Z,w1326,2026 03 26 - nan.usace.army.mil_cip_2026-2029,nan.usace.army.mil_cip_2026-2029,ok,,,50,170,no,no,0.12,0.0,0.0,,,103.2
 20260522T0345Z,w1326,2026 03 26 - swg.usace.army.mil_cip_2026-2031,swg.usace.army.mil_cip_2026-2031,ok,,,50,77,no,no,0.96,0.0,1482000000.0,,,82.8
 20260522T0346Z,w1326,2026 03 26 - winchesterky.com_cip_2025-2025,winchesterky.com_cip_2025-2025,ok,,,28,24,no,no,0.214,2482723.0,2240058.0,0.0977,no,75.0
+20260522T0348Z,w1326,2026 03 27 - netamu.com_cip_2026-2030,netamu.com_cip_2026-2030,ok,,,73,0,yes,no,0.0,17253278.0,0,1.0,no,99.2
