@@ -9,3 +9,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1021Z,w1626,2026 04 09 - swbno.org_cip_2025-2034,swbno.org_cip_2025-2034,ok,,,151,100,no,no,0.0,391437216.0,842250779.0,1.1517,no,109.3
 20260522T1023Z,w1626,2026 04 14 - kingcounty.gov_tip_2025-2030,kingcounty.gov_tip_2025-2030,ok,,,38,38,no,yes,0.395,0.0,297782856.0,,,108.8
 20260522T1025Z,w1626,2026 04 14 - revere.org_cip_2026-2030,revere.org_cip_2026-2030,ok,,,118,72,no,no,0.153,0.0,5590963.94,,,199.1
+20260522T1028Z,w1626,2026 04 15 - greenvillenc.gov_cip_2026-2030,greenvillenc.gov_cip_2026-2030,ok,,,65,2,no,no,0.0,313728916.0,4801408.0,0.9847,no,65.8
