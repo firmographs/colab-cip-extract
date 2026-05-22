@@ -17,3 +17,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0226Z,w1826,2026 04 27 - indepmo.org_cip_2027-2032,indepmo.org_cip_2027-2032,ok,,,179,179,no,yes,0.0,0.0,703024373.893352,,,131.0
 20260522T0228Z,w1826,2026 04 27 - mvm.usace.army.mil_cip_2026-2027,mvm.usace.army.mil_cip_2026-2027,ok,,,9,9,no,yes,1.0,0.0,135500000.0,,,56.5
 20260522T0229Z,w1826,2026 04 27 - townofsmyrna.org_cip_2026-2030,townofsmyrna.org_cip_2026-2030,ok,,,315,271,no,no,0.921,343189780.0,130406580.0,0.62,no,112.4
+20260522T0231Z,w1826,2026 04 27 - waterburyct.org_cip_2027-2031,waterburyct.org_cip_2027-2031,ok,,,166,85,no,no,0.235,325378635.0,142161110604.0,435.9098,no,134.0
