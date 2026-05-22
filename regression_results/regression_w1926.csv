@@ -11,3 +11,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1406Z,w1926,2026 05 05 - metrarail.com_cip_2026-2030,metrarail.com_cip_2026-2030,ok,,,142,26,no,no,0.254,2121842153.0,95625000.0,0.9549,no,0.2
 20260522T1406Z,w1926,2026 05 06 - toledo.oh.gov_cip_2026-2026_proposed,toledo.oh.gov_cip_2026-2026_proposed,ok,,,24,710,no,no,0.417,41447820.0,36324540.0,0.1236,no,1.5
 20260522T1406Z,w1926,2026 05 06 - wmua.info_cip_2026-2031,wmua.info_cip_2026-2031,ok,,,8,7,no,no,0.0,92480000.0,0.0,1.0,no,0.0
+20260522T1406Z,w1926,2026 05 07 - ci.camden.nj.us_cip_2026-2031,ci.camden.nj.us_cip_2026-2031,ok,,,12,31,no,no,0.0,604332810.0,0.0,1.0,no,0.0
