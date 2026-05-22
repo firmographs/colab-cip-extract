@@ -44,3 +44,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 30 column 376 (char 2352)
 20260522T0408Z,w1826,2026 04 30 - chesterfield.gov_cip_2027-2031_proposed,chesterfield.gov_cip_2027-2031_proposed,ok,,,44,3,no,no,0.0,101368200.0,25442556413.0,249.9915,no,182.4
 20260522T0412Z,w1826,2026 04 30 - northglenn.org_cip_2026-2030,northglenn.org_cip_2026-2030,ok,,,52,42,no,no,0.827,20075764.0,49427649.0,1.4621,no,149.8
 20260522T0414Z,w1826,2026 04 30 - oakdaleirrigation.com_cip_2026-2026,oakdaleirrigation.com_cip_2026-2026,ok,,,59,1,no,no,0.0,27815000.0,0.0,1.0,no,53.4
+20260522T0415Z,w1826,2026 04 30 - portmanatee.com_cip_2025-2031,portmanatee.com_cip_2025-2031,ok,,,30,36,no,no,0.933,19606093.0,93480475.0,3.7679,no,74.4
