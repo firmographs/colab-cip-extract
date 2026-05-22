@@ -6,3 +6,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1401Z,w1826,2026 04 22 - tampabaywater.org_cip_2027-2036,tampabaywater.org_cip_2027-2036,ok,,,91,91,no,yes,1.0,0.0,475175581.0,,,0.7
 20260522T1401Z,w1826,2026 04 23 - bcwari.com_cip_2027-2036,bcwari.com_cip_2027-2036,ok,,,24,351,no,no,0.625,128815000.0,1718092098409.2502,13336.6711,no,0.2
 20260522T1401Z,w1826,2026 04 24 - gbww.org_cip_2025-2046,gbww.org_cip_2025-2046,ok,,,23,2,no,no,0.0,127205000.0,15650000.0,0.877,no,0.0
+20260522T1401Z,w1826,2026 04 24 - nws.usace.army.mil_cip_2025-2026,nws.usace.army.mil_cip_2025-2026,ok,,,54,46,no,no,0.852,1745500000.0,1565000000.0,0.1034,no,0.2
