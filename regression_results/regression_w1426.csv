@@ -6,3 +6,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0156Z,w1426,2026 03 23 - cityoflaurel.org_cip_2026-2031,cityoflaurel.org_cip_2026-2031,ok,,,63,89,no,no,0.032,23897932.0,2124.0,0.9999,no,149.0
 20260522T0159Z,w1426,2026 03 25 - cid.utah.gov_cip_2025-2025,cid.utah.gov_cip_2025-2025,ok,,,12,40,no,no,0.0,24300.0,100102836.0,4118.4583,no,76.5
 20260522T0200Z,w1426,2026 03 26 - centennialwater.org_cip_2025-2034_proposed,centennialwater.org_cip_2025-2034_proposed,ok,,,55,380,no,no,0.836,263853705.0,3000000.0,0.9886,no,127.0
+20260522T0202Z,w1426,2026 03 26 - housingforhouston.com_cip_2023-2027,housingforhouston.com_cip_2023-2027,ok,,,192,15,no,no,0.0,42847305.0,42847305.0,0.0,no,144.6
