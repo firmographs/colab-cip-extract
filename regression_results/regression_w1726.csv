@@ -38,3 +38,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1359Z,w1726,2026 04 22 - ci.brooklyn-center.mn.us_cip_2026-2035,ci.brooklyn-center.mn.us_cip_2026-2035,ok,,,118,65,no,no,0.415,235805703.0,35406034.0,0.8499,no,0.5
 20260522T1359Z,w1726,2026 04 22 - co.scott.mn.us_cip_2026-2035,co.scott.mn.us_cip_2026-2035,ok,,,133,47,no,no,0.353,372436004.0,1.500000150000065e+28,4.027537976699119e+19,yes,0.4
 20260522T1359Z,w1726,2026 04 22 - fallriverma.org_cip_2027-2031,fallriverma.org_cip_2027-2031,ok,,,121,54,no,no,0.521,431761888.0,103980318.0,0.7592,no,0.3
+20260522T1359Z,w1726,2026 04 22 - grundyco.org_cip_2026-2030,grundyco.org_cip_2026-2030,ok,,,83,259,no,no,1.0,20801500.0,407184920.0,18.5748,no,0.7
