@@ -3,3 +3,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0149Z,w1326,2026 03 10 - fairfaxva.gov_cip_2026-2030,fairfaxva.gov_cip_2026-2030,ok,,,153,153,no,yes,1.0,457364840.0,745640373.0,0.6303,no,212.0
 20260522T0152Z,w1326,2026 03 14 - northmiamifl.gov_cip_2026-2030,northmiamifl.gov_cip_2026-2030,ok,,,14,14,no,yes,0.0,41210524.0,4060.0,0.9999,no,229.9
 20260522T0156Z,w1326,2026 03 14 - scmtd.com_cip_2026-2027,scmtd.com_cip_2026-2027,ok,,,17,10,no,no,0.294,67859000.0,125000000.0,0.8421,no,119.5
+20260522T0158Z,w1326,2026 03 17 - amtrak.com_cip_2026-2026,amtrak.com_cip_2026-2026,ok,,,138,5,no,no,0.0,3305348000.0,9.773064327885265e+18,2956742928.3028,yes,160.0
