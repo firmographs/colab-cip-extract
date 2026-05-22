@@ -24,3 +24,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
                ~~~~~~~~~~~~~~^^^^^^^^
 json.decoder.JSONDecodeError: Invalid \escape: line 30 column 376 (char 2352)
 ",261,,,,,,,,,72.8
+20260522T0234Z,w1826,2026 04 28 - co.hidalgo.tx.us_cip_2026-2026,co.hidalgo.tx.us_cip_2026-2026,ok,,,50,72,no,no,0.96,68585939.49,94141525200590.14,1372605.7748,yes,153.9
