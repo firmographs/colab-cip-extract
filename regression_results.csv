@@ -394,3 +394,4 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 20260522T0001Z,w1526,2026 03 19 - fallschurchva.gov_cip_2027-2032_proposed,fallschurchva.gov_cip_2027-2032_proposed,ok,,,50,81,no,no,0.8,162593523.0,182757531.5,0.124,159.3
 20260522T0004Z,w1526,2026 03 26 - glynncounty.org_cip_2026-2030_proposed,glynncounty.org_cip_2026-2030_proposed,ok,,,140,61,no,no,0.014,21631419.0,114063080.0,4.273,146.3
 20260522T0006Z,w1626,2026 02 26 - casscountynd.gov_cip_2026-2030,casscountynd.gov_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,99,,,,,,,,900.5
+20260522T0021Z,w1626,2026 03 07 - lcwsa.net_cip_2026-2030,lcwsa.net_cip_2026-2030,ok,,,197,0,yes,no,0.0,14333776.0,0,1.0,101.9
