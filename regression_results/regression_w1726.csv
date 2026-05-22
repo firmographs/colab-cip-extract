@@ -10,3 +10,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0204Z,w1726,2026 04 09 - jurupavalley.org_cip_2026-2030,jurupavalley.org_cip_2026-2030,ok,,,62,34,no,no,0.548,382841676.0,8.500014691802232e+20,2220242785636.1187,yes,103.8
 20260522T0206Z,w1726,2026 04 09 - lbwl.com_cip_2026-2031,lbwl.com_cip_2026-2031,ok,,,29,2,no,no,0.0,719150430.0,756177942.0,0.0515,no,61.1
 20260522T0207Z,w1726,2026 04 09 - marysvillewa.gov_tip_2026-2031,marysvillewa.gov_tip_2026-2031,ok,,,60,64,no,no,1.0,372914000.0,497914000.0,0.3352,no,259.2
+20260522T0211Z,w1726,2026 04 13 - rctc.org_tip_2026-2031,rctc.org_tip_2026-2031,ok,,,8,43,no,no,0.0,0.0,1845670000.0,,,131.3
