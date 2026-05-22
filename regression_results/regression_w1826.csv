@@ -50,3 +50,8 @@ json.decoder.JSONDecodeError: Invalid \escape: line 30 column 376 (char 2352)
 20260522T0424Z,w1826,2026 05 01 - dunedingov.com_cip_2026-2031,dunedingov.com_cip_2026-2031,ok,,,102,68,no,no,0.235,41724481.0,33100131312869.0,793301.4095,no,342.4
 20260522T0430Z,w1826,2026 05 01 - esd.ny.gov_cip_2027-2027,esd.ny.gov_cip_2027-2027,ok,,,35,36,no,yes,0.971,11980000.0,1198000022960000.0,100000000.9165,yes,79.5
 20260522T0431Z,w1826,2026 05 01 - leegov.com_cip_2026-2030,leegov.com_cip_2026-2030,ok,,,175,504,no,no,0.96,746225786.0,6.475007238030168e+17,867700815.4966,yes,216.5
+20260522T0435Z,w1826,2026 05 01 - lrd.usace.army.mil.lou_cip_2026-2034,lrd.usace.army.mil.lou_cip_2026-2034,failed,analyze,"tpx\_models.py"", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '529 <none>' for url 'https://api.anthropic.com/v1/messages'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/529
+",151,,,,,,,,,106.6
