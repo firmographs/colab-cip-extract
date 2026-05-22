@@ -42,3 +42,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1359Z,w1726,2026 04 22 - lcps.org_cip_2025-2030,lcps.org_cip_2025-2030,ok,,,26,51,no,no,0.731,78340.0,2928594455.0,37382.1306,no,0.1
 20260522T1359Z,w1726,2026 04 22 - leegov.com_dot_cip_2026-2035,leegov.com_dot_cip_2026-2035,ok,,,18,17,no,no,0.389,5870000.0,125821989.0,20.4348,no,0.0
 20260522T1359Z,w1726,2026 04 22 - lrd.usace.army.mil.nsh_cip_2026-2028,lrd.usace.army.mil.nsh_cip_2026-2028,ok,,,52,52,no,yes,0.038,755750000.0,0.0,1.0,no,0.1
+20260522T1359Z,w1726,2026 04 22 - portlandmaine.gov_cip_2026-2030,portlandmaine.gov_cip_2026-2030,ok,,,330,0,yes,no,0.0,0.0,0,,,0.0
