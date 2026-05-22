@@ -32,3 +32,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1351Z,w1326,2026 03 26 - mvn.usace.army.mil_cip_2026-2028,mvn.usace.army.mil_cip_2026-2028,ok,,,29,28,no,yes,0.931,0.0,460500000.0,,,0.2
 20260522T1352Z,w1326,2026 03 26 - nan.usace.army.mil_cip_2026-2029,nan.usace.army.mil_cip_2026-2029,ok,,,50,48,no,yes,0.96,0.0,3526320850.0,,,0.3
 20260522T1352Z,w1326,2026 03 26 - swg.usace.army.mil_cip_2026-2031,swg.usace.army.mil_cip_2026-2031,ok,,,50,77,no,no,0.96,0.0,1482000000.0,,,0.5
+20260522T1352Z,w1326,2026 03 26 - winchesterky.com_cip_2025-2025,winchesterky.com_cip_2025-2025,ok,,,28,25,no,no,0.179,2482723.0,1234.0,0.9995,no,0.1
