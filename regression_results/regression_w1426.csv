@@ -16,3 +16,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1352Z,w1426,2026 03 30 - fredericksburgva.gov_cip_2025-2029,fredericksburgva.gov_cip_2025-2029,ok,,,85,92,no,no,0.988,189403024.0,147758029.0,0.2199,no,0.5
 20260522T1352Z,w1426,2026 03 30 - mercedthebus.com_cip_2026-2026,mercedthebus.com_cip_2026-2026,ok,,,23,31,no,no,0.652,36509763.0,109298083377331.0,2993666.2932,yes,0.1
 20260522T1353Z,w1426,2026 03 30 - monroecountypa.gov_cip_2026-2026,monroecountypa.gov_cip_2026-2026,ok,,,14,17,no,no,0.0,9463123.0,8.935523856721453e+28,9.442468259919534e+21,yes,0.1
+20260522T1353Z,w1426,2026 04 02 - countyofamherst.com_cip_2025-2029,countyofamherst.com_cip_2025-2029,ok,,,34,0,yes,no,0.0,3996042.0,0,1.0,no,0.0
