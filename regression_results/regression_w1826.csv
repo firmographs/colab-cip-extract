@@ -35,3 +35,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 30 column 376 (char 2352)
 20260522T0320Z,w1826,2026 04 29 - casitaswater.com_cip_2027-2027_proposed,casitaswater.com_cip_2027-2027_proposed,ok,,,62,155,no,no,0.548,41668199.0,782069665.0,17.769,no,55.7
 20260522T0321Z,w1826,2026 04 29 - cdaid.org_cip_2025-2029,cdaid.org_cip_2025-2029,ok,,,60,9,no,no,0.0,85520492.0,0.0,1.0,no,138.0
 20260522T0323Z,w1826,2026 04 29 - cedarparktexas.gov_cip_2026-2031,cedarparktexas.gov_cip_2026-2031,ok,,,70,29,no,no,0.0,411114025.0,1246336094.0,2.0316,no,115.1
+20260522T0325Z,w1826,2026 04 29 - ci.alamosa.co.us_cip_2026-2030,ci.alamosa.co.us_cip_2026-2030,ok,,,149,486,no,no,0.933,49952922.0,826924886.0,15.5541,no,352.2
