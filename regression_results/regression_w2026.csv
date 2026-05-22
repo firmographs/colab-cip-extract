@@ -11,3 +11,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0233Z,w2026,2026 05 08 - wauwatosa.net_cip_2026-2030,wauwatosa.net_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,110,,,,,,,,,900.4
 20260522T0248Z,w2026,2026 05 08 - worcesterma.gov_cip_2027-2027_proposed,worcesterma.gov_cip_2027-2027_proposed,ok,,,78,10,no,no,0.013,328205958.0,0.0,1.0,no,124.6
 20260522T0250Z,w2026,2026 05 08 - wpcsd.k12.ny.us_cip_2027-2027,wpcsd.k12.ny.us_cip_2027-2027,ok,,,28,2,no,no,0.0,0.0,11296690.0,,,82.7
+20260522T0252Z,w2026,2026 05 09 - westcovina.org_cip_2026-2030,westcovina.org_cip_2026-2030,ok,,,137,1,no,no,0.0,108621673.0,4642536.0,0.9573,no,230.1
