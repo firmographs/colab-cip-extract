@@ -11,3 +11,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1354Z,w1626,2026 04 15 - greenvillenc.gov_cip_2026-2030,greenvillenc.gov_cip_2026-2030,ok,,,65,2,no,no,0.0,313728916.0,4801408.0,0.9847,no,0.0
 20260522T1354Z,w1626,2026 04 15 - mendocinocounty.org_cip_2026-2026,mendocinocounty.org_cip_2026-2026,ok,,,48,236,no,no,0.0,4925963.94,529303257.54,106.4517,no,1.0
 20260522T1354Z,w1626,2026 04 16 - mvk.usace.army.mil_cip_2026-2027,mvk.usace.army.mil_cip_2026-2027,ok,,,8,4,no,no,0.0,0.0,12000000.0,,,0.0
+20260522T1354Z,w1626,2026 04 18 - cityofsouthfultonga.gov_cip_2026-2030,cityofsouthfultonga.gov_cip_2026-2030,ok,,,27,11,no,no,0.0,77515293.0,23989.0,0.9997,no,0.1
