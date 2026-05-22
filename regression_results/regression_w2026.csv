@@ -20,3 +20,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1408Z,w2026,2026 05 13 - troymi.gov_cip_2027-2032_proposed,troymi.gov_cip_2027-2032_proposed,ok,,,64,30,no,no,0.109,105091000.0,63088686.0,0.3997,no,0.2
 20260522T1408Z,w2026,2026 05 14 - taylorcountytexas.org_cip_2026-2026,taylorcountytexas.org_cip_2026-2026,ok,,,95,45,no,no,0.0,119857121.0,0.0,1.0,no,0.2
 20260522T1408Z,w2026,2026 05 14 - townofmorristown.org_cip_2025-2030,townofmorristown.org_cip_2025-2030,ok,,,14,13,no,no,0.929,9045630.0,4522815.0,0.5,no,0.0
+20260522T1408Z,w2026,2026 05 14 - ttsa.ca.gov_cip_2027-2031,ttsa.ca.gov_cip_2027-2031,ok,,,57,0,yes,no,0.0,337090000.0,0,1.0,no,0.0
