@@ -5,3 +5,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1405Z,w1926,2026 03 30 - co.mclennan.tx.us_cip_2026-2026,co.mclennan.tx.us_cip_2026-2026,ok,,,57,22,no,no,0.509,1547696.0,138.0,0.9999,no,0.1
 20260522T1405Z,w1926,2026 04 23 - whiteplainsny.gov_cip_2026-2032,whiteplainsny.gov_cip_2026-2032,ok,,,122,702,no,no,0.336,220952148.0,35881045319152.9,162391.8332,no,3.7
 20260522T1405Z,w1926,2026 04 28 - sam.usace.army.mil_cip_2025-2029,sam.usace.army.mil_cip_2025-2029,ok,,,235,476,no,no,0.566,10632654511.0,3.1181353921289156e+16,2932601.944,yes,19.8
+20260522T1406Z,w1926,2026 05 04 - maryland.gov_dnr_cip_2026-2030,maryland.gov_dnr_cip_2026-2030,ok,,,36,87,no,no,0.111,1119156000.0,4341606000.0,2.8794,no,0.3
