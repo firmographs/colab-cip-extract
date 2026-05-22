@@ -28,3 +28,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
 20260522T0307Z,w1326,2026 03 25 - herndon-va.gov_cip_2026-2031,herndon-va.gov_cip_2026-2031,ok,,,46,242,no,no,0.0,263724208.0,1814475261.0,5.8802,no,311.7
 20260522T0312Z,w1326,2026 03 25 - lrd.usace.army.mil.buf_cip_2026-2027,lrd.usace.army.mil.buf_cip_2026-2027,ok,,,19,19,no,yes,0.526,3000000.0,470500000.0,155.8333,no,112.6
 20260522T0314Z,w1326,2026 03 25 - lrd.usace.army.mil.chi_cip_2026-2028,lrd.usace.army.mil.chi_cip_2026-2028,ok,,,46,20,no,no,0.174,0.0,90750000.0,,,98.1
+20260522T0316Z,w1326,2026 03 25 - nwp.usace.army.mil_cip_2026-2027,nwp.usace.army.mil_cip_2026-2027,ok,,,31,24,no,no,0.581,895750000.0,800500000.0,0.1063,no,80.7
