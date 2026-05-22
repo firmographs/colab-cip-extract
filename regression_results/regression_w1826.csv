@@ -40,3 +40,4 @@ json.decoder.JSONDecodeError: Invalid \escape: line 30 column 376 (char 2352)
 20260522T0334Z,w1826,2026 04 29 - cityoftacoma.org_tip_2026-2031,cityoftacoma.org_tip_2026-2031,ok,,,100,0,yes,no,0.0,1137086629.0,0,1.0,no,114.6
 20260522T0336Z,w1826,2026 04 29 - mbta.com_tip_2027-2031_proposed,mbta.com_tip_2027-2031_proposed,failed,timeout,Pipeline timed out after 900s,680,,,,,,,,,900.1
 20260522T0351Z,w1826,2026 04 29 - northlibertyiowa.org_cip_2026-2030,northlibertyiowa.org_cip_2026-2030,failed,timeout,Pipeline timed out after 900s,134,,,,,,,,,900.1
+20260522T0406Z,w1826,2026 04 30 - catchacat.org_tip_2026-2026,catchacat.org_tip_2026-2026,ok,,,8,15,no,no,0.75,22173208.0,510866.0,0.977,no,149.3
