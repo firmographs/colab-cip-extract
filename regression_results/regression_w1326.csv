@@ -11,3 +11,9 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0208Z,w1326,2026 03 19 - pecsd.org_cip_2026-2026,pecsd.org_cip_2026-2026,failed,timeout,Pipeline timed out after 900s,16,,,,,,,,,900.0
 20260522T0224Z,w1326,2026 03 20 - udc.edu_cip_2025-2030,udc.edu_cip_2025-2030,ok,,,12,17,no,no,0.0,95500000.0,2058000000.0,20.5497,no,79.2
 20260522T0225Z,w1326,2026 03 21 - cityofbowie.org_cip_2026-2031,cityofbowie.org_cip_2026-2031,ok,,,51,184,no,no,0.0,190525448.0,137967563782132.95,724141.4452,no,196.0
+20260522T0228Z,w1326,2026 03 21 - qacps.org_cip_2026-2026,qacps.org_cip_2026-2026,failed,analyze,"~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File ""C:\Users\dave\AppData\Local\Python\pythoncore-3.14-64\Lib\json\decoder.py"", line 361, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ~~~~~~~~~~~~~~^^^^^^^^
+json.decoder.JSONDecodeError: Invalid \escape: line 29 column 1053 (char 2269)
+",20,,,,,,,,,24.1
