@@ -20,3 +20,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1406Z,w1926,2026 05 08 - westlinnoregon.gov_cip_2026-2031,westlinnoregon.gov_cip_2026-2031,ok,,,75,40,no,no,0.667,135858000.0,147410580.0,0.085,no,0.2
 20260522T1406Z,w1926,2026 05 08 - wheaton.il.us_cip_2026-2030,wheaton.il.us_cip_2026-2030,ok,,,141,102,no,no,0.617,26320252.0,1881497304.0,70.4848,no,0.6
 20260522T1406Z,w1926,2026 05 08 - wylietexas.gov_cip_2026-2030,wylietexas.gov_cip_2026-2030,ok,,,32,3,no,no,0.0,155566469.0,39615000.0,0.7454,no,0.0
+20260522T1406Z,w1926,2026 05 09 - eaglecounty.us_cip_2026-2026,eaglecounty.us_cip_2026-2026,ok,,,38,76,no,no,0.974,34810668.0,34810668.0,0.0,no,0.6
