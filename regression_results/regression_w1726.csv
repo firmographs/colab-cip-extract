@@ -6,3 +6,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1354Z,w1726,2026 04 04 - fmwd.com_cip_2026-2045,fmwd.com_cip_2026-2045,ok,,,53,100,no,no,0.811,35631749.0,1755051771279.0,49254.2799,no,0.6
 20260522T1354Z,w1726,2026 04 04 - galvestontx.gov_cip_2026-2030,galvestontx.gov_cip_2026-2030,ok,,,140,40,no,no,0.157,303792277.0,336368512.0,0.1072,no,0.4
 20260522T1354Z,w1726,2026 04 05 - co.lancaster.pa.us_cip_2026-2026,co.lancaster.pa.us_cip_2026-2026,ok,,,12,16,no,no,0.667,4209624.0,10109624.0,1.4016,no,0.1
+20260522T1354Z,w1726,2026 04 08 - saw.usace.army.mil_cip_2026-2029,saw.usace.army.mil_cip_2026-2029,ok,,,21,21,no,yes,1.0,340500000.0,451000000.0,0.3245,no,0.1
