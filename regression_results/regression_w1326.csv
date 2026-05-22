@@ -25,3 +25,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0735Z,w1326,2026 03 25 - lrd.usace.army.mil.chi_cip_2026-2028,lrd.usace.army.mil.chi_cip_2026-2028,ok,,,46,44,no,yes,0.935,0.0,157750000.0,,,123.5
 20260522T0737Z,w1326,2026 03 25 - nwp.usace.army.mil_cip_2026-2027,nwp.usace.army.mil_cip_2026-2027,ok,,,31,30,no,yes,0.774,895750000.0,0.0,1.0,no,107.1
 20260522T0739Z,w1326,2026 03 26 - clcwa.org_cip_2026-2026,clcwa.org_cip_2026-2026,ok,,,40,74,no,no,0.9,2887762.0,1722494.36,0.4035,no,134.2
+20260522T0741Z,w1326,2026 03 26 - covingtonky.gov_cip_2025-2025,covingtonky.gov_cip_2025-2025,ok,,,46,39,no,no,0.043,0.0,146046163.0,,,125.8
