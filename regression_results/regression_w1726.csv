@@ -17,3 +17,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T1355Z,w1726,2026 04 14 - ky.gov_cip_2026-2026,ky.gov_cip_2026-2026,ok,,,35,3,no,no,0.114,81322933.0,12409000.0,0.8474,no,0.1
 20260522T1355Z,w1726,2026 04 15 - greenwood.in.gov_cip_2025-2029,greenwood.in.gov_cip_2025-2029,ok,,,25,46,no,no,0.0,0.0,1272960610.0,,,0.1
 20260522T1355Z,w1726,2026 04 16 - lrd.usace.army.mil.pgh_cip_2026-2026,lrd.usace.army.mil.pgh_cip_2026-2026,ok,,,18,18,no,yes,0.944,0.0,28100000.0,,,0.1
+20260522T1355Z,w1726,2026 04 16 - mvs.usace.army.mil_cip_2026-2027,mvs.usace.army.mil_cip_2026-2027,ok,,,16,16,no,yes,0.0,595250000.0,0.0,1.0,no,0.0
