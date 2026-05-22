@@ -80,6 +80,29 @@ Rules:
 - QA_Note: set to "" normally; set to "yr_sum=X total=Y delta=Z" if
   abs(sum(yr_vals) - total) > 1 and total > 0 (flags year/total mismatches per row)
 
+=== ROW FILTERING (mandatory) ===
+Skip ALL of the following row types — do NOT include them as project rows:
+- Subtotal rows: first non-empty cell is "$", "Subtotal", "Sub-Total", or a dept total
+- Grand total rows: contains "Grand Total", "TOTAL", "Total Uses", "Total All Projects"
+- Section header rows: text-only row that names a department or category with no dollar amounts
+- Page header/footer rows: contains page numbers, document title repeats, "FY 20XX-20XX" date ranges
+- Blank rows: all fields empty or whitespace only
+- Continuation rows that are part of a multi-line project name (accumulate into pending_name instead)
+Only rows that represent a distinct capital project with a name and at least one dollar amount qualify.
+
+=== DOLLAR SANITY CHECK (mandatory) ===
+After building the projects list and before returning, add this validation:
+    if len(projects) > 1:
+        budgets = [p["Total_Project_Budget"] for p in projects if p["Total_Project_Budget"] > 0]
+        if budgets:
+            import statistics
+            median_budget = statistics.median(budgets)
+            for p in projects:
+                if median_budget > 0 and p["Total_Project_Budget"] > median_budget * 1000:
+                    p["QA_Note"] = f"BUDGET_BLOWUP: {p['Total_Project_Budget']:.0f} >> median {median_budget:.0f} — likely OCR column misread"
+                    p["Total_Project_Budget"] = 0.0
+This catches OCR column-alignment errors where title text bleeds into the budget column.
+
 === PDF-SPECIFIC REQUIREMENTS (apply when format is pdf_table or pdf_text) ===
 
 **Tabular PDFs (financial table with column headers — the common case):**

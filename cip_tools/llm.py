@@ -44,9 +44,11 @@ def ask(
     model: str = DEFAULT_MODEL,
     max_tokens: int = 16000,
     temperature: float = 0.2,
-    retries: int = 3,
+    retries: int = 6,
 ) -> str:
     """Send a message to Claude and return the text response."""
+    import random
+
     headers = {
         "x-api-key": _api_key(),
         "anthropic-version": ANTHROPIC_VERSION,
@@ -75,12 +77,17 @@ def ask(
         except httpx.HTTPStatusError as e:
             retryable = e.response.status_code in (429, 500, 502, 503, 529)
             if retryable and attempt < retries - 1:
-                time.sleep(30 * (attempt + 1))
+                # Exponential backoff with jitter: 30s, 60s, 120s, 240s, 480s
+                delay = min(30 * (2 ** attempt), 480) + random.uniform(0, 10)
+                print(f"  API {e.response.status_code} — retrying in {delay:.0f}s (attempt {attempt+1}/{retries})")
+                time.sleep(delay)
                 continue
             raise
         except (httpx.ConnectError, httpx.ReadTimeout, httpx.RemoteProtocolError) as e:
             if attempt < retries - 1:
-                time.sleep(15 * (attempt + 1))
+                delay = 15 * (attempt + 1) + random.uniform(0, 5)
+                print(f"  Network error — retrying in {delay:.0f}s (attempt {attempt+1}/{retries})")
+                time.sleep(delay)
                 continue
             raise
     raise RuntimeError("Exhausted retries")

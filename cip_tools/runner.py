@@ -45,6 +45,8 @@ if rows is None:
     raise RuntimeError("run() returned None — script is missing a return statement")
 if not isinstance(rows, list):
     raise RuntimeError(f"run() must return list[dict], got {{type(rows).__name__}}")
+if len(rows) == 0:
+    raise RuntimeError("run() returned 0 rows — script found no projects")
 
 sys.stdout = _real_stdout  # restore before we print JSON
 
