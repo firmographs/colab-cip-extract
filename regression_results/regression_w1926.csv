@@ -9,3 +9,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0228Z,w1926,2026 05 04 - maryland.gov_dnr_cip_2026-2030,maryland.gov_dnr_cip_2026-2030,ok,,,36,87,no,no,0.111,1119156000.0,4341606000.0,2.8794,no,136.9
 20260522T0231Z,w1926,2026 05 04 - springfield-ma.gov_cip_2027-2031,springfield-ma.gov_cip_2027-2031,ok,,,361,1,no,no,0.0,1383439319.0,0.0,1.0,no,99.6
 20260522T0232Z,w1926,2026 05 05 - co.ocean.nj.us_cip_2026-2031,co.ocean.nj.us_cip_2026-2031,ok,,,60,296,no,no,0.9,428155032.0,165332795.866,0.6138,no,170.8
+20260522T0235Z,w1926,2026 05 05 - metrarail.com_cip_2026-2030,metrarail.com_cip_2026-2030,ok,,,142,26,no,no,0.254,2121842153.0,95625000.0,0.9549,no,103.2
