@@ -6,3 +6,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0207Z,w1626,2026 04 07 - cityofplacerville.org_cip_2026-2026,cityofplacerville.org_cip_2026-2026,ok,,,10,8,no,no,0.8,0.0,383720.0,,,67.0
 20260522T0208Z,w1626,2026 04 07 - co.marathon.wi.us_cip_2026-2030_proposed,co.marathon.wi.us_cip_2026-2030_proposed,ok,,,137,4643,no,no,0.759,0.0,3365940662.0,,,607.8
 20260522T0219Z,w1626,2026 04 09 - midpeninsulawater.org_cip_2026-2026,midpeninsulawater.org_cip_2026-2026,ok,,,13,2,no,no,0.0,21293806.0,20703805.0,0.0277,no,74.1
+20260522T0220Z,w1626,2026 04 09 - swbno.org_cip_2025-2034,swbno.org_cip_2025-2034,ok,,,151,97,no,no,0.0,391437216.0,1227314613.1,2.1354,no,101.9
