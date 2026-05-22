@@ -16,3 +16,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0652Z,w1326,2026 03 22 - viennava.gov_cip_2026-2042,viennava.gov_cip_2026-2042,ok,,,44,34,no,no,0.659,49746000.0,108456000.0,1.1802,no,145.9
 20260522T0655Z,w1326,2026 03 23 - westchicago.org_cip_2025-2029,westchicago.org_cip_2025-2029,ok,,,140,162,no,no,0.236,38478200.0,281178127.94,6.3075,no,160.7
 20260522T0658Z,w1326,2026 03 24 - cityhpil.com_cip_2026-2035,cityhpil.com_cip_2026-2035,ok,,,95,73,no,no,0.0,39773000.0,168957600.0,3.248,no,393.5
+20260522T0704Z,w1326,2026 03 24 - spotsylvania.k12.va.us_cip_2027-2031,spotsylvania.k12.va.us_cip_2027-2031,ok,,,218,112,no,no,0.0,358323581.0,32513405.0,0.9093,no,124.0
