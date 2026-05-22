@@ -3,3 +3,4 @@ run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold
 20260522T0148Z,w1426,2026 03 10 - kenoshacounty.org_cip_2026-2030,kenoshacounty.org_cip_2026-2030,ok,,,138,1144,no,no,0.029,147762000.0,1.69889152269946e+57,1.1497485975416279e+49,yes,210.4
 20260522T0152Z,w1426,2026 03 10 - maryland.gov_tip_2026-2031,maryland.gov_tip_2026-2031,ok,,,49,39,no,no,0.633,8341139.0,522910000.0,61.6905,no,149.3
 20260522T0154Z,w1426,2026 03 16 - sacsewer.com_cip_2026-2035,sacsewer.com_cip_2026-2035,ok,,,77,1,no,no,0.0,3598026.0,0.0,1.0,no,108.4
+20260522T0156Z,w1426,2026 03 23 - cityoflaurel.org_cip_2026-2031,cityoflaurel.org_cip_2026-2031,ok,,,63,89,no,no,0.032,23897932.0,2124.0,0.9999,no,149.0
