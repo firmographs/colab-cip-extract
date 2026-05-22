@@ -1,3 +1,4 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,zero_rows,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,dollar_blowup,elapsed_seconds
 20260522T1401Z,w1826,2026 04 07 - broomecounty.us_cip_2026-2031,broomecounty.us_cip_2026-2031,ok,,,99,163,no,no,0.758,58312789.0,163510039.0,1.804,no,0.6
 20260522T1401Z,w1826,2026 04 07 - cupertino.gov_cip_2026-2030,cupertino.gov_cip_2026-2030,ok,,,34,7,no,no,0.0,0.0,5720000.0,,,0.0
+20260522T1401Z,w1826,2026 04 20 - imperialctc.org_tip_2026-2026,imperialctc.org_tip_2026-2026,ok,,,41,45,no,no,0.244,439000.0,5.805997535200425e+95,1.3225506913896186e+90,yes,0.1
