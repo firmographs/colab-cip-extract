@@ -1,11 +1,2 @@
 run_at_utc,week,agency_folder,agency_id,status,failure_stage,failure_reason,gold_row_count,extracted_row_count,zero_rows,row_count_match,title_match_rate,dollar_total_gold,dollar_total_extracted,dollar_pct_error,dollar_blowup,elapsed_seconds
-20260522T0146Z,w1526,2026 03 09 - culpepercounty.gov_cip_2026-2030,culpepercounty.gov_cip_2026-2030,ok,,,107,125,no,no,0.935,424478626.0,846001252.0,0.993,no,126.5
-20260522T0149Z,w1526,2026 03 12 - polkcountyiowa.gov_cip_2025-2025,polkcountyiowa.gov_cip_2025-2025,ok,,,98,98,no,yes,0.673,12664530.0,15651517.0,0.2359,no,74.4
-20260522T0150Z,w1526,2026 03 12 - portagecounty-oh.gov_cip_2026-2031,portagecounty-oh.gov_cip_2026-2031,ok,,,99,4,no,no,0.0,25750589.0,811681208124.0,31519.8793,no,150.8
-20260522T0152Z,w1526,2026 03 14 - rockvillemd.gov_cip_2026-2030,rockvillemd.gov_cip_2026-2030,ok,,,72,73,no,yes,0.986,382369898.0,4.11449928832422e+55,1.0760520924490297e+47,yes,400.3
-20260522T0159Z,w1526,2026 03 19 - fallschurchva.gov_cip_2027-2032_proposed,fallschurchva.gov_cip_2027-2032_proposed,ok,,,50,50,no,yes,0.78,162593523.0,186400270.0,0.1464,no,170.0
-20260522T0202Z,w1526,2026 03 24 - apsva.us_cip_2025-2034,apsva.us_cip_2025-2034,ok,,,15,318,no,no,0.267,1096.18,2879059350000.0,2626447617.0919,yes,100.3
-20260522T0204Z,w1526,2026 03 26 - glynncounty.org_cip_2026-2030_proposed,glynncounty.org_cip_2026-2030_proposed,ok,,,140,21,no,no,0.0,21631419.0,7854607914.0,362.1111,no,193.4
-20260522T0207Z,w1526,2026 04 04 - countyofsb.org_cip_2027-2031,countyofsb.org_cip_2027-2031,ok,,,192,160,no,no,0.568,136140000.0,163537083.76,0.2012,no,146.7
-20260522T0209Z,w1526,2026 04 06 - sara-tx.org_cip_2026-2035,sara-tx.org_cip_2026-2035,ok,,,47,27,no,no,0.0,530262822.0,2026.0,1.0,no,441.5
-20260522T0217Z,w1526,2026 04 10 - d-laketransit.org-ca_tip_2026-2026,d-laketransit.org-ca_tip_2026-2026,ok,,,18,2,no,no,0.0,982493.0,1576630.0,0.6047,no,95.8
+20260522T0920Z,w1526,2026 03 09 - culpepercounty.gov_cip_2026-2030,culpepercounty.gov_cip_2026-2030,ok,,,107,125,no,no,0.935,424478626.0,424478626.0,0.0,no,124.6
